@@ -1,0 +1,10 @@
+.\obj\drvuart.o: ..\BSP_Lib\Src\Driver\DrvUART.c
+.\obj\drvuart.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\drvuart.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvuart.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvuart.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvuart.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvuart.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvuart.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\drvuart.o: ..\BSP_Lib\Inc\Driver\DrvUART.h
+.\obj\drvuart.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h

@@ -1,0 +1,9 @@
+.\obj\drvpwm.o: ..\BSP_Lib\Src\Driver\DrvPWM.c
+.\obj\drvpwm.o: ..\BSP_Lib\Inc\Driver\DrvPWM.h
+.\obj\drvpwm.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvpwm.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvpwm.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvpwm.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvpwm.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvpwm.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\drvpwm.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h

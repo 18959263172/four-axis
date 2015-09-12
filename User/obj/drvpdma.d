@@ -1,0 +1,9 @@
+.\obj\drvpdma.o: ..\BSP_Lib\Src\Driver\DrvPDMA.c
+.\obj\drvpdma.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\drvpdma.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvpdma.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvpdma.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvpdma.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvpdma.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvpdma.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\drvpdma.o: ..\BSP_Lib\Inc\Driver\DrvPDMA.h

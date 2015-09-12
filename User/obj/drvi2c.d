@@ -1,0 +1,9 @@
+.\obj\drvi2c.o: ..\BSP_Lib\Src\Driver\DrvI2C.c
+.\obj\drvi2c.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\drvi2c.o: ..\BSP_Lib\Inc\Driver\DrvI2C.h
+.\obj\drvi2c.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvi2c.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvi2c.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvi2c.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvi2c.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvi2c.o: ..\BSP_Lib\Inc\System\ModuleID.h

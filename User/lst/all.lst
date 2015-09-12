@@ -1,0 +1,121 @@
+L 1 "all.c"
+N#define uchar unsigned char
+E "all.c" 2 21 identifier "uint32_t" is undefined
+E "all.c" 2 40 identifier "uint8_t" is undefined
+E "all.c" 2 53 identifier "uint8_t" is undefined
+Nchar PWM_Single_out(uint32_t Frequency,uint8_t port,uint8_t period)
+N{
+E "all.c" 4 2 identifier "S_DRVPWM_TIME_DATA_T" is undefined
+N	S_DRVPWM_TIME_DATA_T sPt;
+E "all.c" 5 2 identifier "uint8_t" is undefined
+N	uint8_t u8Timer;
+N	if(port<1&&port>4) return 1;
+N	if(period<1&&port>99) return 1;
+W "all.c" 8 2 function "DrvGPIO_InitFunction" declared implicitly
+E "all.c" 8 23 identifier "E_FUNC_PWM0" is undefined
+N	DrvGPIO_InitFunction(E_FUNC_PWM0);
+E "all.c" 9 23 identifier "E_FUNC_PWM1" is undefined
+N	DrvGPIO_InitFunction(E_FUNC_PWM1);
+E "all.c" 10 26 identifier "E_FUNC_PWM2" is undefined
+N   	DrvGPIO_InitFunction(E_FUNC_PWM2);
+E "all.c" 11 25 identifier "E_FUNC_PWM3" is undefined
+N  	DrvGPIO_InitFunction(E_FUNC_PWM3);
+E "all.c" 12 25 identifier "E_FUNC_PWM4" is undefined
+N  	DrvGPIO_InitFunction(E_FUNC_PWM4);
+E "all.c" 13 25 identifier "E_FUNC_PWM5" is undefined
+N  	DrvGPIO_InitFunction(E_FUNC_PWM5);
+E "all.c" 14 25 identifier "E_FUNC_PWM6" is undefined
+N  	DrvGPIO_InitFunction(E_FUNC_PWM6);
+E "all.c" 15 25 identifier "E_FUNC_PWM7" is undefined
+N  	DrvGPIO_InitFunction(E_FUNC_PWM7);
+E "all.c" 16 15 identifier "DRVPWM_AUTO_RELOAD_MODE" is undefined
+N	sPt.u8Mode = DRVPWM_AUTO_RELOAD_MODE;
+N    sPt.u32Frequency = Frequency;
+N    sPt.u8HighPulseRatio = period;   /* High Pulse peroid : Total Pulse peroid = 1 : 100 */ 
+N    sPt.i32Inverter = 0;
+N    if(port==1)
+N	{	
+E "all.c" 22 11 identifier "DRVPWM_TIMER0" is undefined
+N		u8Timer=DRVPWM_TIMER0;          
+N	}                           
+N	else if(port==2)
+N	{
+E "all.c" 26 11 identifier "DRVPWM_TIMER1" is undefined
+N		u8Timer=DRVPWM_TIMER1;	
+N	}
+N	else if(port==3)
+N	{
+E "all.c" 30 11 identifier "DRVPWM_TIMER2" is undefined
+N		u8Timer=DRVPWM_TIMER2;	
+N	}    
+N	else if(port==4)
+N	{
+E "all.c" 34 11 identifier "DRVPWM_TIMER3" is undefined
+N		u8Timer=DRVPWM_TIMER3;	
+N	}    
+N	else if(port==5)
+N	{
+E "all.c" 38 11 identifier "DRVPWM_TIMER4" is undefined
+N		u8Timer=DRVPWM_TIMER4;	
+N	}    
+N	else if(port==6)
+N	{
+E "all.c" 42 11 identifier "DRVPWM_TIMER5" is undefined
+N		u8Timer=DRVPWM_TIMER5;	
+N	}    
+N	else if(port==7)
+N	{
+E "all.c" 46 11 identifier "DRVPWM_TIMER6" is undefined
+N		u8Timer=DRVPWM_TIMER6;	
+N	}    
+N	else if(port==8)
+N	{
+E "all.c" 50 11 identifier "DRVPWM_TIMER7" is undefined
+N		u8Timer=DRVPWM_TIMER7;	
+N	}        
+N        /* Select PWM engine clock */
+W "all.c" 53 9 function "DrvPWM_SelectClockSource" declared implicitly
+E "all.c" 53 43 identifier "DRVPWM_HCLK" is undefined
+N        DrvPWM_SelectClockSource(u8Timer, DRVPWM_HCLK);
+N                        
+N        /* Set PWM Timer0 Configuration */
+W "all.c" 56 9 function "DrvPWM_SetTimerClk" declared implicitly
+N        DrvPWM_SetTimerClk(u8Timer, &sPt);
+N
+N        /* Enable Output for PWM Timer0 */
+W "all.c" 59 9 function "DrvPWM_SetTimerIO" declared implicitly
+N        DrvPWM_SetTimerIO(u8Timer, port);
+N
+N        /* Enable Interrupt Sources of PWM Timer0 and install call back function */
+N                                                            
+N        /* Enable the PWM Timer 0 */
+W "all.c" 64 9 function "DrvPWM_Enable" declared implicitly
+N        DrvPWM_Enable(u8Timer, port);    
+N                                                            
+N        /*--------------------------------------------------------------------------------------*/
+N        /* Stop PWM Timer0 (Recommended procedure method 2)                                     */
+N        /* Set PWM Timer counter as 0, When interrupt request happen, disable PWM Timer         */
+N        /* Set PWM Timer counter as 0 in Call back function                                     */
+N        /*--------------------------------------------------------------------------------------*/
+N                                
+N        /* Disable the PWM Timer 0 */
+N		return 0;
+N}
+Nuchar	Drv_Uart_init(uchar i)
+Xunsigned char	Drv_Uart_init(unsigned char i)
+N{
+N	if(i==0)
+W "all.c" 78 3 function "DrvGPIO_InitFunction" declared implicitly
+E "all.c" 78 24 identifier "E_FUNC_UART0" is undefined
+N		DrvGPIO_InitFunction(E_FUNC_UART0);
+N	else
+N		DrvGPIO_InitFunction(E_FUNC_UART0);
+W "all.c" 81 2 function "DrvGPIO_Open" declared implicitly
+E "all.c" 81 15 identifier "E_GPC" is undefined
+E "all.c" 81 23 identifier "E_IO_OUTPUT" is undefined
+N	DrvGPIO_Open(E_GPC,2,E_IO_OUTPUT);
+N	DrvGPIO_Open(E_GPC,3,E_IO_OUTPUT);
+N	DrvGPIO_Open(E_GPC,1,E_IO_OUTPUT);
+W "all.c" 84 2 last line of file ends without a newline
+W "all.c" 84 1 missing return statement at end of non-void function "Drv_Uart_init"
+N}

@@ -1,0 +1,5 @@
+-c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I..\CMSIS\CM0 -I..\CMSIS\NUC1xx -I..\BSP_Lib\Inc\Driver -I..\BSP_Lib\Inc\NUC1xx-LB_002 -I..\BSP_Lib\Inc\System -I..\BSP_Lib\Inc\USB 
+-I C:\Keil\ARM\RV31\INC 
+-I C:\Keil\ARM\CMSIS\Include 
+-I C:\Keil\ARM\Inc\Nuvoton\NUC1xx 
+-DUSE_STDPERIPH_DRIVER -o ".\obj\all.o" --omf_browse ".\obj\all.crf" --depend ".\obj\all.d" "all.c"

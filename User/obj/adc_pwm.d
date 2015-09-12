@@ -1,0 +1,9 @@
+.\obj\adc_pwm.o: ..\BSP_Lib\Src\Driver\ADC_PWM.c
+.\obj\adc_pwm.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\adc_pwm.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\adc_pwm.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\adc_pwm.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\adc_pwm.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\adc_pwm.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\adc_pwm.o: ..\BSP_Lib\Inc\Driver\DrvADC.h
+.\obj\adc_pwm.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h

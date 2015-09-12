@@ -1,0 +1,10 @@
+.\obj\uacsys.o: ..\BSP_Lib\Src\USB\UACSys.c
+.\obj\uacsys.o: C:\Keil\ARM\RV31\INC\string.h
+.\obj\uacsys.o: ..\BSP_Lib\Inc\Driver\DrvUSB.h
+.\obj\uacsys.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\uacsys.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\uacsys.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\uacsys.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\uacsys.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\uacsys.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\uacsys.o: ..\BSP_Lib\Inc\USB\UACSys.h

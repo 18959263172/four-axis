@@ -1,0 +1,4888 @@
+L 1 "..\CMSIS\NUC1xx\system_NUC1xx.c"
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*                                                                                                         */
+N/* Copyright(c) 2009 Nuvoton Technology Corp. All rights reserved.                                         */
+N/*                                                                                                         */
+N/*---------------------------------------------------------------------------------------------------------*/
+N#include <stdint.h>
+L 1 "D:\keil for nuvoton\ARM\RV31\Inc\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision: 137748 $
+N * Checkin $Date: 2008-09-11 17:34:24 +0100 (Thu, 11 Sep 2008) $
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N * '__int64' is used instead of 'long long' so that this header
+N * can be used in --strict mode.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed       __int64 intmax_t;
+Ntypedef unsigned       __int64 uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __ESCAPE__(~0x7fffffffffffffffll) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#define INTPTR_MIN (~0x7fffffff)
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#define INTPTR_MAX   2147483647
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#define UINTPTR_MAX  4294967295u
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#define PTRDIFF_MIN (~0x7fffffff)
+N#define PTRDIFF_MAX   2147483647
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#define SIZE_MAX 4294967295u
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32)
+X#if 0L
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __ESCAPE__(x ## ll)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __ESCAPE__(x ## ull)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif 
+N  #endif /* __cplusplus */
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+N
+N
+L 7 "..\CMSIS\NUC1xx\system_NUC1xx.c" 2
+N#include "NUC1xx.h"
+L 1 "..\CMSIS\NUC1xx\NUC1xx.h" 1
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*                                                                                                         */
+N/* Copyright (c) Nuvoton Technology Corp. All rights reserved.                                             */
+N/*                                                                                                         */
+N/*---------------------------------------------------------------------------------------------------------*/
+N
+N#ifndef __NUC1xx_H__
+N#define __NUC1xx_H__
+N
+N
+N/*
+N * ==========================================================================
+N * ---------- Interrupt Number Definition -----------------------------------
+N * ==========================================================================
+N */
+N 
+Ntypedef enum IRQn
+N{
+N/******  Cortex-M0 Processor Exceptions Numbers ***************************************************/
+N  NonMaskableInt_IRQn         = -14,    /*!< 2 Non Maskable Interrupt                             */
+N  HardFault_IRQn		      = -13,    /*!< 3 Cortex-M0 Hard Fault Interrupt                     */
+N  SVCall_IRQn                 = -5,     /*!< 11 Cortex-M0 SV Call Interrupt                       */
+N  PendSV_IRQn                 = -2,     /*!< 14 Cortex-M0 Pend SV Interrupt                       */
+N  SysTick_IRQn                = -1,     /*!< 15 Cortex-M0 System Tick Interrupt                   */
+N
+N/************************ NUC1xx Interrupt Numbers ************************************************/
+N  BOD_IRQn                  = 0,
+N  WDT_IRQn                  = 1,
+N  EINT0_IRQn                = 2,
+N  EINT1_IRQn                = 3,
+N  GPAB_IRQn                 = 4,
+N  GPCDE_IRQn                = 5,
+N  PWMA_IRQn                 = 6,
+N  PWMB_IRQn                 = 7,
+N  TMR0_IRQn                 = 8,
+N  TMR1_IRQn                 = 9,
+N  TMR2_IRQn                 = 10,
+N  TMR3_IRQn                 = 11,
+N  UART0_IRQn                = 12,
+N  UART1_IRQn                = 13,
+N  SPI0_IRQn                 = 14,
+N  SPI1_IRQn                 = 15,
+N  SPI2_IRQn                 = 16,
+N  SPI3_IRQn                 = 17,
+N  I2C0_IRQn                 = 18,
+N  I2C1_IRQn                 = 19,
+N  CAN0_IRQn                 = 20,
+N  CAN1_IRQn                 = 21,
+N  SD_IRQn                   = 22,
+N  USBD_IRQn                 = 23,
+N  PS2_IRQn                  = 24,
+N  ACMP_IRQn                 = 25,
+N  PDMA_IRQn                 = 26,
+N  I2S_IRQn                  = 27,
+N  PWRWU_IRQn                = 28,
+N  ADC_IRQn                  = 29,
+N  DAC_IRQn                  = 30,
+N  RTC_IRQn                  = 31
+N} IRQn_Type;
+N
+N
+N/*
+N * ==========================================================================
+N * ----------- Processor and Core Peripheral Section ------------------------
+N * ==========================================================================
+N */
+N
+N/* Configuration of the Cortex-M0 Processor and Core Peripherals */
+N#define __MPU_PRESENT           0       /*!< armikcmu does not provide a MPU present or not       */
+N#define __NVIC_PRIO_BITS        2       /*!< armikcmu Supports 2 Bits for the Priority Levels     */
+N#define __Vendor_SysTickConfig  0       /*!< Set to 1 if different SysTick Config is used         */
+N
+N
+N#include "core_cm0.h"                   /* Cortex-M0 processor and core peripherals               */
+L 1 "..\CMSIS\CM0\core_cm0.h" 1
+N/**************************************************************************//**
+N * @file     core_cm0.h
+N * @brief    CMSIS Cortex-M0 Core Peripheral Access Layer Header File
+N * @version  V1.30
+N * @date     30. October 2009
+N *
+N * @note
+N * Copyright (C) 2009 ARM Limited. All rights reserved.
+N *
+N * @par
+N * ARM Limited (ARM) is supplying this software for use with Cortex-M 
+N * processor based microcontrollers.  This file can be freely distributed 
+N * within development tools that are supporting such ARM based processors. 
+N *
+N * @par
+N * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+N * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+N * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+N * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+N * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+N *
+N ******************************************************************************/
+N
+N#ifndef __CM0_CORE_H__
+N#define __CM0_CORE_H__
+N
+N/** @addtogroup CMSIS_CM0_core_LintCinfiguration CMSIS CM0 Core Lint Configuration
+N *
+N * List of Lint messages which will be suppressed and not shown:
+N *   - not yet checked
+N * .
+N * Note:  To re-enable a Message, insert a space before 'lint' *
+N *
+N */
+N
+N
+N/** @addtogroup CMSIS_CM0_core_definitions CM0 Core Definitions
+N  This file defines all structures and symbols for CMSIS core:
+N    - CMSIS version number
+N    - Cortex-M core registers and bitfields
+N    - Cortex-M core peripheral base address
+N  @{
+N */
+N
+N#ifdef __cplusplus
+S extern "C" {
+N#endif 
+N
+N#define __CM0_CMSIS_VERSION_MAIN  (0x01)                                                       /*!< [31:16] CMSIS HAL main version */
+N#define __CM0_CMSIS_VERSION_SUB   (0x30)                                                       /*!< [15:0]  CMSIS HAL sub version  */
+N#define __CM0_CMSIS_VERSION       ((__CM0_CMSIS_VERSION_MAIN << 16) | __CM0_CMSIS_VERSION_SUB) /*!< CMSIS HAL version number       */
+N
+N#define __CORTEX_M                (0x00)                                                       /*!< Cortex core                    */
+N
+N#include <stdint.h>                           /* Include standard types */
+N
+N#if defined (__ICCARM__)
+X#if 0L
+S  #include <intrinsics.h>                     /* IAR Intrinsics   */
+N#endif
+N
+N
+N#ifndef __NVIC_PRIO_BITS
+S  #define __NVIC_PRIO_BITS    2               /*!< standard definition for NVIC Priority Bits */
+N#endif
+N
+N
+N
+N
+N/**
+N * IO definitions
+N *
+N * define access restrictions to peripheral registers
+N */
+N
+N#ifdef __cplusplus
+S  #define     __I     volatile                /*!< defines 'read only' permissions      */
+N#else
+N  #define     __I     volatile const          /*!< defines 'read only' permissions      */
+N#endif
+N#define     __O     volatile                  /*!< defines 'write only' permissions     */
+N#define     __IO    volatile                  /*!< defines 'read / write' permissions   */
+N
+N
+N
+N/*******************************************************************************
+N *                 Register Abstraction
+N ******************************************************************************/
+N/** @addtogroup CMSIS_CM0_core_register CMSIS CM0 Core Register
+N @{
+N*/
+N
+N
+N/** @addtogroup CMSIS_CM0_NVIC CMSIS CM0 NVIC
+N  memory mapped structure for Nested Vectored Interrupt Controller (NVIC)
+N  @{
+N */
+Ntypedef struct
+N{
+N  __IO uint32_t ISER[1];                      /*!< (Offset: 0x000) Interrupt Set Enable Register            */
+X  volatile uint32_t ISER[1];                       
+N       uint32_t RESERVED0[31];
+N  __IO uint32_t ICER[1];                      /*!< (Offset: 0x080) Interrupt Clear Enable Register          */
+X  volatile uint32_t ICER[1];                       
+N       uint32_t RSERVED1[31];
+N  __IO uint32_t ISPR[1];                      /*!< (Offset: 0x100) Interrupt Set Pending Register           */
+X  volatile uint32_t ISPR[1];                       
+N       uint32_t RESERVED2[31];
+N  __IO uint32_t ICPR[1];                      /*!< (Offset: 0x180) Interrupt Clear Pending Register         */
+X  volatile uint32_t ICPR[1];                       
+N       uint32_t RESERVED3[31];
+N       uint32_t RESERVED4[64];
+N  __IO uint32_t IPR[8];                       /*!< (Offset: 0x3EC) Interrupt Priority Register              */
+X  volatile uint32_t IPR[8];                        
+N}  NVIC_Type;
+N/*@}*/ /* end of group CMSIS_CM0_NVIC */
+N
+N
+N/** @addtogroup CMSIS_CM0_SCB CMSIS CM0 SCB
+N  memory mapped structure for System Control Block (SCB)
+N  @{
+N */
+Ntypedef struct
+N{
+N  __I  uint32_t CPUID;                        /*!< Offset: 0x00  CPU ID Base Register                                  */
+X  volatile const  uint32_t CPUID;                         
+N  __IO uint32_t ICSR;                         /*!< Offset: 0x04  Interrupt Control State Register                      */
+X  volatile uint32_t ICSR;                          
+N       uint32_t RESERVED0;                                      
+N  __IO uint32_t AIRCR;                        /*!< Offset: 0x0C  Application Interrupt / Reset Control Register        */
+X  volatile uint32_t AIRCR;                         
+N  __IO uint32_t SCR;                          /*!< Offset: 0x10  System Control Register                               */
+X  volatile uint32_t SCR;                           
+N  __IO uint32_t CCR;                          /*!< Offset: 0x14  Configuration Control Register                        */
+X  volatile uint32_t CCR;                           
+N       uint32_t RESERVED1;                                      
+N  __IO uint32_t SHP[2];                       /*!< Offset: 0x1C  System Handlers Priority Registers. [0] is RESERVED   */
+X  volatile uint32_t SHP[2];                        
+N  __IO uint32_t SHCSR;                        /*!< Offset: 0x24  System Handler Control and State Register             */
+X  volatile uint32_t SHCSR;                         
+N       uint32_t RESERVED2[2];                                   
+N  __IO uint32_t DFSR;                         /*!< Offset: 0x30  Debug Fault Status Register                           */
+X  volatile uint32_t DFSR;                          
+N} SCB_Type;                                                
+N
+N/* SCB CPUID Register Definitions */
+N#define SCB_CPUID_IMPLEMENTER_Pos          24                                             /*!< SCB CPUID: IMPLEMENTER Position */
+N#define SCB_CPUID_IMPLEMENTER_Msk          (0xFFul << SCB_CPUID_IMPLEMENTER_Pos)          /*!< SCB CPUID: IMPLEMENTER Mask */
+N
+N#define SCB_CPUID_VARIANT_Pos              20                                             /*!< SCB CPUID: VARIANT Position */
+N#define SCB_CPUID_VARIANT_Msk              (0xFul << SCB_CPUID_VARIANT_Pos)               /*!< SCB CPUID: VARIANT Mask */
+N
+N#define SCB_CPUID_ARCHITECTURE_Pos         16                                             /*!< SCB CPUID: ARCHITECTURE Position */
+N#define SCB_CPUID_ARCHITECTURE_Msk         (0xFul << SCB_CPUID_ARCHITECTURE_Pos)          /*!< SCB CPUID: ARCHITECTURE Mask */
+N
+N#define SCB_CPUID_PARTNO_Pos                4                                             /*!< SCB CPUID: PARTNO Position */
+N#define SCB_CPUID_PARTNO_Msk               (0xFFFul << SCB_CPUID_PARTNO_Pos)              /*!< SCB CPUID: PARTNO Mask */
+N
+N#define SCB_CPUID_REVISION_Pos              0                                             /*!< SCB CPUID: REVISION Position */
+N#define SCB_CPUID_REVISION_Msk             (0xFul << SCB_CPUID_REVISION_Pos)              /*!< SCB CPUID: REVISION Mask */
+N
+N/* SCB Interrupt Control State Register Definitions */
+N#define SCB_ICSR_NMIPENDSET_Pos            31                                             /*!< SCB ICSR: NMIPENDSET Position */
+N#define SCB_ICSR_NMIPENDSET_Msk            (1ul << SCB_ICSR_NMIPENDSET_Pos)               /*!< SCB ICSR: NMIPENDSET Mask */
+N
+N#define SCB_ICSR_PENDSVSET_Pos             28                                             /*!< SCB ICSR: PENDSVSET Position */
+N#define SCB_ICSR_PENDSVSET_Msk             (1ul << SCB_ICSR_PENDSVSET_Pos)                /*!< SCB ICSR: PENDSVSET Mask */
+N
+N#define SCB_ICSR_PENDSVCLR_Pos             27                                             /*!< SCB ICSR: PENDSVCLR Position */
+N#define SCB_ICSR_PENDSVCLR_Msk             (1ul << SCB_ICSR_PENDSVCLR_Pos)                /*!< SCB ICSR: PENDSVCLR Mask */
+N
+N#define SCB_ICSR_PENDSTSET_Pos             26                                             /*!< SCB ICSR: PENDSTSET Position */
+N#define SCB_ICSR_PENDSTSET_Msk             (1ul << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB ICSR: PENDSTSET Mask */
+N
+N#define SCB_ICSR_PENDSTCLR_Pos             25                                             /*!< SCB ICSR: PENDSTCLR Position */
+N#define SCB_ICSR_PENDSTCLR_Msk             (1ul << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB ICSR: PENDSTCLR Mask */
+N
+N#define SCB_ICSR_ISRPREEMPT_Pos            23                                             /*!< SCB ICSR: ISRPREEMPT Position */
+N#define SCB_ICSR_ISRPREEMPT_Msk            (1ul << SCB_ICSR_ISRPREEMPT_Pos)               /*!< SCB ICSR: ISRPREEMPT Mask */
+N
+N#define SCB_ICSR_ISRPENDING_Pos            22                                             /*!< SCB ICSR: ISRPENDING Position */
+N#define SCB_ICSR_ISRPENDING_Msk            (1ul << SCB_ICSR_ISRPENDING_Pos)               /*!< SCB ICSR: ISRPENDING Mask */
+N
+N#define SCB_ICSR_VECTPENDING_Pos           12                                             /*!< SCB ICSR: VECTPENDING Position */
+N#define SCB_ICSR_VECTPENDING_Msk           (0x1FFul << SCB_ICSR_VECTPENDING_Pos)          /*!< SCB ICSR: VECTPENDING Mask */
+N
+N#define SCB_ICSR_VECTACTIVE_Pos             0                                             /*!< SCB ICSR: VECTACTIVE Position */
+N#define SCB_ICSR_VECTACTIVE_Msk            (0x1FFul << SCB_ICSR_VECTACTIVE_Pos)           /*!< SCB ICSR: VECTACTIVE Mask */
+N
+N/* SCB Application Interrupt and Reset Control Register Definitions */
+N#define SCB_AIRCR_VECTKEY_Pos              16                                             /*!< SCB AIRCR: VECTKEY Position */
+N#define SCB_AIRCR_VECTKEY_Msk              (0xFFFFul << SCB_AIRCR_VECTKEY_Pos)            /*!< SCB AIRCR: VECTKEY Mask */
+N
+N#define SCB_AIRCR_VECTKEYSTAT_Pos          16                                             /*!< SCB AIRCR: VECTKEYSTAT Position */
+N#define SCB_AIRCR_VECTKEYSTAT_Msk          (0xFFFFul << SCB_AIRCR_VECTKEYSTAT_Pos)        /*!< SCB AIRCR: VECTKEYSTAT Mask */
+N
+N#define SCB_AIRCR_ENDIANESS_Pos            15                                             /*!< SCB AIRCR: ENDIANESS Position */
+N#define SCB_AIRCR_ENDIANESS_Msk            (1ul << SCB_AIRCR_ENDIANESS_Pos)               /*!< SCB AIRCR: ENDIANESS Mask */
+N
+N#define SCB_AIRCR_SYSRESETREQ_Pos           2                                             /*!< SCB AIRCR: SYSRESETREQ Position */
+N#define SCB_AIRCR_SYSRESETREQ_Msk          (1ul << SCB_AIRCR_SYSRESETREQ_Pos)             /*!< SCB AIRCR: SYSRESETREQ Mask */
+N
+N#define SCB_AIRCR_VECTCLRACTIVE_Pos         1                                             /*!< SCB AIRCR: VECTCLRACTIVE Position */
+N#define SCB_AIRCR_VECTCLRACTIVE_Msk        (1ul << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB AIRCR: VECTCLRACTIVE Mask */
+N
+N/* SCB System Control Register Definitions */
+N#define SCB_SCR_SEVONPEND_Pos               4                                             /*!< SCB SCR: SEVONPEND Position */
+N#define SCB_SCR_SEVONPEND_Msk              (1ul << SCB_SCR_SEVONPEND_Pos)                 /*!< SCB SCR: SEVONPEND Mask */
+N
+N#define SCB_SCR_SLEEPDEEP_Pos               2                                             /*!< SCB SCR: SLEEPDEEP Position */
+N#define SCB_SCR_SLEEPDEEP_Msk              (1ul << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB SCR: SLEEPDEEP Mask */
+N
+N#define SCB_SCR_SLEEPONEXIT_Pos             1                                             /*!< SCB SCR: SLEEPONEXIT Position */
+N#define SCB_SCR_SLEEPONEXIT_Msk            (1ul << SCB_SCR_SLEEPONEXIT_Pos)               /*!< SCB SCR: SLEEPONEXIT Mask */
+N
+N/* SCB Configuration Control Register Definitions */
+N#define SCB_CCR_STKALIGN_Pos                9                                             /*!< SCB CCR: STKALIGN Position */
+N#define SCB_CCR_STKALIGN_Msk               (1ul << SCB_CCR_STKALIGN_Pos)                  /*!< SCB CCR: STKALIGN Mask */
+N
+N#define SCB_CCR_UNALIGN_TRP_Pos             3                                             /*!< SCB CCR: UNALIGN_TRP Position */
+N#define SCB_CCR_UNALIGN_TRP_Msk            (1ul << SCB_CCR_UNALIGN_TRP_Pos)               /*!< SCB CCR: UNALIGN_TRP Mask */
+N
+N/* SCB System Handler Control and State Register Definitions */
+N#define SCB_SHCSR_SVCALLPENDED_Pos         15                                             /*!< SCB SHCSR: SVCALLPENDED Position */
+N#define SCB_SHCSR_SVCALLPENDED_Msk         (1ul << SCB_SHCSR_SVCALLPENDED_Pos)            /*!< SCB SHCSR: SVCALLPENDED Mask */
+N
+N/* SCB Debug Fault Status Register Definitions */
+N#define SCB_DFSR_EXTERNAL_Pos               4                                             /*!< SCB DFSR: EXTERNAL Position */
+N#define SCB_DFSR_EXTERNAL_Msk              (1ul << SCB_DFSR_EXTERNAL_Pos)                 /*!< SCB DFSR: EXTERNAL Mask */
+N
+N#define SCB_DFSR_VCATCH_Pos                 3                                             /*!< SCB DFSR: VCATCH Position */
+N#define SCB_DFSR_VCATCH_Msk                (1ul << SCB_DFSR_VCATCH_Pos)                   /*!< SCB DFSR: VCATCH Mask */
+N
+N#define SCB_DFSR_DWTTRAP_Pos                2                                             /*!< SCB DFSR: DWTTRAP Position */
+N#define SCB_DFSR_DWTTRAP_Msk               (1ul << SCB_DFSR_DWTTRAP_Pos)                  /*!< SCB DFSR: DWTTRAP Mask */
+N
+N#define SCB_DFSR_BKPT_Pos                   1                                             /*!< SCB DFSR: BKPT Position */
+N#define SCB_DFSR_BKPT_Msk                  (1ul << SCB_DFSR_BKPT_Pos)                     /*!< SCB DFSR: BKPT Mask */
+N
+N#define SCB_DFSR_HALTED_Pos                 0                                             /*!< SCB DFSR: HALTED Position */
+N#define SCB_DFSR_HALTED_Msk                (1ul << SCB_DFSR_HALTED_Pos)                   /*!< SCB DFSR: HALTED Mask */
+N/*@}*/ /* end of group CMSIS_CM0_SCB */
+N
+N
+N/** @addtogroup CMSIS_CM0_SysTick CMSIS CM0 SysTick
+N  memory mapped structure for SysTick
+N  @{
+N */
+Ntypedef struct
+N{
+N  __IO uint32_t CTRL;                         /*!< Offset: 0x00  SysTick Control and Status Register */
+X  volatile uint32_t CTRL;                          
+N  __IO uint32_t LOAD;                         /*!< Offset: 0x04  SysTick Reload Value Register       */
+X  volatile uint32_t LOAD;                          
+N  __IO uint32_t VAL;                          /*!< Offset: 0x08  SysTick Current Value Register      */
+X  volatile uint32_t VAL;                           
+N  __I  uint32_t CALIB;                        /*!< Offset: 0x0C  SysTick Calibration Register        */
+X  volatile const  uint32_t CALIB;                         
+N} SysTick_Type;
+N
+N/* SysTick Control / Status Register Definitions */
+N#define SysTick_CTRL_COUNTFLAG_Pos         16                                             /*!< SysTick CTRL: COUNTFLAG Position */
+N#define SysTick_CTRL_COUNTFLAG_Msk         (1ul << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysTick CTRL: COUNTFLAG Mask */
+N
+N#define SysTick_CTRL_CLKSOURCE_Pos          2                                             /*!< SysTick CTRL: CLKSOURCE Position */
+N#define SysTick_CTRL_CLKSOURCE_Msk         (1ul << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysTick CTRL: CLKSOURCE Mask */
+N
+N#define SysTick_CTRL_TICKINT_Pos            1                                             /*!< SysTick CTRL: TICKINT Position */
+N#define SysTick_CTRL_TICKINT_Msk           (1ul << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT Mask */
+N
+N#define SysTick_CTRL_ENABLE_Pos             0                                             /*!< SysTick CTRL: ENABLE Position */
+N#define SysTick_CTRL_ENABLE_Msk            (1ul << SysTick_CTRL_ENABLE_Pos)               /*!< SysTick CTRL: ENABLE Mask */
+N
+N/* SysTick Reload Register Definitions */
+N#define SysTick_LOAD_RELOAD_Pos             0                                             /*!< SysTick LOAD: RELOAD Position */
+N#define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFul << SysTick_LOAD_RELOAD_Pos)        /*!< SysTick LOAD: RELOAD Mask */
+N
+N/* SysTick Current Register Definitions */
+N#define SysTick_VAL_CURRENT_Pos             0                                             /*!< SysTick VAL: CURRENT Position */
+N#define SysTick_VAL_CURRENT_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysTick VAL: CURRENT Mask */
+N
+N/* SysTick Calibration Register Definitions */
+N#define SysTick_CALIB_NOREF_Pos            31                                             /*!< SysTick CALIB: NOREF Position */
+N#define SysTick_CALIB_NOREF_Msk            (1ul << SysTick_CALIB_NOREF_Pos)               /*!< SysTick CALIB: NOREF Mask */
+N
+N#define SysTick_CALIB_SKEW_Pos             30                                             /*!< SysTick CALIB: SKEW Position */
+N#define SysTick_CALIB_SKEW_Msk             (1ul << SysTick_CALIB_SKEW_Pos)                /*!< SysTick CALIB: SKEW Mask */
+N
+N#define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysTick CALIB: TENMS Position */
+N#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysTick CALIB: TENMS Mask */
+N/*@}*/ /* end of group CMSIS_CM0_SysTick */
+N
+N
+N/** @addtogroup CMSIS_CM0_CoreDebug CMSIS CM0 Core Debug
+N  memory mapped structure for Core Debug Register
+N  @{
+N */
+Ntypedef struct
+N{
+N  __IO uint32_t DHCSR;                        /*!< Offset: 0x00  Debug Halting Control and Status Register    */
+X  volatile uint32_t DHCSR;                         
+N  __O  uint32_t DCRSR;                        /*!< Offset: 0x04  Debug Core Register Selector Register        */
+X  volatile  uint32_t DCRSR;                         
+N  __IO uint32_t DCRDR;                        /*!< Offset: 0x08  Debug Core Register Data Register            */
+X  volatile uint32_t DCRDR;                         
+N  __IO uint32_t DEMCR;                        /*!< Offset: 0x0C  Debug Exception and Monitor Control Register */
+X  volatile uint32_t DEMCR;                         
+N} CoreDebug_Type;
+N
+N/* Debug Halting Control and Status Register */
+N#define CoreDebug_DHCSR_DBGKEY_Pos         16                                             /*!< CoreDebug DHCSR: DBGKEY Position */
+N#define CoreDebug_DHCSR_DBGKEY_Msk         (0xFFFFul << CoreDebug_DHCSR_DBGKEY_Pos)       /*!< CoreDebug DHCSR: DBGKEY Mask */
+N
+N#define CoreDebug_DHCSR_S_RESET_ST_Pos     25                                             /*!< CoreDebug DHCSR: S_RESET_ST Position */
+N#define CoreDebug_DHCSR_S_RESET_ST_Msk     (1ul << CoreDebug_DHCSR_S_RESET_ST_Pos)        /*!< CoreDebug DHCSR: S_RESET_ST Mask */
+N
+N#define CoreDebug_DHCSR_S_RETIRE_ST_Pos    24                                             /*!< CoreDebug DHCSR: S_RETIRE_ST Position */
+N#define CoreDebug_DHCSR_S_RETIRE_ST_Msk    (1ul << CoreDebug_DHCSR_S_RETIRE_ST_Pos)       /*!< CoreDebug DHCSR: S_RETIRE_ST Mask */
+N
+N#define CoreDebug_DHCSR_S_LOCKUP_Pos       19                                             /*!< CoreDebug DHCSR: S_LOCKUP Position */
+N#define CoreDebug_DHCSR_S_LOCKUP_Msk       (1ul << CoreDebug_DHCSR_S_LOCKUP_Pos)          /*!< CoreDebug DHCSR: S_LOCKUP Mask */
+N
+N#define CoreDebug_DHCSR_S_SLEEP_Pos        18                                             /*!< CoreDebug DHCSR: S_SLEEP Position */
+N#define CoreDebug_DHCSR_S_SLEEP_Msk        (1ul << CoreDebug_DHCSR_S_SLEEP_Pos)           /*!< CoreDebug DHCSR: S_SLEEP Mask */
+N
+N#define CoreDebug_DHCSR_S_HALT_Pos         17                                             /*!< CoreDebug DHCSR: S_HALT Position */
+N#define CoreDebug_DHCSR_S_HALT_Msk         (1ul << CoreDebug_DHCSR_S_HALT_Pos)            /*!< CoreDebug DHCSR: S_HALT Mask */
+N
+N#define CoreDebug_DHCSR_S_REGRDY_Pos       16                                             /*!< CoreDebug DHCSR: S_REGRDY Position */
+N#define CoreDebug_DHCSR_S_REGRDY_Msk       (1ul << CoreDebug_DHCSR_S_REGRDY_Pos)          /*!< CoreDebug DHCSR: S_REGRDY Mask */
+N
+N#define CoreDebug_DHCSR_C_MASKINTS_Pos      3                                             /*!< CoreDebug DHCSR: C_MASKINTS Position */
+N#define CoreDebug_DHCSR_C_MASKINTS_Msk     (1ul << CoreDebug_DHCSR_C_MASKINTS_Pos)        /*!< CoreDebug DHCSR: C_MASKINTS Mask */
+N
+N#define CoreDebug_DHCSR_C_STEP_Pos          2                                             /*!< CoreDebug DHCSR: C_STEP Position */
+N#define CoreDebug_DHCSR_C_STEP_Msk         (1ul << CoreDebug_DHCSR_C_STEP_Pos)            /*!< CoreDebug DHCSR: C_STEP Mask */
+N
+N#define CoreDebug_DHCSR_C_HALT_Pos          1                                             /*!< CoreDebug DHCSR: C_HALT Position */
+N#define CoreDebug_DHCSR_C_HALT_Msk         (1ul << CoreDebug_DHCSR_C_HALT_Pos)            /*!< CoreDebug DHCSR: C_HALT Mask */
+N
+N#define CoreDebug_DHCSR_C_DEBUGEN_Pos       0                                             /*!< CoreDebug DHCSR: C_DEBUGEN Position */
+N#define CoreDebug_DHCSR_C_DEBUGEN_Msk      (1ul << CoreDebug_DHCSR_C_DEBUGEN_Pos)         /*!< CoreDebug DHCSR: C_DEBUGEN Mask */
+N
+N/* Debug Core Register Selector Register */
+N#define CoreDebug_DCRSR_REGWnR_Pos         16                                             /*!< CoreDebug DCRSR: REGWnR Position */
+N#define CoreDebug_DCRSR_REGWnR_Msk         (1ul << CoreDebug_DCRSR_REGWnR_Pos)            /*!< CoreDebug DCRSR: REGWnR Mask */
+N
+N#define CoreDebug_DCRSR_REGSEL_Pos          0                                             /*!< CoreDebug DCRSR: REGSEL Position */
+N#define CoreDebug_DCRSR_REGSEL_Msk         (0x1Ful << CoreDebug_DCRSR_REGSEL_Pos)         /*!< CoreDebug DCRSR: REGSEL Mask */
+N
+N/* Debug Exception and Monitor Control Register */
+N#define CoreDebug_DEMCR_DWTENA_Pos         24                                             /*!< CoreDebug DEMCR: DWTENA Position */
+N#define CoreDebug_DEMCR_DWTENA_Msk         (1ul << CoreDebug_DEMCR_DWTENA_Pos)            /*!< CoreDebug DEMCR: DWTENA Mask */
+N
+N#define CoreDebug_DEMCR_VC_HARDERR_Pos     10                                             /*!< CoreDebug DEMCR: VC_HARDERR Position */
+N#define CoreDebug_DEMCR_VC_HARDERR_Msk     (1ul << CoreDebug_DEMCR_VC_HARDERR_Pos)        /*!< CoreDebug DEMCR: VC_HARDERR Mask */
+N
+N#define CoreDebug_DEMCR_VC_CORERESET_Pos    0                                             /*!< CoreDebug DEMCR: VC_CORERESET Position */
+N#define CoreDebug_DEMCR_VC_CORERESET_Msk   (1ul << CoreDebug_DEMCR_VC_CORERESET_Pos)      /*!< CoreDebug DEMCR: VC_CORERESET Mask */
+N/*@}*/ /* end of group CMSIS_CM0_CoreDebug */
+N
+N
+N/* Memory mapping of Cortex-M0 Hardware */
+N#define SCS_BASE            (0xE000E000)                              /*!< System Control Space Base Address */
+N#define CoreDebug_BASE      (0xE000EDF0)                              /*!< Core Debug Base Address           */
+N#define SysTick_BASE        (SCS_BASE +  0x0010)                      /*!< SysTick Base Address              */
+N#define NVIC_BASE           (SCS_BASE +  0x0100)                      /*!< NVIC Base Address                 */
+N#define SCB_BASE            (SCS_BASE +  0x0D00)                      /*!< System Control Block Base Address */
+N
+N#define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct          */
+N#define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration struct      */
+N#define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struct         */
+N#define CoreDebug           ((CoreDebug_Type *)     CoreDebug_BASE)   /*!< Core Debug configuration struct   */
+N
+N/*@}*/ /* end of group CMSIS_CM0_core_register */
+N
+N
+N/*******************************************************************************
+N *                Hardware Abstraction Layer
+N ******************************************************************************/
+N
+N#if defined ( __CC_ARM   )
+X#if 1L
+N  #define __ASM            __asm                                      /*!< asm keyword for ARM Compiler          */
+N  #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */
+N
+N#elif defined ( __ICCARM__ )
+S  #define __ASM           __asm                                       /*!< asm keyword for IAR Compiler          */
+S  #define __INLINE        inline                                      /*!< inline keyword for IAR Compiler. Only avaiable in High optimization mode! */
+S
+S#elif defined   (  __GNUC__  )
+S  #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */
+S  #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */
+S
+S#elif defined   (  __TASKING__  )
+S  #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */
+S  #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */
+S
+N#endif
+N
+N
+N/* ###################  Compiler specific Intrinsics  ########################### */
+N
+N#if defined ( __CC_ARM   ) /*------------------RealView Compiler -----------------*/
+X#if 1L  
+N/* ARM armcc specific functions */
+N
+N#define __enable_fault_irq                __enable_fiq
+N#define __disable_fault_irq               __disable_fiq
+N
+N#define __NOP                             __nop
+N#define __WFI                             __wfi
+N#define __WFE                             __wfe
+N#define __SEV                             __sev
+N#define __ISB()                           __isb(0)
+N#define __DSB()                           __dsb(0)
+N#define __DMB()                           __dmb(0)
+N#define __REV                             __rev
+N
+N
+N/* intrinsic void __enable_irq();     */
+N/* intrinsic void __disable_irq();    */
+N
+N
+N/**
+N * @brief  Return the Process Stack Pointer
+N *
+N * @return ProcessStackPointer
+N *
+N * Return the actual process stack pointer
+N */
+Nextern uint32_t __get_PSP(void);
+N
+N/**
+N * @brief  Set the Process Stack Pointer
+N *
+N * @param  topOfProcStack  Process Stack Pointer
+N *
+N * Assign the value ProcessStackPointer to the MSP 
+N * (process stack pointer) Cortex processor register
+N */
+Nextern void __set_PSP(uint32_t topOfProcStack);
+N
+N/**
+N * @brief  Return the Main Stack Pointer
+N *
+N * @return Main Stack Pointer
+N *
+N * Return the current value of the MSP (main stack pointer)
+N * Cortex processor register
+N */
+Nextern uint32_t __get_MSP(void);
+N
+N/**
+N * @brief  Set the Main Stack Pointer
+N *
+N * @param  topOfMainStack  Main Stack Pointer
+N *
+N * Assign the value mainStackPointer to the MSP 
+N * (main stack pointer) Cortex processor register
+N */
+Nextern void __set_MSP(uint32_t topOfMainStack);
+N
+N/**
+N * @brief  Reverse byte order in unsigned short value
+N *
+N * @param   value  value to reverse
+N * @return         reversed value
+N *
+N * Reverse byte order in unsigned short value
+N */
+Nextern uint32_t __REV16(uint16_t value);
+N
+N/**
+N * @brief  Reverse byte order in signed short value with sign extension to integer
+N *
+N * @param   value  value to reverse
+N * @return         reversed value
+N *
+N * Reverse byte order in signed short value with sign extension to integer
+N */
+Nextern int32_t __REVSH(int16_t value);
+N
+N
+N#if (__ARMCC_VERSION < 400000)
+X#if (410894 < 400000)
+S
+S/**
+S * @brief  Return the Priority Mask value
+S *
+S * @return PriMask
+S *
+S * Return state of the priority mask bit from the priority mask register
+S */
+Sextern uint32_t __get_PRIMASK(void);
+S
+S/**
+S * @brief  Set the Priority Mask value
+S *
+S * @param   priMask  PriMask
+S *
+S * Set the priority mask bit in the priority mask register
+S */
+Sextern void __set_PRIMASK(uint32_t priMask);
+S
+S/**
+S * @brief  Return the Control Register value
+S * 
+S * @return Control value
+S *
+S * Return the content of the control register
+S */
+Sextern uint32_t __get_CONTROL(void);
+S
+S/**
+S * @brief  Set the Control Register value
+S *
+S * @param  control  Control value
+S *
+S * Set the control register
+S */
+Sextern void __set_CONTROL(uint32_t control);
+S
+N#else  /* (__ARMCC_VERSION >= 400000)  */
+N
+N
+N/**
+N * @brief  Return the Priority Mask value
+N *
+N * @return PriMask
+N *
+N * Return state of the priority mask bit from the priority mask register
+N */
+Nstatic __INLINE uint32_t __get_PRIMASK(void)
+Xstatic __inline uint32_t __get_PRIMASK(void)
+N{
+N  register uint32_t __regPriMask         __ASM("primask");
+X  register uint32_t __regPriMask         __asm("primask");
+N  return(__regPriMask);
+N}
+N
+N/**
+N * @brief  Set the Priority Mask value
+N *
+N * @param  priMask  PriMask
+N *
+N * Set the priority mask bit in the priority mask register
+N */
+Nstatic __INLINE void __set_PRIMASK(uint32_t priMask)
+Xstatic __inline void __set_PRIMASK(uint32_t priMask)
+N{
+N  register uint32_t __regPriMask         __ASM("primask");
+X  register uint32_t __regPriMask         __asm("primask");
+N  __regPriMask = (priMask);
+N}
+N
+N/**
+N * @brief  Return the Control Register value
+N * 
+N * @return Control value
+N *
+N * Return the content of the control register
+N */
+Nstatic __INLINE uint32_t __get_CONTROL(void)
+Xstatic __inline uint32_t __get_CONTROL(void)
+N{
+N  register uint32_t __regControl         __ASM("control");
+X  register uint32_t __regControl         __asm("control");
+N  return(__regControl);
+N}
+N
+N/**
+N * @brief  Set the Control Register value
+N *
+N * @param  control  Control value
+N *
+N * Set the control register
+N */
+Nstatic __INLINE void __set_CONTROL(uint32_t control)
+Xstatic __inline void __set_CONTROL(uint32_t control)
+N{
+N  register uint32_t __regControl         __ASM("control");
+X  register uint32_t __regControl         __asm("control");
+N  __regControl = control;
+N}
+N
+N#endif /* __ARMCC_VERSION  */ 
+N
+N
+N
+N#elif (defined (__ICCARM__)) /*------------------ ICC Compiler -------------------*/
+S/* IAR iccarm specific functions */
+S
+S#define __enable_irq                              __enable_interrupt        /*!< global Interrupt enable */
+S#define __disable_irq                             __disable_interrupt       /*!< global Interrupt disable */
+S
+Sstatic __INLINE void __enable_fault_irq()         { __ASM ("cpsie f"); }
+Sstatic __INLINE void __disable_fault_irq()        { __ASM ("cpsid f"); }
+S
+S#define __NOP                                     __no_operation            /*!< no operation intrinsic in IAR Compiler */ 
+Sstatic __INLINE  void __WFI()                     { __ASM ("wfi"); }
+Sstatic __INLINE  void __WFE()                     { __ASM ("wfe"); }
+Sstatic __INLINE  void __SEV()                     { __ASM ("sev"); }
+S
+S/* intrinsic void __ISB(void)                                     */
+S/* intrinsic void __DSB(void)                                     */
+S/* intrinsic void __DMB(void)                                     */
+S/* intrinsic void __set_PRIMASK();                                */
+S/* intrinsic void __get_PRIMASK();                                */
+S
+S
+S/* intrinsic uint32_t __REV(uint32_t value);                      */
+S/* intrinsic uint32_t __REVSH(uint32_t value);                    */
+S
+S
+S/**
+S * @brief  Return the Process Stack Pointer
+S *
+S * @return ProcessStackPointer
+S *
+S * Return the actual process stack pointer
+S */
+Sextern uint32_t __get_PSP(void);
+S
+S/**
+S * @brief  Set the Process Stack Pointer
+S *
+S * @param  topOfProcStack  Process Stack Pointer
+S *
+S * Assign the value ProcessStackPointer to the MSP 
+S * (process stack pointer) Cortex processor register
+S */
+Sextern void __set_PSP(uint32_t topOfProcStack);
+S
+S/**
+S * @brief  Return the Main Stack Pointer
+S *
+S * @return Main Stack Pointer
+S *
+S * Return the current value of the MSP (main stack pointer)
+S * Cortex processor register
+S */
+Sextern uint32_t __get_MSP(void);
+S
+S/**
+S * @brief  Set the Main Stack Pointer
+S *
+S * @param  topOfMainStack  Main Stack Pointer
+S *
+S * Assign the value mainStackPointer to the MSP 
+S * (main stack pointer) Cortex processor register
+S */
+Sextern void __set_MSP(uint32_t topOfMainStack);
+S
+S/**
+S * @brief  Reverse byte order in unsigned short value
+S *
+S * @param  value  value to reverse
+S * @return        reversed value
+S *
+S * Reverse byte order in unsigned short value
+S */
+Sextern uint32_t __REV16(uint16_t value);
+S
+S
+S
+S
+S
+S#elif (defined (__GNUC__)) /*------------------ GNU Compiler ---------------------*/
+S/* GNU gcc specific functions */
+S
+Sstatic __INLINE void __enable_irq()               { __ASM volatile ("cpsie i"); }
+Sstatic __INLINE void __disable_irq()              { __ASM volatile ("cpsid i"); }
+S
+Sstatic __INLINE void __enable_fault_irq()         { __ASM volatile ("cpsie f"); }
+Sstatic __INLINE void __disable_fault_irq()        { __ASM volatile ("cpsid f"); }
+S
+Sstatic __INLINE void __NOP()                      { __ASM volatile ("nop"); }
+Sstatic __INLINE void __WFI()                      { __ASM volatile ("wfi"); }
+Sstatic __INLINE void __WFE()                      { __ASM volatile ("wfe"); }
+Sstatic __INLINE void __SEV()                      { __ASM volatile ("sev"); }
+Sstatic __INLINE void __ISB()                      { __ASM volatile ("isb"); }
+Sstatic __INLINE void __DSB()                      { __ASM volatile ("dsb"); }
+Sstatic __INLINE void __DMB()                      { __ASM volatile ("dmb"); }
+S
+S
+S/**
+S * @brief  Return the Process Stack Pointer
+S *
+S * @return ProcessStackPointer
+S *
+S * Return the actual process stack pointer
+S */
+Sextern uint32_t __get_PSP(void);
+S
+S/**
+S * @brief  Set the Process Stack Pointer
+S *
+S * @param  topOfProcStack  Process Stack Pointer
+S *
+S * Assign the value ProcessStackPointer to the MSP 
+S * (process stack pointer) Cortex processor register
+S */
+Sextern void __set_PSP(uint32_t topOfProcStack);
+S
+S/**
+S * @brief  Return the Main Stack Pointer
+S *
+S * @return Main Stack Pointer
+S *
+S * Return the current value of the MSP (main stack pointer)
+S * Cortex processor register
+S */
+Sextern uint32_t __get_MSP(void);
+S
+S/**
+S * @brief  Set the Main Stack Pointer
+S *
+S * @param  topOfMainStack  Main Stack Pointer
+S *
+S * Assign the value mainStackPointer to the MSP 
+S * (main stack pointer) Cortex processor register
+S */
+Sextern void __set_MSP(uint32_t topOfMainStack);
+S
+S/**
+S * @brief  Return the Priority Mask value
+S *
+S * @return PriMask
+S *
+S * Return state of the priority mask bit from the priority mask register
+S */
+Sextern uint32_t  __get_PRIMASK(void);
+S
+S/**
+S * @brief  Set the Priority Mask value
+S *
+S * @param  priMask  PriMask
+S *
+S * Set the priority mask bit in the priority mask register
+S */
+Sextern void __set_PRIMASK(uint32_t priMask);
+S
+S/**
+S * @brief  Return the Control Register value
+S* 
+S*  @return Control value
+S *
+S * Return the content of the control register
+S */
+Sextern uint32_t __get_CONTROL(void);
+S
+S/**
+S * @brief  Set the Control Register value
+S *
+S * @param  control  Control value
+S *
+S * Set the control register
+S */
+Sextern void __set_CONTROL(uint32_t control);
+S
+S/**
+S * @brief  Reverse byte order in integer value
+S *
+S * @param  value  value to reverse
+S * @return        reversed value
+S *
+S * Reverse byte order in integer value
+S */
+Sextern uint32_t __REV(uint32_t value);
+S
+S/**
+S * @brief  Reverse byte order in unsigned short value
+S *
+S * @param  value  value to reverse
+S * @return        reversed value
+S *
+S * Reverse byte order in unsigned short value
+S */
+Sextern uint32_t __REV16(uint16_t value);
+S
+S/**
+S * @brief  Reverse byte order in signed short value with sign extension to integer
+S *
+S * @param  value  value to reverse
+S * @return        reversed value
+S *
+S * Reverse byte order in signed short value with sign extension to integer
+S */
+Sextern int32_t __REVSH(int16_t value);
+S
+S
+S#elif (defined (__TASKING__)) /*------------------ TASKING Compiler ---------------------*/
+S/* TASKING carm specific functions */
+S
+S/*
+S * The CMSIS functions have been implemented as intrinsics in the compiler.
+S * Please use "carm -?i" to get an up to date list of all instrinsics,
+S * Including the CMSIS ones.
+S */
+S
+N#endif
+N
+N
+N/** @addtogroup CMSIS_CM0_Core_FunctionInterface CMSIS CM0 Core Function Interface
+N  Core  Function Interface containing:
+N  - Core NVIC Functions
+N  - Core SysTick Functions
+N  - Core Reset Functions
+N*/
+N/*@{*/
+N
+N/* ##########################   NVIC functions  #################################### */
+N
+N/* Interrupt Priorities are WORD accessible only under ARMv6M                   */
+N/* The following MACROS handle generation of the register offset and byte masks */
+N#define _BIT_SHIFT(IRQn)         (  (((uint32_t)(IRQn)       )    &  0x03) * 8 )
+N#define _SHP_IDX(IRQn)           ( ((((uint32_t)(IRQn) & 0x0F)-8) >>    2)     )
+N#define _IP_IDX(IRQn)            (   ((uint32_t)(IRQn)            >>    2)     )
+N
+N
+N/**
+N * @brief  Enable Interrupt in NVIC Interrupt Controller
+N *
+N * @param  IRQn   The positive number of the external interrupt to enable
+N *
+N * Enable a device specific interupt in the NVIC interrupt controller.
+N * The interrupt number cannot be a negative value.
+N */
+Nstatic __INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
+Xstatic __inline void NVIC_EnableIRQ(IRQn_Type IRQn)
+N{
+N  NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* enable interrupt */
+X  ((NVIC_Type *) ((0xE000E000) + 0x0100))->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));  
+N}
+N
+N/**
+N * @brief  Disable the interrupt line for external interrupt specified
+N * 
+N * @param  IRQn   The positive number of the external interrupt to disable
+N * 
+N * Disable a device specific interupt in the NVIC interrupt controller.
+N * The interrupt number cannot be a negative value.
+N */
+Nstatic __INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
+Xstatic __inline void NVIC_DisableIRQ(IRQn_Type IRQn)
+N{
+N  NVIC->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* disable interrupt */
+X  ((NVIC_Type *) ((0xE000E000) + 0x0100))->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));  
+N}
+N
+N/**
+N * @brief  Read the interrupt pending bit for a device specific interrupt source
+N * 
+N * @param  IRQn    The number of the device specifc interrupt
+N * @return         1 = interrupt pending, 0 = interrupt not pending
+N *
+N * Read the pending register in NVIC and return 1 if its status is pending, 
+N * otherwise it returns 0
+N */
+Nstatic __INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
+Xstatic __inline uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
+N{
+N  return((uint32_t) ((NVIC->ISPR[0] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0)); /* Return 1 if pending else 0 */
+X  return((uint32_t) ((((NVIC_Type *) ((0xE000E000) + 0x0100))->ISPR[0] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0));  
+N}
+N
+N/**
+N * @brief  Set the pending bit for an external interrupt
+N * 
+N * @param  IRQn    The number of the interrupt for set pending
+N *
+N * Set the pending bit for the specified interrupt.
+N * The interrupt number cannot be a negative value.
+N */
+Nstatic __INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)
+Xstatic __inline void NVIC_SetPendingIRQ(IRQn_Type IRQn)
+N{
+N  NVIC->ISPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* set interrupt pending */
+X  ((NVIC_Type *) ((0xE000E000) + 0x0100))->ISPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));  
+N}
+N
+N/**
+N * @brief  Clear the pending bit for an external interrupt
+N *
+N * @param  IRQn    The number of the interrupt for clear pending
+N *
+N * Clear the pending bit for the specified interrupt. 
+N * The interrupt number cannot be a negative value.
+N */
+Nstatic __INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+Xstatic __inline void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+N{
+N  NVIC->ICPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrupt */
+X  ((NVIC_Type *) ((0xE000E000) + 0x0100))->ICPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));  
+N}
+N
+N/**
+N * @brief  Set the priority for an interrupt
+N *
+N * @param  IRQn      The number of the interrupt for set priority
+N * @param  priority  The priority to set
+N *
+N * Set the priority for the specified interrupt. The interrupt 
+N * number can be positive to specify an external (device specific) 
+N * interrupt, or negative to specify an internal (core) interrupt.
+N *
+N * Note: The priority cannot be set for every core interrupt.
+N */
+Nstatic __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+Xstatic __inline void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+N{
+N  if(IRQn < 0) {
+N    SCB->SHP[_SHP_IDX(IRQn)] = (SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) | 
+X    ((SCB_Type *) ((0xE000E000) + 0x0D00))->SHP[( ((((uint32_t)(IRQn) & 0x0F)-8) >> 2) )] = (((SCB_Type *) ((0xE000E000) + 0x0D00))->SHP[( ((((uint32_t)(IRQn) & 0x0F)-8) >> 2) )] & ~(0xFF << ( (((uint32_t)(IRQn) ) & 0x03) * 8 ))) | 
+N        (((priority << (8 - __NVIC_PRIO_BITS)) & 0xFF) << _BIT_SHIFT(IRQn)); }
+X        (((priority << (8 - 2)) & 0xFF) << ( (((uint32_t)(IRQn) ) & 0x03) * 8 )); }
+N  else {
+N    NVIC->IPR[_IP_IDX(IRQn)] = (NVIC->IPR[_IP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+X    ((NVIC_Type *) ((0xE000E000) + 0x0100))->IPR[( ((uint32_t)(IRQn) >> 2) )] = (((NVIC_Type *) ((0xE000E000) + 0x0100))->IPR[( ((uint32_t)(IRQn) >> 2) )] & ~(0xFF << ( (((uint32_t)(IRQn) ) & 0x03) * 8 ))) |
+N        (((priority << (8 - __NVIC_PRIO_BITS)) & 0xFF) << _BIT_SHIFT(IRQn)); }
+X        (((priority << (8 - 2)) & 0xFF) << ( (((uint32_t)(IRQn) ) & 0x03) * 8 )); }
+N}
+N
+N/**
+N * @brief  Read the priority for an interrupt
+N *
+N * @param  IRQn      The number of the interrupt for get priority
+N * @return           The priority for the interrupt
+N *
+N * Read the priority for the specified interrupt. The interrupt 
+N * number can be positive to specify an external (device specific) 
+N * interrupt, or negative to specify an internal (core) interrupt.
+N *
+N * The returned priority value is automatically aligned to the implemented
+N * priority bits of the microcontroller.
+N *
+N * Note: The priority cannot be set for every core interrupt.
+N */
+Nstatic __INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)
+Xstatic __inline uint32_t NVIC_GetPriority(IRQn_Type IRQn)
+N{
+N
+N  if(IRQn < 0) {
+N    return((uint32_t)((SCB->SHP[_SHP_IDX(IRQn)] >> _BIT_SHIFT(IRQn) ) >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for Cortex-M0 system interrupts */
+X    return((uint32_t)((((SCB_Type *) ((0xE000E000) + 0x0D00))->SHP[( ((((uint32_t)(IRQn) & 0x0F)-8) >> 2) )] >> ( (((uint32_t)(IRQn) ) & 0x03) * 8 ) ) >> (8 - 2)));  }  
+N  else {
+N    return((uint32_t)((NVIC->IPR[_IP_IDX(IRQn)] >> _BIT_SHIFT(IRQn) ) >> (8 - __NVIC_PRIO_BITS)));  } /* get priority for device specific interrupts  */
+X    return((uint32_t)((((NVIC_Type *) ((0xE000E000) + 0x0100))->IPR[( ((uint32_t)(IRQn) >> 2) )] >> ( (((uint32_t)(IRQn) ) & 0x03) * 8 ) ) >> (8 - 2)));  }  
+N}
+N
+N
+N
+N/* ##################################    SysTick function  ############################################ */
+N
+N#if (!defined (__Vendor_SysTickConfig)) || (__Vendor_SysTickConfig == 0)
+X#if (!1L) || (0 == 0)
+N
+N/**
+N * @brief  Initialize and start the SysTick counter and its interrupt.
+N *
+N * @param   ticks   number of ticks between two interrupts
+N * @return  1 = failed, 0 = successful
+N *
+N * Initialise the system tick timer and its interrupt and start the
+N * system tick timer / counter in free running mode to generate 
+N * periodical interrupts.
+N */
+Nstatic __INLINE uint32_t SysTick_Config(uint32_t ticks)
+Xstatic __inline uint32_t SysTick_Config(uint32_t ticks)
+N{ 
+N  if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* Reload value impossible */
+X  if (ticks > (0xFFFFFFul << 0))  return (1);             
+N                                                               
+N  SysTick->LOAD  = (ticks & SysTick_LOAD_RELOAD_Msk) - 1;      /* set reload register */
+X  ((SysTick_Type *) ((0xE000E000) + 0x0010))->LOAD  = (ticks & (0xFFFFFFul << 0)) - 1;       
+N  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Cortex-M0 System Interrupts */
+X  NVIC_SetPriority (SysTick_IRQn, (1<<2) - 1);   
+N  SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
+X  ((SysTick_Type *) ((0xE000E000) + 0x0010))->VAL   = 0;                                           
+N  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | 
+X  ((SysTick_Type *) ((0xE000E000) + 0x0010))->CTRL  = (1ul << 2) | 
+N                   SysTick_CTRL_TICKINT_Msk   | 
+X                   (1ul << 1)   | 
+N                   SysTick_CTRL_ENABLE_Msk;                    /* Enable SysTick IRQ and SysTick Timer */
+X                   (1ul << 0);                     
+N  return (0);                                                  /* Function successful */
+N}
+N
+N#endif
+N
+N
+N
+N
+N/* ##################################    Reset function  ############################################ */
+N
+N/**
+N * @brief  Initiate a system reset request.
+N *
+N * Initiate a system reset request to reset the MCU
+N */
+Nstatic __INLINE void NVIC_SystemReset(void)
+Xstatic __inline void NVIC_SystemReset(void)
+N{
+N  SCB->AIRCR  = ((0x5FA << SCB_AIRCR_VECTKEY_Pos)      | 
+X  ((SCB_Type *) ((0xE000E000) + 0x0D00))->AIRCR  = ((0x5FA << 16)      | 
+N                 SCB_AIRCR_SYSRESETREQ_Msk);
+X                 (1ul << 2));
+N  __DSB();                                                                             /* Ensure completion of memory access */              
+X  __dsb(0);                                                                                            
+N  while(1);                                                                            /* wait until reset */
+N}
+N
+N/*@}*/ /* end of group CMSIS_CM0_Core_FunctionInterface */
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N/*@}*/ /* end of group CMSIS_CM0_core_definitions */
+N
+N#endif /* __CM0_CORE_H__ */
+N
+N/*lint -restore */
+L 75 "..\CMSIS\NUC1xx\NUC1xx.h" 2
+N#include "system_NUC1xx.h"              /* NUC1xx System                                          */
+L 1 "..\CMSIS\NUC1xx\system_NUC1xx.h" 1
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*                                                                                                         */
+N/* Copyright(c) 2009 Nuvoton Technology Corp. All rights reserved.                                         */
+N/*                                                                                                         */
+N/*---------------------------------------------------------------------------------------------------------*/
+N#ifndef __SYSTEM_NUC1xx_H
+N#define __SYSTEM_NUC1xx_H
+N
+N#ifdef __cplusplus
+S extern "C" {
+N#endif 
+N
+N/*----------------------------------------------------------------------------
+N  Define SYSCLK
+N *----------------------------------------------------------------------------*/
+N#define __XTAL      (12000000UL)
+N#define __RTC_XTAL  (32768UL)
+N#define __IRC22M    (22118400UL)
+N#define __IRC10K    (10000UL)
+N#define __HSI       (__IRC22M)      /* Factory Default is internal 22MHz */
+N
+Nextern uint32_t SystemCoreClock;                   /*!< System Clock Frequency (Core Clock) */
+N
+N
+N/**
+N * Initialize the system
+N *
+N * @param  none
+N * @return none
+N *
+N * @brief  Setup the microcontroller system
+N *         Initialise GPIO directions and values
+N */
+Nextern void SystemInit(void);
+N
+N
+N/**
+N * Update SystemCoreClock variable
+N *
+N * @param  none
+N * @return none
+N *
+N * @brief  Updates the SystemCoreClock with current core Clock 
+N *         retrieved from cpu registers.
+N */
+Nextern void SystemCoreClockUpdate (void);
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 76 "..\CMSIS\NUC1xx\NUC1xx.h" 2
+N#include "SysInfra.h"    
+L 1 "..\BSP_Lib\Inc\System\SysInfra.h" 1
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*                                                                                                         */
+N/* Copyright (c) Nuvoton Technology Corp. All rights reserved.                                             */
+N/*                                                                                                         */
+N/*---------------------------------------------------------------------------------------------------------*/
+N
+N
+N#ifndef __SYSINFRA_H__
+N#define __SYSINFRA_H__
+N
+N/*---------------------------------------------------------------------------------------------------------*/
+N/* Includes of system headers                                                                              */
+N/*---------------------------------------------------------------------------------------------------------*/
+N#include "ModuleID.h"
+L 1 "..\BSP_Lib\Inc\System\ModuleID.h" 1
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*                                                                                                         */
+N/* Copyright (c) Nuvoton Technology Corp. All rights reserved.                                             */
+N/*                                                                                                         */
+N/*---------------------------------------------------------------------------------------------------------*/
+N
+N#ifndef __MODULE_ID_H__
+N#define __MODULE_ID_H__
+N
+N
+Ntypedef enum
+N{
+N	/* Module ID valid range: 0 ~ 255 */
+N	
+N	/* Driver: Module ID					Module Name */
+N	MODULE_ID_DRVPROTECT		= 0,		/* DrvProtect */
+N
+N	MODULE_ID_DRVADC			= 2,		/* DrvADC  */
+N	MODULE_ID_DRVAIC			= 4,		/* DrvAIC  */
+N	MODULE_ID_DRVAPU			= 6,		/* DrvAPU  */
+N	MODULE_ID_DRVAUDIOADC		= 8,		/* DrvAudioADC */
+N	MODULE_ID_DRVCACHE			= 10,		/* DrvCache	*/
+N	MODULE_ID_DRVCAN			= 11,		/* DrvCAN */
+N	MODULE_ID_DRVEBI			= 12,		/* DrvEBI */
+N	MODULE_ID_DRVEDMA			= 13,		/* DrvEDMA */
+N	MODULE_ID_DRVGDMA			= 14,		/* DrvGDMA */
+N	MODULE_ID_DRVFSC			= 15,		/* DrvFSC */
+N	MODULE_ID_DRVGE				= 16,		/* DrvGE  */
+N	MODULE_ID_DRVFMC			= 17,		/* DrvFMC */
+N	MODULE_ID_DRVGPIO			= 18,		/* DrvGPIO */
+N	
+N	MODULE_ID_DRVGPU			= 20,		/* DrvGPU */
+N	MODULE_ID_DRVI2C			= 22,		/* DrvI2C (S/W I2C for Non-UL; H/W I2C for UL) */
+N	MODULE_ID_DRVI2S			= 24,		/* DrvI2S */
+N	MODULE_ID_DRVI2SM			= 26,		/* DrvI2SM	*/
+N	MODULE_ID_DRVMPU			= 28,		/* DrvMPU */
+N	MODULE_ID_DRVNAND			= 30,		/* DrvNAND */
+N	MODULE_ID_DRVNOR			= 32,		/* DrvNOR */
+N	MODULE_ID_DRVPDMA     		= 33,       /* DrvPDMA */
+N	MODULE_ID_DRVPWM			= 34,		/* DrvPWM */
+N	MODULE_ID_DRVPS2			= 35,		/* DrvPS2 */
+N	MODULE_ID_DRVRTC			= 36,		/* DrvRTC */
+N	MODULE_ID_DRVSDCARD			= 38,		/* DrvSDCard */
+N	MODULE_ID_DRVSIO			= 39,		/* DrvSerialIO */
+N
+N	MODULE_ID_DRVSPI			= 40,		/* DrvSPI */
+N	MODULE_ID_DRVSPIMS			= 41,		/* DrvSPIMS	*/
+N	MODULE_ID_DRVSPIFLASH		= 42,		/* DrvSPIFlash */
+N	MODULE_ID_DRVSPIM			= 43,		/* DrvSPIM */
+N	MODULE_ID_DRVSYS			= 44,		/* DrvSystem */
+N	MODULE_ID_DRVSPU			= 45,		/* DrvSPU */
+N	MODULE_ID_DRVTIMER			= 46,		/* DrvTimer	*/
+N	MODULE_ID_DRVUART			= 48,		/* DrvUART */
+N	MODULE_ID_DRVUSB			= 50,		/* DrvUSB */
+N	MODULE_ID_DRVUSBH			= 52,		/* DrvUSBH */
+N	MODULE_ID_DRVVDMA			= 54,		/* DrvVDMA */
+N	MODULE_ID_DRVVIDEOIN		= 56,		/* DrvVideoIn */
+N	MODULE_ID_DRVVPOST			= 58,		/* DrvVPOST	*/
+N
+N	MODULE_ID_DRVVRAM			= 60,		/* DrvVRAM	*/
+N	MODULE_ID_DRVW55U02			= 62,		/* DrvW55U02 */
+N	MODULE_ID_DRVI2CH			= 64,		/* DrvI2CH (H/W I2C for Non-UL) */
+N	MODULE_ID_DRVWDT			= 66,		/* DrvWDT  */
+N	MODULE_ID_DRVJPEG			= 68,		/* DrvJPEG */
+N	
+N	MODULE_ID_DRVZEROG			= 70,		/* DrvZeroG	 */
+N	MODULE_ID_DRVSI2C			= 71,		/* DrvSI2C (S/W I2C for Non-UL) */
+N
+N	/* Audio: Module ID						Module Name */
+N	MODULE_ID_AEC				= 81,		/* AEC	*/
+N	MODULE_ID_BEATDET			= 82,		/* BeatDetection */
+N	MODULE_ID_SNDEFF			= 83,		/* SoundEffect	*/
+N	MODULE_ID_AUDIOSYN			= 84,		/* AudioSynthesizer */
+N	MODULE_ID_G726ADPCM			= 85,		/* G726ADPCM  */
+N	MODULE_ID_IMAADPCM			= 86,		/* IMAAdpcmCodec */
+N	MODULE_ID_MP3DEC			= 88,		/* MP3Decoder */
+N	MODULE_ID_PITCHCHANGE		= 90,		/* PitchChanger	*/
+N	MODULE_ID_WAVFILEUTIL		= 92,		/* WavFileUtil */
+N	MODULE_ID_WMADEC			= 96,		/* WMADecoder  */
+N	MODULE_ID_WMADECDRM			= 98,		/* WMADecoderWithDrm */
+N	MODULE_ID_AUDIOCTRL			= 100,		/* AudioCtrl */
+N	MODULE_ID_EQ				= 106,		/* Equalizer */
+N	MODULE_ID_OGGDEC			= 110,		/* OggDecoder */
+N	MODULE_ID_MP3ENC			= 112,		/* MP3Encoder */
+N	MODULE_ID_UADEC				= 114,		/* UltraAudioDec */
+N	MODULE_ID_ULSPEECHDEC		= 115,		/* UltraLowSpeechDec */
+N	MODULE_ID_USPEECHDEC		= 116,		/* UltraSpeechDec */
+N	MODULE_ID_SPEECHRECOG		= 118,		/* SpeechRecog */
+N
+N	/* File System: Module ID				Module Name */
+N	MODULE_ID_FS				= 120,		/* FileSystem */
+N	
+N	/* Flash Lite: Module ID				Module Name */
+N	MODULE_ID_FL				= 128,		/* FlashLite */
+N	
+N	/* Communication: Module ID				Module Name */
+N	MODULE_ID_KEYPAD			= 130,		/* Keypad  */
+N	MODULE_ID_LWIP				= 132,		/* LwIP	  */
+N	MODULE_ID_WLANMGR			= 134,		/* WLanMgr	*/
+N	MODULE_ID_HTTPD				= 136,		/* HTTPD   */
+N	MODULE_ID_VIRTUALCOM		= 139,		/* VirtualCOM */
+N
+N	/* Graphics: Module ID					Module Name */
+N	MODULE_ID_GFXRESLDR			= 140,		/* GraphicsResLoader */
+N	MODULE_ID_GFXLIB			= 141,		/* GraphicsLib */
+N	MODULE_ID_IMGPROC			= 142,		/* ImageProcess	*/
+N	MODULE_ID_JPEG				= 144,		/* JPEGCodec */
+N	MODULE_ID_PNGDEC			= 146,		/* PNGCodec	*/
+N	MODULE_ID_BARCODE2D			= 148,		/* BarCode2D */	 
+N	MODULE_ID_PTNRECOG			= 150,		/* PtnRecog	*/
+N	MODULE_ID_MOTIONDET			= 152,		/* MotionDection */
+N	
+N	/* Storage: Module ID					Module Name	*/
+N	MODULE_ID_STORIF			= 160,		/* StorageInterface */
+N	MODULE_ID_SDCARD			= 161,		/* SDCard */
+N	MODULE_ID_SYSNAND			= 162,		/* SysNand */
+N	MODULE_ID_SPIFLASH			= 163,		/* SPIFlash	*/
+N	MODULE_ID_WTRIF				= 164,		/* WriterInterface */
+N	MODULE_ID_NORFLASH			= 165,		/* NORFlash	*/
+N	MODULE_ID_SYSNANDLITE		= 166,		/* SysNandLite */
+N	
+N	/* System: Module ID					Module Name */
+N	MODULE_ID_INTMGR			= 180,		/* InterruptManager */
+N	MODULE_ID_BLKLDR			= 181,		/* BlockLoader */
+N	MODULE_ID_MEMMGR			= 182,		/* MemoryManager */
+N	MODULE_ID_EVTMGR			= 183,		/* EventManager	*/
+N	MODULE_ID_PROF				= 184,		/* Profiling  */
+N	MODULE_ID_PROGLDR			= 186,		/* ProgramLoader */
+N	MODULE_ID_SYSINFRA			= 188,		/* SysInfra	*/
+N	MODULE_ID_TIMERCTRL			= 190,		/* TimerCtrl */
+N	MODULE_ID_TIMEUTIL			= 192,		/* TimeUtil	*/
+N	MODULE_ID_CONPROGLDR		= 194,		/* ConsoleProgramLoader */
+N	
+N	/* USB: Module ID						Module Name */
+N	MODULE_ID_USBCOREH			= 78,		/* USBCoreH	*/
+N	MODULE_ID_HID				= 220,		/* HID */
+N	MODULE_ID_MASSSTOR			= 222,		/* MassStor */
+N	MODULE_ID_MASSSTORHID		= 224,		/* MassStorHID */
+N	MODULE_ID_MASSSTORLITE		= 226,		/* MassStorLite	*/
+N	MODULE_ID_MTP				= 230,		/* MTP */
+N	MODULE_ID_USBINFRA			= 232,		/* USBInfra */
+N	MODULE_ID_UAC				= 234,		/* UAC */
+N	MODULE_ID_UAVC				= 236,		/* UAVC	*/
+N	MODULE_ID_UVC				= 238,		/* UVC */
+N	MODULE_ID_MASSSTORH			= 252,		/* MassStorH */
+N	MODULE_ID_HIDH				= 254,		/* HIDH	*/
+N	MODULE_ID_VCOM				= 253,		/* VCOM	*/
+N
+N	/* Security: Module ID					Module Name */
+N	MODULE_ID_MSDRMPD			= 228,		/* MsDrmPd */
+N	
+N	/* Video: Module ID						Module Name */
+N	MODULE_ID_AVICODEC			= 240,		/* AVICodec	 */
+N	MODULE_ID_MJPEG				= 242,		/* MJpegCodec  */
+N	MODULE_ID_WIVICORE			= 244,		/* WiViCore	*/
+N	MODULE_ID_WIVI				= 246,		/* WiViDec */	
+N	MODULE_ID_AVCTRL			= 248,		/* AVControl */
+N	MODULE_ID_AVIUTIL			= 250,		/* AVIUtility */
+N	
+N	/* Wireless Toy							Module Name */
+N	MODULE_ID_WTCHAN			= 168,		/* WTChannel */
+N	MODULE_ID_WTCMDSERV			= 170,		/* WTCMDService */
+N	MODULE_ID_WTDISPLAY			= 172,		/* WTDisplay */
+N	MODULE_ID_WTMEDIA			= 174,		/* WTMedia */
+N	MODULE_ID_WTSYS				= 176,		/* WTSystem	 */
+N	MODULE_ID_WTTRANS			= 178,		/* WTTransport */
+N	
+N	// Module ID valid range: 0 ~ 255	
+N} E_SYSINFRA_MODULE_ID;
+N
+N
+N#endif /* __MODULE_ID_H__ */
+L 15 "..\BSP_Lib\Inc\System\SysInfra.h" 2
+N#include "stdint.h"
+N#include "core_cm0.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N
+N
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*  Define Version number								                                                   */
+N/*---------------------------------------------------------------------------------------------------------*/
+N
+N#define SYSINFRA_MAJOR_NUM		1
+N#define SYSINFRA_MINOR_NUM		00
+N#define SYSINFRA_BUILD_NUM		1
+N
+N/*---------------------------------------------------------------------------------------------------------*/
+N/* Macro, type and constant definitions                                                                    */
+N/*---------------------------------------------------------------------------------------------------------*/
+N/* Define an error code composed of error bit, module ID, and error ID. */
+N#define _SYSINFRA_ERRCODE(IS_ERROR, MODULE_ID_VALUE, ERROR_ID)      (((IS_ERROR) ? 0xFFFF0000 : 0x00000000) | ((((MODULE_ID_VALUE) & 0xFF) | ((IS_ERROR) ? 0x100 : 0x00)) << 7) | ((ERROR_ID) & 0x7F))
+N#define _SYSINFRA_ERRCODE_DEF(MODULE_ID, ERROR_NAME, IS_ERROR, MODULE_ID_VALUE, ERROR_ID) enum {E_##MODULE_ID##_##ERROR_NAME = ((IS_ERROR) ? 0xFFFF0000 : 0x00000000) | ((((MODULE_ID_VALUE) & 0xFF) | ((IS_ERROR) ? 0x100 : 0x00)) << 7) | ((ERROR_ID) & 0x7F)};
+N
+N/* Define a module version composed of major number, minor number, and build number. */
+N#define _SYSINFRA_VERSION(MAJOR_NUM, MINOR_NUM, BUILD_NUM)          (((MAJOR_NUM) << 16) | ((MINOR_NUM) << 8) | (BUILD_NUM))
+N#define _SYSINFRA_VERSION_DEF(MODULE_ID, MAJOR_NUM, MINOR_NUM, BUILD_NUM)	enum {MODULE_ID##_VERSION_NUM = ((MAJOR_NUM) << 16) | ((MINOR_NUM) << 8) | (BUILD_NUM)};
+N
+N/* Test if this error code means an error by seeing its error bit (BIT31). */
+N#define _SYSINFRA_ERRCODE_IS_ERROR(ERROR_CODE)	((ERROR_CODE) < 0)
+N/* Extract module ID part of this error code. */
+N#define _SYSINFRA_ERRCODE_EXTRACT_MODULE_ID(ERROR_CODE)	(((ERROR_CODE) >> 7) & 0xFF)
+N/* Extract error ID part of this error code. */
+N#define _SYSINFRA_ERRCODE_EXTRACT_ERROR_ID(ERROR_CODE)	((ERROR_CODE) & 0x7F)
+N
+N/* Define module version number.*/
+N#define SYSINFRA_VERSION_NUM    _SYSINFRA_VERSION(SYSINFRA_MAJOR_NUM, SYSINFRA_MINOR_NUM, SYSINFRA_BUILD_NUM)
+N
+N#define E_SUCCESS		0
+N#define S_OK			E_SUCCESS
+N
+N
+N/*---------------------------------------------------------------------------------------------------------*/
+N/*  Define Error Code									                                                   */
+N/*---------------------------------------------------------------------------------------------------------*/
+N/* #define Error Code */
+N//E_SYSINFRA_NOT_DEFINE					Un-defined error code	
+N//E_SYSINFRA_NULL_POINTER				A NULL pointer is passed as an argument
+N//E_SYSINFRA_BUFFER_OVERRUN				Buffer size is not enough
+N
+N#define E_SYSINFRA_NOT_DEFINE       _SYSINFRA_ERRCODE(TRUE, MODULE_ID_SYSINFRA, 0)
+N#define E_SYSINFRA_NULL_POINTER     _SYSINFRA_ERRCODE(TRUE, MODULE_ID_SYSINFRA, 1)
+N#define E_SYSINFRA_BUFFER_OVERRUN   _SYSINFRA_ERRCODE(TRUE, MODULE_ID_SYSINFRA, 2)
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif // __SYSINFRA_H__
+N
+N
+N
+L 77 "..\CMSIS\NUC1xx\NUC1xx.h" 2
+N
+N
+N/******************************************************************************/
+N/*                Device Specific Peripheral registers structures             */
+N/******************************************************************************/
+N
+N/*--------------------- General Purpose Input and Ouptut ---------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t PMD0:2;
+X    volatile uint32_t PMD0:2;
+N    __IO uint32_t PMD1:2;
+X    volatile uint32_t PMD1:2;
+N    __IO uint32_t PMD2:2;
+X    volatile uint32_t PMD2:2;
+N    __IO uint32_t PMD3:2;
+X    volatile uint32_t PMD3:2;
+N    __IO uint32_t PMD4:2;
+X    volatile uint32_t PMD4:2;
+N    __IO uint32_t PMD5:2;
+X    volatile uint32_t PMD5:2;
+N    __IO uint32_t PMD6:2;
+X    volatile uint32_t PMD6:2;
+N    __IO uint32_t PMD7:2;
+X    volatile uint32_t PMD7:2;
+N    __IO uint32_t PMD8:2;
+X    volatile uint32_t PMD8:2;
+N    __IO uint32_t PMD9:2;
+X    volatile uint32_t PMD9:2;
+N    __IO uint32_t PMD10:2;
+X    volatile uint32_t PMD10:2;
+N    __IO uint32_t PMD11:2;
+X    volatile uint32_t PMD11:2;
+N    __IO uint32_t PMD12:2;
+X    volatile uint32_t PMD12:2;
+N    __IO uint32_t PMD13:2;
+X    volatile uint32_t PMD13:2;
+N    __IO uint32_t PMD14:2;
+X    volatile uint32_t PMD14:2;
+N    __IO uint32_t PMD15:2;
+X    volatile uint32_t PMD15:2;
+N} GPIO_PMD_T;
+N
+Ntypedef __IO uint32_t GPIO_OFFD_T;
+Xtypedef volatile uint32_t GPIO_OFFD_T;
+N
+Ntypedef __IO uint32_t GPIO_DOUT_T;
+Xtypedef volatile uint32_t GPIO_DOUT_T;
+N
+Ntypedef __IO uint32_t GPIO_DMASK_T;
+Xtypedef volatile uint32_t GPIO_DMASK_T;
+N
+Ntypedef __IO uint32_t GPIO_PIN_T;
+Xtypedef volatile uint32_t GPIO_PIN_T;
+N
+Ntypedef __IO uint32_t GPIO_DBEN_T;
+Xtypedef volatile uint32_t GPIO_DBEN_T;
+N
+Ntypedef __IO uint32_t GPIO_IMD_T;
+Xtypedef volatile uint32_t GPIO_IMD_T;
+N
+Ntypedef __IO uint32_t GPIO_IEN_T;
+Xtypedef volatile uint32_t GPIO_IEN_T;
+N
+Ntypedef __IO uint32_t GPIO_ISRC_T;
+Xtypedef volatile uint32_t GPIO_ISRC_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  DBCLKSEL:4;
+X    volatile uint32_t  DBCLKSEL:4;
+N    __IO uint32_t  DBCLKSRC:1;
+X    volatile uint32_t  DBCLKSRC:1;
+N    __IO uint32_t  ICLK_ON:1;
+X    volatile uint32_t  ICLK_ON:1;
+N    __I  uint32_t  RESERVE:26;    
+X    volatile const  uint32_t  RESERVE:26;    
+N} GPIO_DBNCECON_T;
+N
+Ntypedef struct
+N{
+N    GPIO_PMD_T      PMD;
+N    GPIO_OFFD_T     OFFD;
+N    GPIO_DOUT_T     DOUT;
+N    GPIO_DMASK_T    DMASK;
+N    GPIO_PIN_T      PIN;
+N    GPIO_DBEN_T     DBEN;
+N    GPIO_IMD_T      IMD;
+N    GPIO_IEN_T      IEN;
+N    GPIO_ISRC_T     ISRC;
+N    
+N} GPIO_T;
+N
+N
+N/*------------------------- UART Interface Controller ------------------------*/
+N
+Ntypedef __IO uint32_t UART_DATA_T;
+Xtypedef volatile uint32_t UART_DATA_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RDA_IEN:1;
+X    volatile uint32_t  RDA_IEN:1;
+N    __IO uint32_t  THRE_IEN:1;
+X    volatile uint32_t  THRE_IEN:1;
+N    __IO uint32_t  RLS_IEN:1;
+X    volatile uint32_t  RLS_IEN:1;
+N    __IO uint32_t  MODEM_IEN:1;
+X    volatile uint32_t  MODEM_IEN:1;
+N    __IO uint32_t  RTO_IEN:1;	  
+X    volatile uint32_t  RTO_IEN:1;	  
+N    __IO uint32_t  BUF_ERR_IEN:1;
+X    volatile uint32_t  BUF_ERR_IEN:1;
+N    __IO uint32_t  WAKE_IEN:1;
+X    volatile uint32_t  WAKE_IEN:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N	__IO uint32_t  LIN_RX_BRK_IEN:1;
+X	volatile uint32_t  LIN_RX_BRK_IEN:1;
+N    __I  uint32_t  RESERVE1:2;
+X    volatile const  uint32_t  RESERVE1:2;
+N    __IO uint32_t  TIME_OUT_EN:1;      /* Time-out counter enable */
+X    volatile uint32_t  TIME_OUT_EN:1;       
+N    __IO uint32_t  AUTO_RTS_EN:1;
+X    volatile uint32_t  AUTO_RTS_EN:1;
+N    __IO uint32_t  AUTO_CTS_EN:1;
+X    volatile uint32_t  AUTO_CTS_EN:1;
+N    __IO uint32_t  DMA_TX_EN:1;
+X    volatile uint32_t  DMA_TX_EN:1;
+N    __IO uint32_t  DMA_RX_EN:1;
+X    volatile uint32_t  DMA_RX_EN:1;
+N    __I  uint32_t  RESERVE2:16;    
+X    volatile const  uint32_t  RESERVE2:16;    
+N    
+N} UART_IER_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  RFR:1;
+X    volatile uint32_t  RFR:1;
+N    __IO uint32_t  TFR:1;
+X    volatile uint32_t  TFR:1;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __IO uint32_t  RFITL:4;             /* Rx FIFO Interrupt Trigger Level */
+X    volatile uint32_t  RFITL:4;              
+N    __IO uint32_t  RX_DIS:1;
+X    volatile uint32_t  RX_DIS:1;
+N    __I  uint32_t  RESERVE2:7;
+X    volatile const  uint32_t  RESERVE2:7;
+N    __IO uint32_t  RTS_TRI_LEVEL:4;
+X    volatile uint32_t  RTS_TRI_LEVEL:4;
+N    __I  uint32_t  RESERVE3:12;
+X    volatile const  uint32_t  RESERVE3:12;
+N} UART_FCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  WLS:2;               /* Word length select */
+X    volatile uint32_t  WLS:2;                
+N    __IO uint32_t  NSB:1;               /* Number of STOP bit */
+X    volatile uint32_t  NSB:1;                
+N    __IO uint32_t  PBE:1;               /* Parity bit enable  */
+X    volatile uint32_t  PBE:1;                
+N    __IO uint32_t  EPE:1;               /* Even parity enable */
+X    volatile uint32_t  EPE:1;                
+N    __IO uint32_t  SPE:1;               /* Stick parity enable*/
+X    volatile uint32_t  SPE:1;                
+N    __IO uint32_t  BCB:1;               /* Break control bit  */
+X    volatile uint32_t  BCB:1;                
+N    __I  uint32_t  RESERVE:25;
+X    volatile const  uint32_t  RESERVE:25;
+N} UART_LCR_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  RTS:1;
+X    volatile uint32_t  RTS:1;
+N    __I  uint32_t  RESERVE1:2;
+X    volatile const  uint32_t  RESERVE1:2;
+N    __IO uint32_t  LBME:1;
+X    volatile uint32_t  LBME:1;
+N    __I  uint32_t  RESERVE2:4;
+X    volatile const  uint32_t  RESERVE2:4;
+N    __IO uint32_t  LEV_RTS:1;
+X    volatile uint32_t  LEV_RTS:1;
+N    __I  uint32_t  RESERVE3:3;
+X    volatile const  uint32_t  RESERVE3:3;
+N    __I  uint32_t  RTS_ST:1;               /* RTS status */
+X    volatile const  uint32_t  RTS_ST:1;                
+N    __I  uint32_t  RESERVE4:18;
+X    volatile const  uint32_t  RESERVE4:18;
+N} UART_MCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  DCTSF:1;
+X    volatile uint32_t  DCTSF:1;
+N    __I  uint32_t  RESERVE0:3;
+X    volatile const  uint32_t  RESERVE0:3;
+N    __I  uint32_t  CTS_ST:1;               /* CTS status */
+X    volatile const  uint32_t  CTS_ST:1;                
+N    __I  uint32_t  RESERVE1:3;
+X    volatile const  uint32_t  RESERVE1:3;
+N    __IO uint32_t  LEV_CTS:1;
+X    volatile uint32_t  LEV_CTS:1;
+N    __I  uint32_t  RESERVE2:23;
+X    volatile const  uint32_t  RESERVE2:23;
+N} UART_MSR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RX_OVER_IF:1;
+X    volatile uint32_t  RX_OVER_IF:1;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N	__IO uint32_t  RS485_ADD_DETF:1;
+X	volatile uint32_t  RS485_ADD_DETF:1;
+N    __IO uint32_t  PEF:1;
+X    volatile uint32_t  PEF:1;
+N    __IO uint32_t  FEF:1;
+X    volatile uint32_t  FEF:1;
+N    __IO uint32_t  BIF:1;
+X    volatile uint32_t  BIF:1;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __I  uint32_t  RX_POINTER:6;
+X    volatile const  uint32_t  RX_POINTER:6;
+N    __I  uint32_t  RX_EMPTY:1;
+X    volatile const  uint32_t  RX_EMPTY:1;
+N    __I  uint32_t  RX_FULL:1;
+X    volatile const  uint32_t  RX_FULL:1;
+N    __I  uint32_t  TX_POINTER:6;
+X    volatile const  uint32_t  TX_POINTER:6;
+N    __I  uint32_t  TX_EMPTY:1;
+X    volatile const  uint32_t  TX_EMPTY:1;
+N    __I  uint32_t  TX_FULL:1;
+X    volatile const  uint32_t  TX_FULL:1;
+N    __IO uint32_t  TX_OVER_IF:1;
+X    volatile uint32_t  TX_OVER_IF:1;
+N    __I  uint32_t  RESERVE2:3;
+X    volatile const  uint32_t  RESERVE2:3;
+N    __I  uint32_t  TE_FLAG:1;                /* Transmitter empty flag */
+X    volatile const  uint32_t  TE_FLAG:1;                 
+N    __I  uint32_t  RESERVE3:3;
+X    volatile const  uint32_t  RESERVE3:3;
+N} UART_FSR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RDA_IF:1;
+X    volatile uint32_t  RDA_IF:1;
+N    __IO uint32_t  THRE_IF:1;
+X    volatile uint32_t  THRE_IF:1;
+N    __IO uint32_t  RLS_IF:1;
+X    volatile uint32_t  RLS_IF:1;
+N    __IO uint32_t  MODEM_IF:1;
+X    volatile uint32_t  MODEM_IF:1;
+N    __IO uint32_t  TOUT_IF:1;
+X    volatile uint32_t  TOUT_IF:1;
+N    __IO uint32_t  BUF_ERR_IF:1;
+X    volatile uint32_t  BUF_ERR_IF:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  LIN_RX_BREAK_IF:1;
+X    volatile uint32_t  LIN_RX_BREAK_IF:1;
+N
+N    __IO uint32_t  RDA_INT:1;
+X    volatile uint32_t  RDA_INT:1;
+N    __IO uint32_t  THRE_INT:1;
+X    volatile uint32_t  THRE_INT:1;
+N    __IO uint32_t  RLS_INT:1;
+X    volatile uint32_t  RLS_INT:1;
+N    __IO uint32_t  MODEM_INT:1;
+X    volatile uint32_t  MODEM_INT:1;
+N    __IO uint32_t  TOUT_INT:1;
+X    volatile uint32_t  TOUT_INT:1;
+N    __IO uint32_t  BUF_ERR_INT:1;
+X    volatile uint32_t  BUF_ERR_INT:1;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __IO uint32_t  LIN_Rx_Break_INT:1;
+X    volatile uint32_t  LIN_Rx_Break_INT:1;
+N
+N    __I  uint32_t  RESERVE2:2;
+X    volatile const  uint32_t  RESERVE2:2;
+N    __IO uint32_t  HW_RLS_IF:1;
+X    volatile uint32_t  HW_RLS_IF:1;
+N    __IO uint32_t  HW_MODEM_IF:1;
+X    volatile uint32_t  HW_MODEM_IF:1;
+N    __IO uint32_t  HW_TOUT_IF:1;
+X    volatile uint32_t  HW_TOUT_IF:1;
+N    __IO uint32_t  HW_BUF_ERR_IF:1;
+X    volatile uint32_t  HW_BUF_ERR_IF:1;
+N    __IO uint32_t  RESERVE3:1;
+X    volatile uint32_t  RESERVE3:1;
+N    __IO uint32_t  HW_LIN_RX_BREAK_IF:1;
+X    volatile uint32_t  HW_LIN_RX_BREAK_IF:1;
+N
+N    __I  uint32_t  RESERVE4:2;
+X    volatile const  uint32_t  RESERVE4:2;
+N    __IO uint32_t  HW_RLS_INT:1;
+X    volatile uint32_t  HW_RLS_INT:1;
+N    __IO uint32_t  HW_MODEM_INT:1;
+X    volatile uint32_t  HW_MODEM_INT:1;
+N    __IO uint32_t  HW_TOUT_INT:1;
+X    volatile uint32_t  HW_TOUT_INT:1;
+N    __IO uint32_t  HW_BUF_ERR_INT:1;
+X    volatile uint32_t  HW_BUF_ERR_INT:1;
+N    __IO uint32_t  RESERVE5:1;
+X    volatile uint32_t  RESERVE5:1;
+N    __IO uint32_t  HW_LIN_RX_BREAK_INT:1;
+X    volatile uint32_t  HW_LIN_RX_BREAK_INT:1;
+N} UART_ISR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TOIC:7;
+X    volatile uint32_t  TOIC:7;
+N	__I  uint32_t  RESERVE0:1;
+X	volatile const  uint32_t  RESERVE0:1;
+N	__IO uint32_t  DLY:8;
+X	volatile uint32_t  DLY:8;
+N    __I  uint32_t  RESERVE1:16;
+X    volatile const  uint32_t  RESERVE1:16;
+N
+N} UART_TOR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  BRD:16;
+X    volatile uint32_t  BRD:16;
+N    __I  uint32_t  RESERVE0:8;
+X    volatile const  uint32_t  RESERVE0:8;
+N    __IO uint32_t  DIVIDER_X:4;
+X    volatile uint32_t  DIVIDER_X:4;
+N    __IO uint32_t  DIV_X_ONE:1;            
+X    volatile uint32_t  DIV_X_ONE:1;            
+N    __IO uint32_t  DIV_X_EN:1;            
+X    volatile uint32_t  DIV_X_EN:1;            
+N    __I  uint32_t  RESERVE1:2;
+X    volatile const  uint32_t  RESERVE1:2;
+N} UART_BAUD_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  TX_SELECT:1;
+X    volatile uint32_t  TX_SELECT:1;
+N    __I  uint32_t  RESERVE1:3;
+X    volatile const  uint32_t  RESERVE1:3;
+N    __IO uint32_t  INV_TX:1;            
+X    volatile uint32_t  INV_TX:1;            
+N    __IO uint32_t  INV_RX:1;
+X    volatile uint32_t  INV_RX:1;
+N    __I  uint32_t  RESERVE2:25;
+X    volatile const  uint32_t  RESERVE2:25;
+N} UART_IRCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  LIN_BKFL:4;
+X    volatile uint32_t  LIN_BKFL:4;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  LIN_RX_EN:1;
+X    volatile uint32_t  LIN_RX_EN:1;
+N    __IO uint32_t  LIN_TX_EN:1;            
+X    volatile uint32_t  LIN_TX_EN:1;            
+N    __IO uint32_t  RS485_NMM:1;
+X    volatile uint32_t  RS485_NMM:1;
+N	__IO uint32_t  RS485_AAD:1;
+X	volatile uint32_t  RS485_AAD:1;
+N	__IO uint32_t  RS485_AUD:1;
+X	volatile uint32_t  RS485_AUD:1;
+N	__I  uint32_t  RESERVE1:4;
+X	volatile const  uint32_t  RESERVE1:4;
+N	__IO uint32_t  RS485_ADD_EN:1;
+X	volatile uint32_t  RS485_ADD_EN:1;
+N	__I  uint32_t  RESERVE2:8;
+X	volatile const  uint32_t  RESERVE2:8;
+N	__IO uint32_t  ADDR_MATCH:8;
+X	volatile uint32_t  ADDR_MATCH:8;
+N} UART_ALTCON_T;
+N
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FUN_SEL:2;
+X    volatile uint32_t  FUN_SEL:2;
+N    __I  uint32_t  RESERVE0:30;
+X    volatile const  uint32_t  RESERVE0:30;
+N
+N} UART_FUNSEL_T;
+N
+N
+Ntypedef struct
+N{
+N    UART_DATA_T     DATA;
+N    UART_IER_T      IER;
+N    UART_FCR_T      FCR;
+N    UART_LCR_T      LCR;
+N    UART_MCR_T      MCR;
+N    UART_MSR_T      MSR;
+N    UART_FSR_T      FSR;
+N    UART_ISR_T      ISR;
+N    UART_TOR_T      TOR;
+N    UART_BAUD_T     BAUD;
+N    UART_IRCR_T     IRCR;
+N    UART_ALTCON_T   ALTCON;    
+N	UART_FUNSEL_T   FUNSEL;    
+N} UART_T;
+N
+N/*----------------------------- Timer Controller -----------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  PRESCALE:8;
+X    volatile uint32_t  PRESCALE:8;
+N    __I  uint32_t  RESERVE0:8;
+X    volatile const  uint32_t  RESERVE0:8;
+N    __IO uint32_t  TDR_EN:1;
+X    volatile uint32_t  TDR_EN:1;
+N    __I  uint32_t  RESERVE1:7;
+X    volatile const  uint32_t  RESERVE1:7;
+N	__IO uint32_t  COUNTER_EN:1;		  
+X	volatile uint32_t  COUNTER_EN:1;		  
+N    __IO uint32_t  CACT:1;		  
+X    volatile uint32_t  CACT:1;		  
+N    __IO uint32_t  CRST:1;
+X    volatile uint32_t  CRST:1;
+N    __IO uint32_t  MODE:2;
+X    volatile uint32_t  MODE:2;
+N    __IO uint32_t  IE:1;
+X    volatile uint32_t  IE:1;
+N    __IO uint32_t  CEN:1;
+X    volatile uint32_t  CEN:1;
+N    __IO uint32_t  nDBGACK_EN:1;
+X    volatile uint32_t  nDBGACK_EN:1;
+N} TIMER_TCSR_T;
+N
+Ntypedef __IO uint32_t TIMER_TCMPR_T;
+Xtypedef volatile uint32_t TIMER_TCMPR_T;
+N
+Ntypedef __IO uint32_t TIMER_TDR_T;
+Xtypedef volatile uint32_t TIMER_TDR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TIF:1;
+X    volatile uint32_t  TIF:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} TIMER_TISR_T;
+N
+Ntypedef struct
+N{
+N    TIMER_TCSR_T     TCSR;
+N    TIMER_TCMPR_T    TCMPR;
+N    TIMER_TISR_T     TISR;    
+N    TIMER_TDR_T      TDR;
+N } TIMER_T;
+N
+N
+N/*----------------------------- WDT Controller -----------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  WTR:1;
+X    volatile uint32_t  WTR:1;
+N	__IO uint32_t  WTRE:1;
+X	volatile uint32_t  WTRE:1;
+N	__IO uint32_t  WTRF:1;
+X	volatile uint32_t  WTRF:1;
+N	__IO uint32_t  WTIF:1;
+X	volatile uint32_t  WTIF:1;
+N	__IO uint32_t  WTWKE:1;
+X	volatile uint32_t  WTWKE:1;
+N	__I  uint32_t  WTWKF:1;
+X	volatile const  uint32_t  WTWKF:1;
+N	__IO uint32_t  WTIE:1;
+X	volatile uint32_t  WTIE:1;
+N	__IO uint32_t  WTE:1;
+X	volatile uint32_t  WTE:1;
+N	__IO uint32_t  WTIS:3;
+X	volatile uint32_t  WTIS:3;
+N    __I  uint32_t  RESERVE1:21;
+X    volatile const  uint32_t  RESERVE1:21;
+N} WDT_WTCR_T;
+N
+Ntypedef struct
+N{
+N    WDT_WTCR_T     WTCR;
+N    
+N } WDT_T;
+N
+N/*------------------------- SPI Interface Controller -------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  GO_BUSY:1;
+X    volatile uint32_t  GO_BUSY:1;
+N    __IO uint32_t  RX_NEG:1;
+X    volatile uint32_t  RX_NEG:1;
+N    __IO uint32_t  TX_NEG:1;
+X    volatile uint32_t  TX_NEG:1;
+N    __IO uint32_t  TX_BIT_LEN:5;
+X    volatile uint32_t  TX_BIT_LEN:5;
+N    __IO uint32_t  TX_NUM:2;
+X    volatile uint32_t  TX_NUM:2;
+N    __IO uint32_t  LSB:1;
+X    volatile uint32_t  LSB:1;
+N    __IO uint32_t  CLKP:1;
+X    volatile uint32_t  CLKP:1;
+N    __IO uint32_t  SP_CYCLE:4;
+X    volatile uint32_t  SP_CYCLE:4;
+N    __IO uint32_t  IF:1;
+X    volatile uint32_t  IF:1;
+N    __IO uint32_t  IE:1;
+X    volatile uint32_t  IE:1;
+N    __IO uint32_t  SLAVE:1;
+X    volatile uint32_t  SLAVE:1;
+N    __IO uint32_t  BYTE_REORDER:2;
+X    volatile uint32_t  BYTE_REORDER:2;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  TWOB:1;
+X    volatile uint32_t  TWOB:1;
+N    __IO uint32_t  VARCLK_EN:1;
+X    volatile uint32_t  VARCLK_EN:1;
+N    __I  uint32_t  RESERVE:8;
+X    volatile const  uint32_t  RESERVE:8;
+N} SPI_CNTRL_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  DIVIDER:16;
+X    volatile uint32_t  DIVIDER:16;
+N    __IO uint32_t  DIVIDER2:16;
+X    volatile uint32_t  DIVIDER2:16;
+N} SPI_DIVIDER_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  SSR:2;
+X    volatile uint32_t  SSR:2;
+N    __IO uint32_t  SS_LVL:1;
+X    volatile uint32_t  SS_LVL:1;
+N    __IO uint32_t  AUTOSS:1;
+X    volatile uint32_t  AUTOSS:1;
+N    __IO uint32_t  SS_LTRIG:1;
+X    volatile uint32_t  SS_LTRIG:1;
+N    __IO uint32_t  LTRIG_FLAG:1;
+X    volatile uint32_t  LTRIG_FLAG:1;
+N    __I  uint32_t  RESERVE:26;
+X    volatile const  uint32_t  RESERVE:26;
+N} SPI_SSR_T;
+N
+N
+Ntypedef __I  uint32_t   SPI_RX_T;
+Xtypedef volatile const  uint32_t   SPI_RX_T;
+Ntypedef __O  uint32_t   SPI_TX_T;
+Xtypedef volatile  uint32_t   SPI_TX_T;
+Ntypedef __IO uint32_t SPI_VARCLK_T;
+Xtypedef volatile uint32_t SPI_VARCLK_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TX_DMA_GO:1;
+X    volatile uint32_t  TX_DMA_GO:1;
+N    __IO uint32_t  RX_DMA_GO:1;
+X    volatile uint32_t  RX_DMA_GO:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} SPI_DMA_T;
+N
+Ntypedef struct
+N{
+N    SPI_CNTRL_T     CNTRL;
+N    SPI_DIVIDER_T   DIVIDER;
+N    SPI_SSR_T       SSR;
+N    uint32_t        RESERVE0;
+N    SPI_RX_T        RX[2];
+N    uint32_t        RESERVE1;
+N    uint32_t        RESERVE2;
+N    SPI_TX_T        TX[2];
+N    uint32_t        RESERVE3;
+N    uint32_t        RESERVE4;
+N    uint32_t        RESERVE5;
+N    SPI_VARCLK_T    VARCLK;
+N    SPI_DMA_T       DMA;
+N} SPI_T;
+N
+N/*------------------------------ I2C Controller ------------------------------*/
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  AA:1;
+X    volatile uint32_t  AA:1;
+N    __IO uint32_t  SI:1;
+X    volatile uint32_t  SI:1;
+N    __IO uint32_t  STO:1;
+X    volatile uint32_t  STO:1;
+N    __IO uint32_t  STA:1;
+X    volatile uint32_t  STA:1;
+N    __IO uint32_t  ENSI:1;
+X    volatile uint32_t  ENSI:1;
+N   	__IO uint32_t  EI:1;
+X   	volatile uint32_t  EI:1;
+N    __I  uint32_t  RESERVE1:24;
+X    volatile const  uint32_t  RESERVE1:24;
+N} I2C_CON_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  GC:1;
+X    volatile uint32_t  GC:1;
+N    __IO uint32_t  ADDR:7;
+X    volatile uint32_t  ADDR:7;
+N    __I  uint32_t  RESERVE:24;
+X    volatile const  uint32_t  RESERVE:24;
+N} I2C_ADDR_T;
+N
+Ntypedef __IO uint32_t I2C_DATA_T;
+Xtypedef volatile uint32_t I2C_DATA_T;
+N
+Ntypedef __I  uint32_t I2C_STATUS_T;
+Xtypedef volatile const  uint32_t I2C_STATUS_T;
+N
+Ntypedef __IO uint32_t I2C_CLK_T;
+Xtypedef volatile uint32_t I2C_CLK_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TIF:1;
+X    volatile uint32_t  TIF:1;
+N    __IO uint32_t  DIV4:1;
+X    volatile uint32_t  DIV4:1;
+N    __IO uint32_t  ENTI:1;
+X    volatile uint32_t  ENTI:1;
+N    __I  uint32_t  RESERVE:29;
+X    volatile const  uint32_t  RESERVE:29;
+N} I2C_TOC_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  ADM:7;
+X    volatile uint32_t  ADM:7;
+N    __I  uint32_t  RESERVE1:24;
+X    volatile const  uint32_t  RESERVE1:24;
+N} I2C_ADRM_T;
+N
+Ntypedef struct
+N{
+N    I2C_CON_T       CON;
+N    I2C_ADDR_T      ADDR0;
+N    I2C_DATA_T      DATA;
+N    I2C_STATUS_T    STATUS;
+N    I2C_CLK_T       CLK;
+N    I2C_TOC_T       TOC;
+N	I2C_ADDR_T	    ADDR1;
+N	I2C_ADDR_T	    ADDR2;
+N	I2C_ADDR_T	    ADDR3;
+N	I2C_ADRM_T		ADRM0;
+N	I2C_ADRM_T		ADRM1;
+N	I2C_ADRM_T		ADRM2;
+N	I2C_ADRM_T	    ADRM3;        
+N} I2C_T;
+N
+N
+N/*----------------------------- RTC Controller -------------------------------*/
+N
+Ntypedef __IO uint32_t RTC_INIR_T;
+Xtypedef volatile uint32_t RTC_INIR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  AER:16;
+X    volatile uint32_t  AER:16;
+N    __I  uint32_t  ENF:1;
+X    volatile const  uint32_t  ENF:1;
+N    __I  uint32_t  RESERVE1:15;
+X    volatile const  uint32_t  RESERVE1:15;
+N} RTC_AER_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FRACTION:6;
+X    volatile uint32_t  FRACTION:6;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  INTEGER:4;
+X    volatile uint32_t  INTEGER:4;
+N    __I  uint32_t  RESERVE1:20;
+X    volatile const  uint32_t  RESERVE1:20;
+N} RTC_FCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  SEC1:4;
+X    volatile uint32_t  SEC1:4;
+N    __IO uint32_t  SEC10:3;
+X    volatile uint32_t  SEC10:3;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  MIN1:4;
+X    volatile uint32_t  MIN1:4;
+N    __IO uint32_t  MIN10:3;
+X    volatile uint32_t  MIN10:3;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __IO uint32_t  HR1:4;
+X    volatile uint32_t  HR1:4;
+N    __IO uint32_t  HR10:2;
+X    volatile uint32_t  HR10:2;
+N    __I  uint32_t  RESERVE2:10;
+X    volatile const  uint32_t  RESERVE2:10;
+N} RTC_TLR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  DAY1:4;
+X    volatile uint32_t  DAY1:4;
+N    __IO uint32_t  DAY10:2;
+X    volatile uint32_t  DAY10:2;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  MON1:4;
+X    volatile uint32_t  MON1:4;
+N    __IO uint32_t  MON10:1;
+X    volatile uint32_t  MON10:1;
+N    __I  uint32_t  RESERVE1:3;
+X    volatile const  uint32_t  RESERVE1:3;
+N    __IO uint32_t  YEAR1:4;
+X    volatile uint32_t  YEAR1:4;
+N    __IO uint32_t  YEAR10:4;
+X    volatile uint32_t  YEAR10:4;
+N    __I  uint32_t  RESERVE2:8;
+X    volatile const  uint32_t  RESERVE2:8;
+N} RTC_CLR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  HR24:1;
+X    volatile uint32_t  HR24:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} RTC_TSSR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  DWR:3;
+X    volatile uint32_t  DWR:3;
+N    __I  uint32_t  RESERVE:29;
+X    volatile const  uint32_t  RESERVE:29;
+N} RTC_DWR_T;
+N
+Ntypedef RTC_TLR_T   RTC_TAR_T;
+Ntypedef RTC_CLR_T   RTC_CAR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  LIR:1;
+X    volatile uint32_t  LIR:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} RTC_LIR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  AIER:1;
+X    volatile uint32_t  AIER:1;
+N    __IO uint32_t  TIER:1;
+X    volatile uint32_t  TIER:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} RTC_RIER_T;
+N
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  AI:1;
+X    volatile uint32_t  AI:1;
+N    __IO uint32_t  TI:1;
+X    volatile uint32_t  TI:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} RTC_RIIR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TTR:3;
+X    volatile uint32_t  TTR:3;
+N	__IO uint32_t  TWKE:1;
+X	volatile uint32_t  TWKE:1;
+N    __I  uint32_t  RESERVE:28;
+X    volatile const  uint32_t  RESERVE:28;
+N} RTC_TTR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PTOUT:16;
+X    volatile uint32_t  PTOUT:16;
+N    __I  uint32_t  RESERVE0:7;
+X    volatile const  uint32_t  RESERVE0:7;
+N    __IO uint32_t  PWROFF:1;
+X    volatile uint32_t  PWROFF:1;
+N    __I  uint32_t  RESERVE1:8;
+X    volatile const  uint32_t  RESERVE1:8;
+N} RTC_PWRCON_T;
+N
+Ntypedef struct
+N{
+N    RTC_INIR_T  INIR;
+N    RTC_AER_T   AER;
+N    RTC_FCR_T   FCR;
+N    RTC_TLR_T   TLR;
+N    RTC_CLR_T   CLR;
+N    RTC_TSSR_T  TSSR;
+N    RTC_DWR_T   DWR;
+N    RTC_TAR_T   TAR;
+N    RTC_CAR_T   CAR;
+N    RTC_LIR_T   LIR;
+N    RTC_RIER_T  RIER;
+N    RTC_RIIR_T  RIIR;
+N    RTC_TTR_T   TTR;
+N    RTC_PWRCON_T   PWRCON;
+N} RTC_T;
+N
+N
+N/*----------------------------- ADC Controller -------------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  RSLT:16;
+X    volatile uint32_t  RSLT:16;
+N    __IO uint32_t  OVERRUN:1;
+X    volatile uint32_t  OVERRUN:1;
+N    __IO uint32_t  VALID:1;
+X    volatile uint32_t  VALID:1;
+N    __I  uint32_t  RESERVE1:14;
+X    volatile const  uint32_t  RESERVE1:14;
+N} ADC_ADDR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  ADEN:1;
+X    volatile uint32_t  ADEN:1;
+N    __IO uint32_t  ADIE:1;
+X    volatile uint32_t  ADIE:1;
+N    __IO uint32_t  ADMD:2;
+X    volatile uint32_t  ADMD:2;
+N    __IO uint32_t  TRGS:2;
+X    volatile uint32_t  TRGS:2;
+N    __IO uint32_t  TRGCOND:2;
+X    volatile uint32_t  TRGCOND:2;
+N    __IO uint32_t  TRGEN:1;
+X    volatile uint32_t  TRGEN:1;
+N    __IO uint32_t  PTEN:1;
+X    volatile uint32_t  PTEN:1;
+N    __IO uint32_t  DIFFEN:1;
+X    volatile uint32_t  DIFFEN:1;
+N    __IO uint32_t  ADST:1;
+X    volatile uint32_t  ADST:1;
+N    __I  uint32_t  RESERVE0:19;
+X    volatile const  uint32_t  RESERVE0:19;
+N    __IO uint32_t  DMOF:1;
+X    volatile uint32_t  DMOF:1;
+N} ADC_ADCR_T;
+N
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CHEN:8;
+X    volatile uint32_t  CHEN:8;
+N    __IO uint32_t  PRESEL:2;
+X    volatile uint32_t  PRESEL:2;
+N    __I  uint32_t  RESERVE:22;
+X    volatile const  uint32_t  RESERVE:22;
+N} ADC_ADCHER_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CMPEN:1;
+X    volatile uint32_t  CMPEN:1;
+N    __IO uint32_t  CMPIE:1;
+X    volatile uint32_t  CMPIE:1;
+N    __IO uint32_t  CMPCOND:1;
+X    volatile uint32_t  CMPCOND:1;
+N    __IO uint32_t  CMPCH:3;
+X    volatile uint32_t  CMPCH:3;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  CMPMATCNT:4;
+X    volatile uint32_t  CMPMATCNT:4;
+N    __I  uint32_t  RESERVE1:4;
+X    volatile const  uint32_t  RESERVE1:4;
+N    __IO uint32_t  CMPD:12;
+X    volatile uint32_t  CMPD:12;
+N    __I  uint32_t  RESERVE2:4;
+X    volatile const  uint32_t  RESERVE2:4;
+N} ADC_ADCMPR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  ADF:1;
+X    volatile uint32_t  ADF:1;
+N    __IO uint32_t  CMPF0:1;
+X    volatile uint32_t  CMPF0:1;
+N    __IO uint32_t  CMPF1:1;
+X    volatile uint32_t  CMPF1:1;
+N    __IO uint32_t  BUSY:1;
+X    volatile uint32_t  BUSY:1;
+N    __IO uint32_t  CHANNEL:3;
+X    volatile uint32_t  CHANNEL:3;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  VALID:8;
+X    volatile uint32_t  VALID:8;
+N    __IO uint32_t  OVERRUN:8;
+X    volatile uint32_t  OVERRUN:8;
+N    __I  uint32_t  RESERVE1:8;
+X    volatile const  uint32_t  RESERVE1:8;
+N} ADC_ADSR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CALEN:1;
+X    volatile uint32_t  CALEN:1;
+N    __IO uint32_t  CALDONE:1;
+X    volatile uint32_t  CALDONE:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} ADC_ADCALR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  AD_PDMA:12;
+X    volatile uint32_t  AD_PDMA:12;
+N    __I  uint32_t  RESERVE:20;
+X    volatile const  uint32_t  RESERVE:20;
+N} ADC_ADPDMA_T;
+N
+Ntypedef struct
+N{
+N    ADC_ADDR_T      ADDR[8];
+N    ADC_ADCR_T      ADCR;
+N    ADC_ADCHER_T    ADCHER;
+N    ADC_ADCMPR_T    ADCMPR[2];
+N    ADC_ADSR_T      ADSR;
+N    ADC_ADCALR_T    ADCALR;
+N    uint32_t        RESERVE0;
+N    uint32_t        RESERVE1;
+N    ADC_ADPDMA_T    ADPDMA;
+N} ADC_T;
+N
+N/*---------------------- Analog Comparator Controller -------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  CMPEN:1;
+X    volatile uint32_t  CMPEN:1;
+N    __IO uint32_t  CMPIE:1;
+X    volatile uint32_t  CMPIE:1;
+N    __IO uint32_t  CMP_HYSEN:1;
+X    volatile uint32_t  CMP_HYSEN:1;
+N    __IO uint32_t  RESERVE0:1;
+X    volatile uint32_t  RESERVE0:1;
+N    __IO uint32_t  CMPCN:1;
+X    volatile uint32_t  CMPCN:1;
+N    __IO uint32_t  RESERVE1:1;
+X    volatile uint32_t  RESERVE1:1;
+N    __I  uint32_t  RESERVE:26;
+X    volatile const  uint32_t  RESERVE:26;
+N} ACMP_CMPCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CMPF0:1;
+X    volatile uint32_t  CMPF0:1;
+N    __IO uint32_t  CMPF1:1;
+X    volatile uint32_t  CMPF1:1;
+N    __IO uint32_t  CO0:1;
+X    volatile uint32_t  CO0:1;
+N    __IO uint32_t  CO1:1;
+X    volatile uint32_t  CO1:1;
+N    __I  uint32_t  RESERVE:28;
+X    volatile const  uint32_t  RESERVE:28;
+N} ACMP_CMPSR_T;
+N
+Ntypedef struct
+N{
+N    ACMP_CMPCR_T CMPCR[2];
+N    ACMP_CMPSR_T CMPSR;
+N} ACMP_T;
+N
+N/*---------------------------- Clock Controller ------------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  XTL12M_EN:1;
+X    volatile uint32_t  XTL12M_EN:1;
+N    __IO uint32_t  XTL32K_EN:1;
+X    volatile uint32_t  XTL32K_EN:1;
+N    __IO uint32_t  OSC22M_EN:1;
+X    volatile uint32_t  OSC22M_EN:1;
+N    __IO uint32_t  OSC10K_EN:1;
+X    volatile uint32_t  OSC10K_EN:1;
+N    __IO uint32_t  PD_WU_DLY:1;
+X    volatile uint32_t  PD_WU_DLY:1;
+N    __IO uint32_t  PD_WU_INT_EN:1;
+X    volatile uint32_t  PD_WU_INT_EN:1;
+N    __IO uint32_t  PD_WU_STS:1;
+X    volatile uint32_t  PD_WU_STS:1;
+N    __IO uint32_t  PWR_DOWN:1;
+X    volatile uint32_t  PWR_DOWN:1;
+N    __IO uint32_t  PD_WAIT_CPU:1;
+X    volatile uint32_t  PD_WAIT_CPU:1;
+N    __I  uint32_t  RESERVE:23;
+X    volatile const  uint32_t  RESERVE:23;
+N} SYSCLK_PWRCON_T;
+N
+Ntypedef struct
+N{
+N	__I  uint32_t  RESERVE0:1;
+X	volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  PDMA_EN:1;
+X    volatile uint32_t  PDMA_EN:1;
+N    __IO uint32_t  ISP_EN:1;
+X    volatile uint32_t  ISP_EN:1;
+N	__IO uint32_t  EBI_EN:1;
+X	volatile uint32_t  EBI_EN:1;
+N    __I  uint32_t  RESERVE1:28;
+X    volatile const  uint32_t  RESERVE1:28;
+N} SYSCLK_AHBCLK_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  WDT_EN:1;
+X    volatile uint32_t  WDT_EN:1;
+N    __IO uint32_t  RTC_EN:1;
+X    volatile uint32_t  RTC_EN:1;
+N    __IO uint32_t  TMR0_EN:1;
+X    volatile uint32_t  TMR0_EN:1;
+N    __IO uint32_t  TMR1_EN:1;
+X    volatile uint32_t  TMR1_EN:1;
+N    __IO uint32_t  TMR2_EN:1;
+X    volatile uint32_t  TMR2_EN:1;
+N    __IO uint32_t  TMR3_EN:1;
+X    volatile uint32_t  TMR3_EN:1;
+N    __IO uint32_t  FDIV_EN:1;
+X    volatile uint32_t  FDIV_EN:1;
+N	__I  uint32_t  RESERVE0:1;
+X	volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  I2C0_EN:1;
+X    volatile uint32_t  I2C0_EN:1;
+N    __IO uint32_t  I2C1_EN:1;
+X    volatile uint32_t  I2C1_EN:1;
+N    __I  uint32_t  RESERVE1:2;
+X    volatile const  uint32_t  RESERVE1:2;
+N    __IO uint32_t  SPI0_EN:1;
+X    volatile uint32_t  SPI0_EN:1;
+N    __IO uint32_t  SPI1_EN:1;
+X    volatile uint32_t  SPI1_EN:1;
+N    __IO uint32_t  SPI2_EN:1;
+X    volatile uint32_t  SPI2_EN:1;
+N    __IO uint32_t  SPI3_EN:1;
+X    volatile uint32_t  SPI3_EN:1;
+N    __IO uint32_t  UART0_EN:1;
+X    volatile uint32_t  UART0_EN:1;
+N    __IO uint32_t  UART1_EN:1;
+X    volatile uint32_t  UART1_EN:1;
+N	__IO uint32_t  UART2_EN:1;
+X	volatile uint32_t  UART2_EN:1;
+N    __I  uint32_t  RESERVE2:1;
+X    volatile const  uint32_t  RESERVE2:1;
+N    __IO uint32_t  PWM01_EN:1;
+X    volatile uint32_t  PWM01_EN:1;
+N    __IO uint32_t  PWM23_EN:1;
+X    volatile uint32_t  PWM23_EN:1;
+N	__IO uint32_t  PWM45_EN:1;
+X	volatile uint32_t  PWM45_EN:1;
+N    __IO uint32_t  PWM67_EN:1;
+X    volatile uint32_t  PWM67_EN:1;
+N    __IO uint32_t  CAN0_EN:1;
+X    volatile uint32_t  CAN0_EN:1;
+N    __I  uint32_t  RESERVE3:2;
+X    volatile const  uint32_t  RESERVE3:2;
+N    __IO uint32_t  USBD_EN:1;
+X    volatile uint32_t  USBD_EN:1;
+N    __IO uint32_t  ADC_EN:1;
+X    volatile uint32_t  ADC_EN:1;
+N	__IO uint32_t  I2S_EN:1;
+X	volatile uint32_t  I2S_EN:1;
+N    __IO uint32_t  ACMP_EN:1;
+X    volatile uint32_t  ACMP_EN:1;
+N    __IO uint32_t  PS2_EN:1;
+X    volatile uint32_t  PS2_EN:1;
+N} SYSCLK_APBCLK_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  XTL12M_STB:1;
+X    volatile const  uint32_t  XTL12M_STB:1;
+N	__I  uint32_t  XTL32K_STB:1;
+X	volatile const  uint32_t  XTL32K_STB:1;
+N    __I  uint32_t  PLL_STB:1;
+X    volatile const  uint32_t  PLL_STB:1;
+N	__I  uint32_t  OSC10K_STB:1;
+X	volatile const  uint32_t  OSC10K_STB:1;
+N	__I  uint32_t  OSC22M_STB:1;
+X	volatile const  uint32_t  OSC22M_STB:1;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N	__IO uint32_t  CLK_SW_FAIL:1;
+X	volatile uint32_t  CLK_SW_FAIL:1;
+N    __I  uint32_t  RESERVE1:24;
+X    volatile const  uint32_t  RESERVE1:24;
+N} SYSCLK_CLKSTATUS_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  HCLK_S:3;
+X    volatile uint32_t  HCLK_S:3;
+N    __IO uint32_t  STCLK_S:3;
+X    volatile uint32_t  STCLK_S:3;
+N    __I  uint32_t  RESERVE:26;
+X    volatile const  uint32_t  RESERVE:26;
+N} SYSCLK_CLKSEL0_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  WDT_S:2;
+X    volatile uint32_t  WDT_S:2;
+N    __IO uint32_t  ADC_S:2;
+X    volatile uint32_t  ADC_S:2;
+N    __I  uint32_t  RESERVE1:4;
+X    volatile const  uint32_t  RESERVE1:4;
+N    __IO uint32_t  TMR0_S:3;
+X    volatile uint32_t  TMR0_S:3;
+N    __I  uint32_t  RESERVE2:1;
+X    volatile const  uint32_t  RESERVE2:1;
+N    __IO uint32_t  TMR1_S:3;
+X    volatile uint32_t  TMR1_S:3;
+N    __I  uint32_t  RESERVE3:1;
+X    volatile const  uint32_t  RESERVE3:1;
+N    __IO uint32_t  TMR2_S:3;
+X    volatile uint32_t  TMR2_S:3;
+N    __I  uint32_t  RESERVE4:1;
+X    volatile const  uint32_t  RESERVE4:1;
+N    __IO uint32_t  TMR3_S:3;
+X    volatile uint32_t  TMR3_S:3;
+N    __I  uint32_t  RESERVE5:1;
+X    volatile const  uint32_t  RESERVE5:1;
+N    __IO uint32_t  UART_S:2;
+X    volatile uint32_t  UART_S:2;
+N    __IO uint32_t  CAN_S:2;
+X    volatile uint32_t  CAN_S:2;
+N    __IO uint32_t  PWM01_S:2;
+X    volatile uint32_t  PWM01_S:2;
+N    __IO uint32_t  PWM23_S:2;
+X    volatile uint32_t  PWM23_S:2;
+N} SYSCLK_CLKSEL1_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  I2S_S:2;
+X    volatile uint32_t  I2S_S:2;
+N    __IO uint32_t  FRQDIV_S:2;
+X    volatile uint32_t  FRQDIV_S:2;
+N	__IO uint32_t  PWM45_S:2;
+X	volatile uint32_t  PWM45_S:2;
+N    __IO uint32_t  PWM67_S:2;
+X    volatile uint32_t  PWM67_S:2;
+N    __I  uint32_t  RESERVE:24;
+X    volatile const  uint32_t  RESERVE:24;
+N} SYSCLK_CLKSEL2_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  HCLK_N:4;
+X    volatile uint32_t  HCLK_N:4;
+N    __IO uint32_t  USB_N:4;
+X    volatile uint32_t  USB_N:4;
+N    __IO uint32_t  UART_N:4;
+X    volatile uint32_t  UART_N:4;
+N    __IO uint32_t  CAN_N:4;
+X    volatile uint32_t  CAN_N:4;
+N    __IO uint32_t  ADC_N:8;
+X    volatile uint32_t  ADC_N:8;
+N	__IO uint32_t  CAN_N_EXT:6;
+X	volatile uint32_t  CAN_N_EXT:6;
+N    __I  uint32_t  RESERVE:2;
+X    volatile const  uint32_t  RESERVE:2;
+N} SYSCLK_CLKDIV_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FB_DV:9;
+X    volatile uint32_t  FB_DV:9;
+N    __IO uint32_t  IN_DV:5;
+X    volatile uint32_t  IN_DV:5;
+N    __IO uint32_t  OUT_DV:2;
+X    volatile uint32_t  OUT_DV:2;
+N    __IO uint32_t  PD:1;
+X    volatile uint32_t  PD:1;
+N    __IO uint32_t  BP:1;
+X    volatile uint32_t  BP:1;
+N    __IO uint32_t  OE:1;
+X    volatile uint32_t  OE:1;
+N    __IO uint32_t  PLL_SRC:1;
+X    volatile uint32_t  PLL_SRC:1;
+N    __I  uint32_t  RESERVE:12;
+X    volatile const  uint32_t  RESERVE:12;
+N} SYSCLK_PLLCON_T;
+N
+N
+Ntypedef struct
+N{    
+N    __IO uint32_t  FSEL:4;
+X    volatile uint32_t  FSEL:4;
+N	__IO uint32_t  FDIV_EN:1;
+X	volatile uint32_t  FDIV_EN:1;
+N    __I  uint32_t  RESERVE:27;
+X    volatile const  uint32_t  RESERVE:27;
+N} SYSCLK_FRQDIV_T;
+N
+Ntypedef struct
+N{
+N    SYSCLK_PWRCON_T    PWRCON;
+N    SYSCLK_AHBCLK_T    AHBCLK;
+N    SYSCLK_APBCLK_T    APBCLK;
+N    SYSCLK_CLKSTATUS_T CLKSTATUS;
+N    SYSCLK_CLKSEL0_T   CLKSEL0;
+N    SYSCLK_CLKSEL1_T   CLKSEL1;
+N    SYSCLK_CLKDIV_T    CLKDIV;
+N    SYSCLK_CLKSEL2_T   CLKSEL2;
+N	SYSCLK_PLLCON_T    PLLCON;
+N	SYSCLK_FRQDIV_T    FRQDIV;
+N    
+N} SYSCLK_T;
+N
+N/*---------------------------- Global Controller -----------------------------*/
+Ntypedef __I uint32_t GCR_PDID_T;  
+Xtypedef volatile const uint32_t GCR_PDID_T;  
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RSTS_POR:1;
+X    volatile uint32_t  RSTS_POR:1;
+N	__IO uint32_t  RSTS_RESET:1;
+X	volatile uint32_t  RSTS_RESET:1;
+N	__IO uint32_t  RSTS_WDT:1;
+X	volatile uint32_t  RSTS_WDT:1;
+N	__IO uint32_t  RSTS_LVR:1;
+X	volatile uint32_t  RSTS_LVR:1;
+N	__IO uint32_t  RSTS_BOD:1;
+X	volatile uint32_t  RSTS_BOD:1;
+N	__IO uint32_t  RSTS_MCU:1;
+X	volatile uint32_t  RSTS_MCU:1;
+N	__I  uint32_t  RESERVE0:1;
+X	volatile const  uint32_t  RESERVE0:1;
+N	__IO uint32_t  RSTS_CPU:1;    
+X	volatile uint32_t  RSTS_CPU:1;    
+N	__I  uint32_t  RESERVE1:24;
+X	volatile const  uint32_t  RESERVE1:24;
+N} GCR_RSTSRC_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CHIP_RST:1;
+X    volatile uint32_t  CHIP_RST:1;
+N    __IO uint32_t  CPU_RST:1;
+X    volatile uint32_t  CPU_RST:1;
+N    __IO uint32_t  PDMA_RST:1;
+X    volatile uint32_t  PDMA_RST:1;
+N	__IO uint32_t  EBI_RST:1;
+X	volatile uint32_t  EBI_RST:1;
+N    __I  uint32_t  RESERVE:28;
+X    volatile const  uint32_t  RESERVE:28;
+N} GCR_IPRSTC1_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  GPIO_RST:1;
+X    volatile uint32_t  GPIO_RST:1;
+N    __IO uint32_t  TMR0_RST:1;
+X    volatile uint32_t  TMR0_RST:1;
+N    __IO uint32_t  TMR1_RST:1;
+X    volatile uint32_t  TMR1_RST:1;
+N    __IO uint32_t  TMR2_RST:1;
+X    volatile uint32_t  TMR2_RST:1;
+N    __IO uint32_t  TMR3_RST:1;
+X    volatile uint32_t  TMR3_RST:1;
+N    __I  uint32_t  RESERVE1:2;
+X    volatile const  uint32_t  RESERVE1:2;
+N    __IO uint32_t  I2C0_RST:1;
+X    volatile uint32_t  I2C0_RST:1;
+N    __IO uint32_t  I2C1_RST:1;
+X    volatile uint32_t  I2C1_RST:1;
+N    __I  uint32_t  RESERVE2:2;
+X    volatile const  uint32_t  RESERVE2:2;
+N    __IO uint32_t  SPI0_RST:1;
+X    volatile uint32_t  SPI0_RST:1;
+N    __IO uint32_t  SPI1_RST:1;
+X    volatile uint32_t  SPI1_RST:1;
+N    __IO uint32_t  SPI2_RST:1;
+X    volatile uint32_t  SPI2_RST:1;
+N    __IO uint32_t  SPI3_RST:1;
+X    volatile uint32_t  SPI3_RST:1;
+N    __IO uint32_t  UART0_RST:1;
+X    volatile uint32_t  UART0_RST:1;
+N    __IO uint32_t  UART1_RST:1;
+X    volatile uint32_t  UART1_RST:1;
+N    __IO uint32_t  UART2_RST:1;
+X    volatile uint32_t  UART2_RST:1;
+N    __I  uint32_t  RESERVE3:1;
+X    volatile const  uint32_t  RESERVE3:1;
+N    __IO uint32_t  PWM03_RST:1;
+X    volatile uint32_t  PWM03_RST:1;
+N    __IO uint32_t  PWM47_RST:1;
+X    volatile uint32_t  PWM47_RST:1;
+N    __IO uint32_t  ACMP_RST:1;
+X    volatile uint32_t  ACMP_RST:1;
+N    __IO uint32_t  PS2_RST:1;
+X    volatile uint32_t  PS2_RST:1;
+N    __IO uint32_t  CAN0_RST:1;
+X    volatile uint32_t  CAN0_RST:1;
+N    __I  uint32_t  RESERVE4:2;
+X    volatile const  uint32_t  RESERVE4:2;
+N    __IO uint32_t  USBD_RST:1;
+X    volatile uint32_t  USBD_RST:1;
+N    __IO uint32_t  ADC_RST:1;
+X    volatile uint32_t  ADC_RST:1;
+N    __IO uint32_t  I2S_RST:1;
+X    volatile uint32_t  I2S_RST:1;
+N    __I  uint32_t  RESERVE5:2;
+X    volatile const  uint32_t  RESERVE5:2;
+N} GCR_IPRSTC2_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  HPE:1;
+X    volatile uint32_t  HPE:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} GCR_CPR_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  BOD_EN:1;
+X    volatile uint32_t  BOD_EN:1;
+N    __IO uint32_t  BOD_VL:2;
+X    volatile uint32_t  BOD_VL:2;
+N    __IO uint32_t  BOD_RSTEN:1;
+X    volatile uint32_t  BOD_RSTEN:1;
+N    __IO uint32_t  BOD_INTF:1;
+X    volatile uint32_t  BOD_INTF:1;
+N    __IO uint32_t  BOD_LPM:1;
+X    volatile uint32_t  BOD_LPM:1;
+N    __IO uint32_t  BOD_OUT:1;
+X    volatile uint32_t  BOD_OUT:1;
+N	__IO uint32_t  LVR_EN:1;
+X	volatile uint32_t  LVR_EN:1;
+N    __I  uint32_t  RESERVE1:24;
+X    volatile const  uint32_t  RESERVE1:24;
+N} GCR_BODCR_T;
+N
+Ntypedef __IO uint32_t GCR_TEMPCR_T;
+Xtypedef volatile uint32_t GCR_TEMPCR_T;
+N
+Ntypedef __IO uint32_t GCR_PORCR_T;  
+Xtypedef volatile uint32_t GCR_PORCR_T;  
+N
+Ntypedef struct
+N{
+N    __IO uint32_t ADC0:1;
+X    volatile uint32_t ADC0:1;
+N    __IO uint32_t ADC1_AD12:1;
+X    volatile uint32_t ADC1_AD12:1;
+N    __IO uint32_t ADC2_AD11:1;
+X    volatile uint32_t ADC2_AD11:1;
+N    __IO uint32_t ADC3_AD10:1;
+X    volatile uint32_t ADC3_AD10:1;
+N    __IO uint32_t ADC4_AD9:1;
+X    volatile uint32_t ADC4_AD9:1;
+N    __IO uint32_t ADC5_AD8:1;
+X    volatile uint32_t ADC5_AD8:1;
+N    __IO uint32_t ADC6_AD7:1;
+X    volatile uint32_t ADC6_AD7:1;
+N    __IO uint32_t ADC7_SS21_AD6:1;
+X    volatile uint32_t ADC7_SS21_AD6:1;
+N    __IO uint32_t I2C0_SDA:1;
+X    volatile uint32_t I2C0_SDA:1;
+N    __IO uint32_t I2C0_SCL:1;
+X    volatile uint32_t I2C0_SCL:1;
+N    __IO uint32_t I2C1_SDA_nWR:1;
+X    volatile uint32_t I2C1_SDA_nWR:1;
+N    __IO uint32_t I2C1_SCL_nRD:1;
+X    volatile uint32_t I2C1_SCL_nRD:1;
+N    __IO uint32_t PWM0_AD13:1;
+X    volatile uint32_t PWM0_AD13:1;
+N    __IO uint32_t PWM1_AD14:1;
+X    volatile uint32_t PWM1_AD14:1;
+N    __IO uint32_t PWM2_AD15:1;
+X    volatile uint32_t PWM2_AD15:1;
+N    __IO uint32_t PWM3_I2SMCLK:1;
+X    volatile uint32_t PWM3_I2SMCLK:1;
+N    __IO uint32_t SCHMITT:16;    
+X    volatile uint32_t SCHMITT:16;    
+N} GCR_GPAMFP_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t UART0_RX:1;
+X    volatile uint32_t UART0_RX:1;
+N    __IO uint32_t UART0_TX:1;
+X    volatile uint32_t UART0_TX:1;
+N    __IO uint32_t UART0_nRTS_nWRL:1;
+X    volatile uint32_t UART0_nRTS_nWRL:1;
+N    __IO uint32_t UART0_nCTS_nWRH:1;
+X    volatile uint32_t UART0_nCTS_nWRH:1;
+N    __IO uint32_t UART1_RX:1;
+X    volatile uint32_t UART1_RX:1;
+N    __IO uint32_t UART1_TX:1;
+X    volatile uint32_t UART1_TX:1;
+N    __IO uint32_t UART1_nRTS_ALE:1;
+X    volatile uint32_t UART1_nRTS_ALE:1;
+N    __IO uint32_t UART1_nCTS_nCS:1;
+X    volatile uint32_t UART1_nCTS_nCS:1;
+N    __IO uint32_t TM0:1;
+X    volatile uint32_t TM0:1;
+N    __IO uint32_t TM1_SS11:1;							   
+X    volatile uint32_t TM1_SS11:1;							   
+N    __IO uint32_t TM2_SS01:1;
+X    volatile uint32_t TM2_SS01:1;
+N    __IO uint32_t TM3_PWM4:1;					  
+X    volatile uint32_t TM3_PWM4:1;					  
+N    __IO uint32_t CPO0_CLKO_AD0:1;
+X    volatile uint32_t CPO0_CLKO_AD0:1;
+N    __IO uint32_t CPO1_AD1:1;
+X    volatile uint32_t CPO1_AD1:1;
+N    __IO uint32_t INT1_SS31:1;
+X    volatile uint32_t INT1_SS31:1;
+N	__IO uint32_t INT0:1;
+X	volatile uint32_t INT0:1;
+N    __IO uint32_t SCHMITT:16;    
+X    volatile uint32_t SCHMITT:16;    
+N} GCR_GPBMFP_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t SPI0_SS0_I2SLRCLK:1;
+X    volatile uint32_t SPI0_SS0_I2SLRCLK:1;
+N    __IO uint32_t SPI0_CLK_I2SBCLK:1;
+X    volatile uint32_t SPI0_CLK_I2SBCLK:1;
+N    __IO uint32_t SPI0_MISO0_I2SDI:1;
+X    volatile uint32_t SPI0_MISO0_I2SDI:1;
+N    __IO uint32_t SPI0_MOSI0_I2SDO:1;
+X    volatile uint32_t SPI0_MOSI0_I2SDO:1;
+N    __IO uint32_t SPI0_MISO1:1;
+X    volatile uint32_t SPI0_MISO1:1;
+N    __IO uint32_t SPI0_MOSI1:1;
+X    volatile uint32_t SPI0_MOSI1:1;
+N    __IO uint32_t CPP0_AD4:1;
+X    volatile uint32_t CPP0_AD4:1;
+N    __IO uint32_t CPN0_AD5:1;
+X    volatile uint32_t CPN0_AD5:1;
+N    __IO uint32_t SPI1_SS0_MCLK:1;
+X    volatile uint32_t SPI1_SS0_MCLK:1;
+N    __IO uint32_t SPI1_CLK:1;
+X    volatile uint32_t SPI1_CLK:1;
+N    __IO uint32_t SPI1_MISO0:1;
+X    volatile uint32_t SPI1_MISO0:1;
+N    __IO uint32_t SPI1_MOSI0:1;
+X    volatile uint32_t SPI1_MOSI0:1;
+N    __IO uint32_t SPI1_MISO1:1;
+X    volatile uint32_t SPI1_MISO1:1;
+N    __IO uint32_t SPI1_MOSI1:1;
+X    volatile uint32_t SPI1_MOSI1:1;
+N    __IO uint32_t CPP1_AD2:1;
+X    volatile uint32_t CPP1_AD2:1;
+N    __IO uint32_t CPN1_AD3:1;
+X    volatile uint32_t CPN1_AD3:1;
+N    __IO uint32_t SCHMITT:16;    
+X    volatile uint32_t SCHMITT:16;    
+N} GCR_GPCMFP_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t SPI2_SS0:1;
+X    volatile uint32_t SPI2_SS0:1;
+N    __IO uint32_t SPI2_CLK_SPI0_SS1:1;
+X    volatile uint32_t SPI2_CLK_SPI0_SS1:1;
+N    __IO uint32_t SPI2_MISO0_SPI0_MISO1:1;
+X    volatile uint32_t SPI2_MISO0_SPI0_MISO1:1;
+N    __IO uint32_t SPI2_MOSI0_SPI0_MOSI1:1;
+X    volatile uint32_t SPI2_MOSI0_SPI0_MOSI1:1;
+N    __IO uint32_t SPI2_MISO1:1;
+X    volatile uint32_t SPI2_MISO1:1;
+N    __IO uint32_t SPI2_MOSI1:1;
+X    volatile uint32_t SPI2_MOSI1:1;
+N    __IO uint32_t CAN0_RX:1;
+X    volatile uint32_t CAN0_RX:1;
+N    __IO uint32_t CAN0_TX:1;
+X    volatile uint32_t CAN0_TX:1;
+N    __IO uint32_t SPI3_SS0:1;
+X    volatile uint32_t SPI3_SS0:1;
+N    __IO uint32_t SPI3_CLK:1;
+X    volatile uint32_t SPI3_CLK:1;
+N    __IO uint32_t SPI3_MISO0:1;
+X    volatile uint32_t SPI3_MISO0:1;
+N    __IO uint32_t SPI3_MOSI0:1;
+X    volatile uint32_t SPI3_MOSI0:1;
+N    __IO uint32_t SPI3_MISO1:1;
+X    volatile uint32_t SPI3_MISO1:1;
+N    __IO uint32_t SPI3_MOSI1:1;
+X    volatile uint32_t SPI3_MOSI1:1;
+N    __IO uint32_t UART2_RX:1;
+X    volatile uint32_t UART2_RX:1;
+N    __IO uint32_t UART2_TX:1;
+X    volatile uint32_t UART2_TX:1;
+N    __IO uint32_t SCHMITT:16;    
+X    volatile uint32_t SCHMITT:16;    
+N} GCR_GPDMFP_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PWM6:1;
+X    volatile uint32_t  PWM6:1;
+N    __IO uint32_t  PWM7:1;
+X    volatile uint32_t  PWM7:1;
+N    __I  uint32_t  RESERVE1:3;
+X    volatile const  uint32_t  RESERVE1:3;
+N    __IO uint32_t  PWM5:1;
+X    volatile uint32_t  PWM5:1;
+N    __I  uint32_t  RESERVE2:10;
+X    volatile const  uint32_t  RESERVE2:10;
+N    __IO uint32_t  SCHMITT:16;
+X    volatile uint32_t  SCHMITT:16;
+N} GCR_GPEMFP_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PB10_S01:1;  	/* GPB10 */
+X    volatile uint32_t  PB10_S01:1;  	 
+N    __IO uint32_t  PB9_S11:1;  		/* GPB9  */
+X    volatile uint32_t  PB9_S11:1;  		 
+N    __IO uint32_t  PA7_S21:1;  		/* GPA7  */
+X    volatile uint32_t  PA7_S21:1;  		 
+N    __IO uint32_t  PB14_S31:1;  	/* GPB14 */
+X    volatile uint32_t  PB14_S31:1;  	 
+N    __IO uint32_t  PB11_PWM4:1;     /* GPB11 */
+X    volatile uint32_t  PB11_PWM4:1;      
+N    __IO uint32_t  PC0_I2SLRCLK:1; 	/* GPC0  */
+X    volatile uint32_t  PC0_I2SLRCLK:1; 	 
+N    __IO uint32_t  PC1_I2SBCLK:1;  	/* GPC1  */
+X    volatile uint32_t  PC1_I2SBCLK:1;  	 
+N    __IO uint32_t  PC2_I2SDI:1;    	/* GPC2  */
+X    volatile uint32_t  PC2_I2SDI:1;    	 
+N    __IO uint32_t  PC3_I2SDO:1;    	/* GPC3  */
+X    volatile uint32_t  PC3_I2SDO:1;    	 
+N    __IO uint32_t  PA15_I2SMCLK:1;  /* GPA15 */
+X    volatile uint32_t  PA15_I2SMCLK:1;   
+N    __IO uint32_t  PB12_CLKO:1;     /* GPB12 */
+X    volatile uint32_t  PB12_CLKO:1;      
+N    __IO uint32_t  EBI_EN:1;     		
+X    volatile uint32_t  EBI_EN:1;     		
+N    __IO uint32_t  EBI_MCLK_EN:1;   /* GPC8  */
+X    volatile uint32_t  EBI_MCLK_EN:1;    
+N    __IO uint32_t  EBI_WRL_EN:1;    /* GPB2  */
+X    volatile uint32_t  EBI_WRL_EN:1;     
+N    __IO uint32_t  EBI_WRH_EN:1;    /* GPB3  */
+X    volatile uint32_t  EBI_WRH_EN:1;     
+N    __I  uint32_t  RESERVE0:1;  
+X    volatile const  uint32_t  RESERVE0:1;  
+N    __IO uint32_t  EBI_HB_EN:8;     
+X    volatile uint32_t  EBI_HB_EN:8;     
+N    __I  uint32_t  RESERVE1:8;  
+X    volatile const  uint32_t  RESERVE1:8;  
+N} GCR_ALTMFP_T;
+N
+N
+Ntypedef __IO uint32_t GCR_REGLOCK_T;
+Xtypedef volatile uint32_t GCR_REGLOCK_T;
+Ntypedef __IO uint32_t GCR_RCADJ_T;
+Xtypedef volatile uint32_t GCR_RCADJ_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  INTSRC:4;
+X    volatile uint32_t  INTSRC:4;
+N    __I  uint32_t  RESERVE:28;
+X    volatile const  uint32_t  RESERVE:28;
+N} GCR_INTSRC_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  NMISEL:5;
+X    volatile uint32_t  NMISEL:5;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  INT_TEST:1;
+X    volatile uint32_t  INT_TEST:1;
+N    __I  uint32_t  RESERVE1:24;
+X    volatile const  uint32_t  RESERVE1:24;
+N} GCR_NMISEL_T;
+N
+N
+Ntypedef __IO uint32_t GCR_MCUIRQ_T;
+Xtypedef volatile uint32_t GCR_MCUIRQ_T;
+N
+Ntypedef struct
+N{
+N    GCR_PDID_T      PDID;   
+N    GCR_RSTSRC_T    RSTSRC;
+N    GCR_IPRSTC1_T   IPRSTC1;
+N    GCR_IPRSTC2_T   IPRSTC2;
+N	GCR_CPR_T       CPR;
+N	uint32_t        RESERVE0;
+N    GCR_BODCR_T     BODCR;
+N    GCR_TEMPCR_T    TEMPCR;
+N	uint32_t        RESERVE1;
+N	GCR_PORCR_T		PORCR;
+N	uint32_t        RESERVE2[2];
+N    GCR_GPAMFP_T    GPAMFP;
+N    GCR_GPBMFP_T    GPBMFP;
+N    GCR_GPCMFP_T    GPCMFP;
+N    GCR_GPDMFP_T    GPDMFP;
+N    GCR_GPEMFP_T    GPEMFP;
+N    uint32_t        RESERVE3[3];
+N	GCR_ALTMFP_T    ALTMFP;
+N    uint32_t        RESERVE4[43];
+N    GCR_REGLOCK_T   REGLOCK;
+N	uint32_t        RESERVE5[3];
+N	GCR_RCADJ_T		RCADJ;
+N} GCR_T;
+N
+Ntypedef struct
+N{
+N    GCR_INTSRC_T    INTSRC[32];
+N    GCR_NMISEL_T    NMISEL;
+N    GCR_MCUIRQ_T    MCUIRQ;   
+N} GCR_INT_T;
+N
+N/*-------------------------- FLASH Memory Controller -------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  ISPEN:1;
+X    volatile uint32_t  ISPEN:1;
+N    __IO uint32_t  BS:1;
+X    volatile uint32_t  BS:1;
+N	__I  uint32_t  RESERVE0:2;
+X	volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  CFGUEN:1;
+X    volatile uint32_t  CFGUEN:1;
+N	__IO uint32_t  LDUEN:1;
+X	volatile uint32_t  LDUEN:1;
+N    __IO uint32_t  ISPFF:1;
+X    volatile uint32_t  ISPFF:1;
+N    __IO uint32_t  SWRST:1;
+X    volatile uint32_t  SWRST:1;
+N    __IO uint32_t  PT:3;
+X    volatile uint32_t  PT:3;
+N	__I  uint32_t  RESERVE1:1;
+X	volatile const  uint32_t  RESERVE1:1;
+N	__IO uint32_t  ET:3;
+X	volatile uint32_t  ET:3;
+N    __I  uint32_t  RESERVE2:17;
+X    volatile const  uint32_t  RESERVE2:17;
+N
+N} FMC_ISPCON_T;
+N
+Ntypedef __IO uint32_t FMC_ISPADR_T;
+Xtypedef volatile uint32_t FMC_ISPADR_T;
+Ntypedef __IO uint32_t FMC_ISPDAT_T;
+Xtypedef volatile uint32_t FMC_ISPDAT_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FCTRL:4;
+X    volatile uint32_t  FCTRL:4;
+N    __IO uint32_t  FCEN:1;
+X    volatile uint32_t  FCEN:1;
+N    __IO uint32_t  FOEN:1;
+X    volatile uint32_t  FOEN:1;
+N    __I  uint32_t  RESERVE:26;
+X    volatile const  uint32_t  RESERVE:26;
+N} FMC_ISPCMD_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  ISPGO:1;
+X    volatile uint32_t  ISPGO:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} FMC_ISPTRG_T;
+N
+Ntypedef __I uint32_t FMC_DFBADR_T;
+Xtypedef volatile const uint32_t FMC_DFBADR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FPSEN:1;
+X    volatile uint32_t  FPSEN:1;
+N    __IO uint32_t  FATS:3;
+X    volatile uint32_t  FATS:3;
+N	__IO uint32_t  L_SPEED:1;
+X	volatile uint32_t  L_SPEED:1;
+N    __I  uint32_t  RESERVE:27;
+X    volatile const  uint32_t  RESERVE:27;
+N} FMC_FATCON_T;
+N
+Ntypedef struct
+N{
+N    FMC_ISPCON_T ISPCON;
+N    FMC_ISPADR_T ISPADR;
+N    FMC_ISPDAT_T ISPDAT;
+N    FMC_ISPCMD_T ISPCMD;
+N    FMC_ISPTRG_T ISPTRG;
+N    FMC_DFBADR_T DFBADR;
+N    FMC_FATCON_T FATCON;
+N} FMC_T;
+N
+N
+N/*------------------------ PS2 Device Interface Controller -------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  PS2EN:1;
+X    volatile uint32_t  PS2EN:1;
+N    __IO uint32_t  TXINTEN:1;
+X    volatile uint32_t  TXINTEN:1;
+N    __IO uint32_t  RXINTEN:1;
+X    volatile uint32_t  RXINTEN:1;
+N    __IO uint32_t  TXFIFO_DEPTH:4;
+X    volatile uint32_t  TXFIFO_DEPTH:4;
+N    __IO uint32_t  ACK:1;
+X    volatile uint32_t  ACK:1;
+N    __IO uint32_t  CLRFIFO:1;
+X    volatile uint32_t  CLRFIFO:1;
+N    __IO uint32_t  OVERRIDE:1;
+X    volatile uint32_t  OVERRIDE:1;
+N    __IO uint32_t  FPS2CLK:1;
+X    volatile uint32_t  FPS2CLK:1;
+N    __IO uint32_t  FPS2DAT:1;
+X    volatile uint32_t  FPS2DAT:1;
+N    __I  uint32_t  RESERVE:20;
+X    volatile const  uint32_t  RESERVE:20;
+N} PS2_CON_T;
+N
+Ntypedef __IO uint32_t PS2_DATA_T;
+Xtypedef volatile uint32_t PS2_DATA_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PS2CLK:1;
+X    volatile uint32_t  PS2CLK:1;
+N    __IO uint32_t  PS2DATA:1;
+X    volatile uint32_t  PS2DATA:1;
+N    __IO uint32_t  FRAMERR:1;
+X    volatile uint32_t  FRAMERR:1;
+N    __IO uint32_t  RXPARTY:1;
+X    volatile uint32_t  RXPARTY:1;
+N    __IO uint32_t  RXBUSY:1;
+X    volatile uint32_t  RXBUSY:1;
+N    __IO uint32_t  TXBUSY:1;
+X    volatile uint32_t  TXBUSY:1;
+N    __IO uint32_t  RXOVF:1;
+X    volatile uint32_t  RXOVF:1;
+N    __IO uint32_t  TXEMPTY:1;
+X    volatile uint32_t  TXEMPTY:1;
+N    __IO uint32_t  BYTEIDX:4;
+X    volatile uint32_t  BYTEIDX:4;
+N    __I  uint32_t  RESERVE:20;
+X    volatile const  uint32_t  RESERVE:20;
+N} PS2_STATUS_T;
+N
+Ntypedef __IO uint32_t PS2_INTID_T;
+Xtypedef volatile uint32_t PS2_INTID_T;
+N
+Ntypedef struct
+N{
+N    PS2_CON_T       PS2CON;
+N    PS2_DATA_T      TXDATA[4];
+N    PS2_DATA_T      RXDATA;
+N    PS2_STATUS_T    STATUS;
+N    PS2_INTID_T     INTID;
+N} PS2_T;
+N
+N/*---------------------------- CAN Bus Controller ----------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  RSTM:1;
+X    volatile uint32_t  RSTM:1;
+N	__IO uint32_t  LOM:1;
+X	volatile uint32_t  LOM:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N    
+N} CAN_OPMODE_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TXREQ:1;
+X    volatile uint32_t  TXREQ:1;
+N	__IO uint32_t  ABRT:1;
+X	volatile uint32_t  ABRT:1;
+N    __I  uint32_t  RESERVE2:3;
+X    volatile const  uint32_t  RESERVE2:3;
+N	__IO uint32_t  OVERFLOAD_EN:1;
+X	volatile uint32_t  OVERFLOAD_EN:1;
+N	__IO uint32_t  WAKEUP_EN:1;
+X	volatile uint32_t  WAKEUP_EN:1;
+N    __IO uint32_t  CAN_EN:1;
+X    volatile uint32_t  CAN_EN:1;
+N    __I  uint32_t  RESERVE:24;
+X    volatile const  uint32_t  RESERVE:24;
+N} CAN_CMD_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:3;
+X    volatile const  uint32_t  RESERVE0:3;
+N    __IO uint32_t  TXCOMPLET:1;
+X    volatile uint32_t  TXCOMPLET:1;
+N    __IO uint32_t  RXSTS:1;
+X    volatile uint32_t  RXSTS:1;
+N    __IO uint32_t  TXSTS:1;
+X    volatile uint32_t  TXSTS:1;
+N    __IO uint32_t  BUSIDLE:1;
+X    volatile uint32_t  BUSIDLE:1;
+N    __IO uint32_t  BUSOFF:1;
+X    volatile uint32_t  BUSOFF:1;
+N    __IO uint32_t  EACTIVE:1;
+X    volatile uint32_t  EACTIVE:1;
+N    __IO uint32_t  EPASSIVE:1;
+X    volatile uint32_t  EPASSIVE:1;
+N    __I  uint32_t  RESERVE1:22;
+X    volatile const  uint32_t  RESERVE1:22;
+N} CAN_BUSSTS_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RI:1;
+X    volatile uint32_t  RI:1;
+N    __IO uint32_t  TI:1;
+X    volatile uint32_t  TI:1;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  WUI:1;
+X    volatile uint32_t  WUI:1;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __IO uint32_t  ALI:1;
+X    volatile uint32_t  ALI:1;
+N    __IO uint32_t  BEI:1;
+X    volatile uint32_t  BEI:1;
+N    __I  uint32_t  RESERVE2:24;
+X    volatile const  uint32_t  RESERVE2:24;
+N} CAN_INTR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RIE:1;
+X    volatile uint32_t  RIE:1;
+N    __IO uint32_t  TIE:1;
+X    volatile uint32_t  TIE:1;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  WUIE:1;
+X    volatile uint32_t  WUIE:1;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __IO uint32_t  ALIE:1;
+X    volatile uint32_t  ALIE:1;
+N    __IO uint32_t  BEIE:1;
+X    volatile uint32_t  BEIE:1;
+N    __I  uint32_t  RESERVE2:24;
+X    volatile const  uint32_t  RESERVE2:24;
+N} CAN_INTEN_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  BRP:4;
+X    volatile uint32_t  BRP:4;
+N    __IO uint32_t  SJW:2;
+X    volatile uint32_t  SJW:2;
+N    __IO uint32_t  TSEG1:5;
+X    volatile uint32_t  TSEG1:5;
+N    __IO uint32_t  TSEG2:4;
+X    volatile uint32_t  TSEG2:4;
+N    __IO uint32_t  SAMP:1;
+X    volatile uint32_t  SAMP:1;
+N    __I  uint32_t  RESERVE2:16;
+X    volatile const  uint32_t  RESERVE2:16;
+N} CAN_BTIMR_T;
+N
+Ntypedef struct
+N{
+N    __I uint32_t  BIT_ERR:1;
+X    volatile const uint32_t  BIT_ERR:1;
+N    __I uint32_t  ACK_ERR:1;
+X    volatile const uint32_t  ACK_ERR:1;
+N    __I uint32_t  CRC_ERR:1;
+X    volatile const uint32_t  CRC_ERR:1;
+N    __I uint32_t  FORM_ERR:1;
+X    volatile const uint32_t  FORM_ERR:1;
+N    __I uint32_t  STUFF_ERR:1;
+X    volatile const uint32_t  STUFF_ERR:1;
+N	__I uint32_t  ID11_NM:1;
+X	volatile const uint32_t  ID11_NM:1;
+N	__I uint32_t  ID18_NM:1;
+X	volatile const uint32_t  ID18_NM:1;
+N    __I  uint32_t  RESERVE:25;
+X    volatile const  uint32_t  RESERVE:25;
+N} CAN_ERRCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RECNT:8;
+X    volatile uint32_t  RECNT:8;
+N    __I  uint32_t  RESERVE:24;
+X    volatile const  uint32_t  RESERVE:24;
+N} CAN_RECNTR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TECNT:8;
+X    volatile uint32_t  TECNT:8;
+N    __I  uint32_t  RESERVE:24;
+X    volatile const  uint32_t  RESERVE:24;
+N} CAN_TECNTR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TXDLC:6;
+X    volatile uint32_t  TXDLC:6;
+N    __IO uint32_t  TXRTR:1;
+X    volatile uint32_t  TXRTR:1;
+N    __IO uint32_t  TXFF:1;
+X    volatile uint32_t  TXFF:1;
+N    __I  uint32_t  RESERVE:24;
+X    volatile const  uint32_t  RESERVE:24;
+N} CAN_TXFINFO_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE:3;
+X    volatile const  uint32_t  RESERVE:3;
+N    __IO uint32_t  TXID:29;
+X    volatile uint32_t  TXID:29;
+N} CAN_TXIDR_T;
+N
+Ntypedef __IO uint32_t CAN_TXDATA_T;
+Xtypedef volatile uint32_t CAN_TXDATA_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RXDLC:4;
+X    volatile uint32_t  RXDLC:4;
+N    __I  uint32_t  RESERVE0:2;
+X    volatile const  uint32_t  RESERVE0:2;
+N    __IO uint32_t  RXRTR:1;
+X    volatile uint32_t  RXRTR:1;
+N    __IO uint32_t  RXIDE:1;
+X    volatile uint32_t  RXIDE:1;
+N    __I  uint32_t  RESERVE1:24;
+X    volatile const  uint32_t  RESERVE1:24;
+N} CAN_RXFINFO_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE:3;
+X    volatile const  uint32_t  RESERVE:3;
+N    __IO uint32_t  RXID:29;
+X    volatile uint32_t  RXID:29;
+N} CAN_RXIDR_T;
+N
+Ntypedef __IO uint32_t CAN_RXDATA_T;
+Xtypedef volatile uint32_t CAN_RXDATA_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE:3;
+X    volatile const  uint32_t  RESERVE:3;
+N    __IO uint32_t  ACRID:29;
+X    volatile uint32_t  ACRID:29;
+N} CAN_ACR_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE:3;
+X    volatile const  uint32_t  RESERVE:3;
+N    __IO uint32_t  AMRID:29;
+X    volatile uint32_t  AMRID:29;
+N} CAN_AMR_T;
+N
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE:32;
+X    volatile const  uint32_t  RESERVE:32;
+N} CAN_RESERVE_T;
+N
+Ntypedef struct
+N{
+N    CAN_OPMODE_T    OPMODE;
+N    CAN_CMD_T       CMD;
+N	CAN_BUSSTS_T    BUSSTS;    
+N	CAN_INTR_T      INTR;
+N
+N    CAN_INTEN_T     INTEN;
+N    CAN_BTIMR_T     BTIMR;
+N	CAN_RESERVE_T	PROTECT[2];
+N
+N    CAN_ERRCR_T     ERRCR;
+N	CAN_RESERVE_T	PROTECT1;
+N    CAN_RECNTR_T    RECNTR;
+N    CAN_TECNTR_T    TECNTR;
+N
+N    CAN_TXFINFO_T   TXFINFO;
+N    CAN_TXIDR_T     TXIDR;
+N    CAN_TXDATA_T    TXDATA[2];
+N
+N    CAN_RXFINFO_T   RXFINFO;
+N    CAN_RXIDR_T     RXIDR;
+N    CAN_RXDATA_T    RX_DATA[2];
+N    CAN_ACR_T       ACR;
+N    CAN_AMR_T       AMR;    
+N} CAN_T;
+N
+N
+N/*--------------------------- USB Device Controller --------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  BUS:1;
+X    volatile uint32_t  BUS:1;
+N    __IO uint32_t  USB:1;
+X    volatile uint32_t  USB:1;
+N    __IO uint32_t  FLD:1;
+X    volatile uint32_t  FLD:1;
+N    __IO uint32_t  WAKEUP:1;
+X    volatile uint32_t  WAKEUP:1;
+N    __I  uint32_t  RESERVE0:4;
+X    volatile const  uint32_t  RESERVE0:4;
+N    __IO uint32_t  WAKEUP_EN:1;
+X    volatile uint32_t  WAKEUP_EN:1;
+N    __I  uint32_t  RESERVE1:6;
+X    volatile const  uint32_t  RESERVE1:6;
+N    __IO uint32_t  INNAK_EN:1;
+X    volatile uint32_t  INNAK_EN:1;
+N    __I  uint32_t  RESERVE2:16;
+X    volatile const  uint32_t  RESERVE2:16;
+N} USBD_INTEN_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  BUS:1;
+X    volatile uint32_t  BUS:1;
+N    __IO uint32_t  USB:1;
+X    volatile uint32_t  USB:1;
+N    __IO uint32_t  FLD:1;
+X    volatile uint32_t  FLD:1;
+N    __IO uint32_t  WAKEUP:1;
+X    volatile uint32_t  WAKEUP:1;
+N    __I  uint32_t  RESERVE0:12;
+X    volatile const  uint32_t  RESERVE0:12;
+N    __IO uint32_t  EPTF:6;
+X    volatile uint32_t  EPTF:6;
+N    __I  uint32_t  RESERVE1:9;
+X    volatile const  uint32_t  RESERVE1:9;
+N    __IO uint32_t  SETUP:1;
+X    volatile uint32_t  SETUP:1;
+N} USBD_INTSTS_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FADDR:7;
+X    volatile uint32_t  FADDR:7;
+N    __I  uint32_t  RESERVE:25;
+X    volatile const  uint32_t  RESERVE:25;
+N} USBD_FADDR_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:7;
+X    volatile const  uint32_t  RESERVE0:7;
+N    __IO uint32_t  OVERRUN:1;
+X    volatile uint32_t  OVERRUN:1;
+N    __IO uint32_t  EPSTS0:3;
+X    volatile uint32_t  EPSTS0:3;
+N    __IO uint32_t  EPSTS1:3;
+X    volatile uint32_t  EPSTS1:3;
+N    __IO uint32_t  EPSTS2:3;
+X    volatile uint32_t  EPSTS2:3;
+N    __IO uint32_t  EPSTS3:3;
+X    volatile uint32_t  EPSTS3:3;
+N    __IO uint32_t  EPSTS4:3;
+X    volatile uint32_t  EPSTS4:3;
+N    __IO uint32_t  EPSTS5:3;
+X    volatile uint32_t  EPSTS5:3;
+N    __I  uint32_t  RESERVE1:6;
+X    volatile const  uint32_t  RESERVE1:6;
+N} USBD_EPSTS_T;
+N
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  USBRST:1;
+X    volatile uint32_t  USBRST:1;
+N    __IO uint32_t  SUSPEND:1;
+X    volatile uint32_t  SUSPEND:1;
+N    __IO uint32_t  RESUME:1;
+X    volatile uint32_t  RESUME:1;
+N    __IO uint32_t  TIMEOUT:1;
+X    volatile uint32_t  TIMEOUT:1;
+N    __IO uint32_t  PHY_EN:1;
+X    volatile uint32_t  PHY_EN:1;
+N    __IO uint32_t  RWAKEUP:1;
+X    volatile uint32_t  RWAKEUP:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  USB_EN:1;
+X    volatile uint32_t  USB_EN:1;
+N	__IO uint32_t  DPPU_EN:1;
+X	volatile uint32_t  DPPU_EN:1;
+N	__IO uint32_t  PDB:1;
+X	volatile uint32_t  PDB:1;
+N    __I  uint32_t  RESERVE1:22;
+X    volatile const  uint32_t  RESERVE1:22;
+N} USBD_ATTR_T;
+N
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  FLDET:1;
+X    volatile uint32_t  FLDET:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} USBD_FLDET_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:3;
+X    volatile const  uint32_t  RESERVE0:3;
+N    __IO uint32_t  BUFSEG:6;
+X    volatile uint32_t  BUFSEG:6;
+N    __I  uint32_t  RESERVE:23;
+X    volatile const  uint32_t  RESERVE:23;
+N} USBD_BUFSEG_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  MXPLD:9;
+X    volatile uint32_t  MXPLD:9;
+N    __I  uint32_t  RESERVE:23;
+X    volatile const  uint32_t  RESERVE:23;
+N} USBD_MXPLD_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  EPT:4;
+X    volatile uint32_t  EPT:4;
+N    __IO uint32_t  ISOCH:1;
+X    volatile uint32_t  ISOCH:1;
+N    __IO uint32_t  STATE:2;
+X    volatile uint32_t  STATE:2;
+N    __IO uint32_t  DSQ:1;
+X    volatile uint32_t  DSQ:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  STALL_CTL:1;
+X    volatile uint32_t  STALL_CTL:1;
+N    __I  uint32_t  RESERVE1:22;
+X    volatile const  uint32_t  RESERVE1:22;
+N} USBD_CFG_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CFGP:1;
+X    volatile uint32_t  CFGP:1;
+N    __IO uint32_t  STALL:1;
+X    volatile uint32_t  STALL:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} USBD_CFGP_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  DRVSE0:1;
+X    volatile uint32_t  DRVSE0:1;
+N    __I  uint32_t  RESERVE:31;
+X    volatile const  uint32_t  RESERVE:31;
+N} USBD_DRVSE0_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PDMA_RW:1;
+X    volatile uint32_t  PDMA_RW:1;
+N    __IO uint32_t  PDMA_EN:1;
+X    volatile uint32_t  PDMA_EN:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} USBD_PDMA_T;
+N
+N
+Ntypedef struct
+N{
+N    USBD_BUFSEG_T   BUFSEG;
+N    USBD_MXPLD_T    MXPLD;
+N    USBD_CFG_T      CFG;
+N    USBD_CFGP_T     CFGP;
+N} USBD_EP_T;
+N
+Ntypedef struct
+N{
+N    USBD_INTEN_T    INTEN;			
+N    USBD_INTSTS_T   INTSTS;			
+N    USBD_FADDR_T    FADDR;			
+N    USBD_EPSTS_T    EPSTS;
+N    USBD_ATTR_T     ATTR;
+N    USBD_FLDET_T    FLDET;
+N    USBD_BUFSEG_T   BUFSEG;
+N    uint32_t        RESERVE0;
+N	USBD_EP_T       EP[6];
+N    uint32_t        RESERVE1[4];
+N	USBD_DRVSE0_T   DRVSE0;
+N    uint32_t        RESERVE2[4];
+N    USBD_PDMA_T     PDMA;
+N} USBD_T;
+N
+N
+N/*------------------------------ PDMA Controller -----------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  PDMACEN:1;
+X    volatile uint32_t  PDMACEN:1;
+N    __IO uint32_t  SW_RST:1;
+X    volatile uint32_t  SW_RST:1;
+N    __IO uint32_t  MODE_SEL:2;
+X    volatile uint32_t  MODE_SEL:2;
+N    __IO uint32_t  SAD_SEL:2;
+X    volatile uint32_t  SAD_SEL:2;
+N    __IO uint32_t  DAD_SEL:2;
+X    volatile uint32_t  DAD_SEL:2;
+N    __I  uint32_t  RESERVE0:4;
+X    volatile const  uint32_t  RESERVE0:4;
+N    __IO uint32_t  WAR_BCR_SEL:4;
+X    volatile uint32_t  WAR_BCR_SEL:4;
+N    __I  uint32_t  RESERVE1:3;
+X    volatile const  uint32_t  RESERVE1:3;
+N    __IO uint32_t  APB_TWS:2;
+X    volatile uint32_t  APB_TWS:2;
+N    __I  uint32_t  RESERVE2:2;
+X    volatile const  uint32_t  RESERVE2:2;
+N    __IO uint32_t  TRIG_EN:1;
+X    volatile uint32_t  TRIG_EN:1;
+N    __I  uint32_t  RESERVE3:8;
+X    volatile const  uint32_t  RESERVE3:8;
+N} PDMA_CSR_T;
+N
+Ntypedef __IO uint32_t PDMA_SAR_T;
+Xtypedef volatile uint32_t PDMA_SAR_T;
+Ntypedef __IO uint32_t PDMA_DAR_T;
+Xtypedef volatile uint32_t PDMA_DAR_T;
+N
+Ntypedef __IO uint32_t PDMA_BCR_T;
+Xtypedef volatile uint32_t PDMA_BCR_T;
+N
+Ntypedef __IO uint32_t PDMA_CSAR_T;
+Xtypedef volatile uint32_t PDMA_CSAR_T;
+Ntypedef __IO uint32_t PDMA_CDAR_T;
+Xtypedef volatile uint32_t PDMA_CDAR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CBCR:24;
+X    volatile uint32_t  CBCR:24;
+N    __I  uint32_t  RESERVE:8;
+X    volatile const  uint32_t  RESERVE:8;
+N} PDMA_CBCR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TABORT_IE:1;
+X    volatile uint32_t  TABORT_IE:1;
+N    __IO uint32_t  BLKD_IE:1;
+X    volatile uint32_t  BLKD_IE:1;
+N    __I  uint32_t  RESERVE:30;
+X    volatile const  uint32_t  RESERVE:30;
+N} PDMA_IER_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  TABORT_IF:1;
+X    volatile uint32_t  TABORT_IF:1;
+N    __IO uint32_t  BLKD_IF:1;
+X    volatile uint32_t  BLKD_IF:1;
+N	__I  uint32_t  RESERVE:30;
+X	volatile const  uint32_t  RESERVE:30;
+N} PDMA_ISR_T;
+N
+Ntypedef __IO uint32_t PDMA_SBUF_T;
+Xtypedef volatile uint32_t PDMA_SBUF_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:8;
+X    volatile const  uint32_t  RESERVE0:8;
+N    __IO uint32_t  CLK0_EN:1;
+X    volatile uint32_t  CLK0_EN:1;
+N    __IO uint32_t  CLK1_EN:1;
+X    volatile uint32_t  CLK1_EN:1;
+N    __IO uint32_t  CLK2_EN:1;
+X    volatile uint32_t  CLK2_EN:1;
+N    __IO uint32_t  CLK3_EN:1;
+X    volatile uint32_t  CLK3_EN:1;
+N    __IO uint32_t  CLK4_EN:1;
+X    volatile uint32_t  CLK4_EN:1;
+N    __IO uint32_t  CLK5_EN:1;
+X    volatile uint32_t  CLK5_EN:1;
+N    __IO uint32_t  CLK6_EN:1;
+X    volatile uint32_t  CLK6_EN:1;
+N    __IO uint32_t  CLK7_EN:1;
+X    volatile uint32_t  CLK7_EN:1;
+N    __IO uint32_t  CLK8_EN:1;
+X    volatile uint32_t  CLK8_EN:1;
+N    __I  uint32_t  RESERVE1:15;
+X    volatile const  uint32_t  RESERVE1:15;
+N} PDMA_GCRCSR_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  SPI0_RXSEL:4;
+X    volatile uint32_t  SPI0_RXSEL:4;
+N    __IO uint32_t  SPI0_TXSEL:4;
+X    volatile uint32_t  SPI0_TXSEL:4;
+N    __IO uint32_t  SPI1_RXSEL:4;
+X    volatile uint32_t  SPI1_RXSEL:4;
+N    __IO uint32_t  SPI1_TXSEL:4;
+X    volatile uint32_t  SPI1_TXSEL:4;
+N    __IO uint32_t  SPI2_RXSEL:4;
+X    volatile uint32_t  SPI2_RXSEL:4;
+N    __IO uint32_t  SPI2_TXSEL:4;
+X    volatile uint32_t  SPI2_TXSEL:4;
+N    __IO uint32_t  SPI3_RXSEL:4;
+X    volatile uint32_t  SPI3_RXSEL:4;
+N    __IO uint32_t  SPI3_TXSEL:4;
+X    volatile uint32_t  SPI3_TXSEL:4;
+N} PDMA_PDSSR0_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  UART0_RXSEL:4;
+X    volatile uint32_t  UART0_RXSEL:4;
+N    __IO uint32_t  UART0_TXSEL:4;
+X    volatile uint32_t  UART0_TXSEL:4;
+N    __IO uint32_t  UART1_RXSEL:4;
+X    volatile uint32_t  UART1_RXSEL:4;
+N    __IO uint32_t  UART1_TXSEL:4;
+X    volatile uint32_t  UART1_TXSEL:4;
+N    __IO uint32_t  USBD_RXSEL:4;
+X    volatile uint32_t  USBD_RXSEL:4;
+N    __IO uint32_t  USBD_TXSEL:4;
+X    volatile uint32_t  USBD_TXSEL:4;
+N    __IO uint32_t  ADC_RXSEL:4;
+X    volatile uint32_t  ADC_RXSEL:4;
+N    __IO uint32_t  ADC_TXSEL:4;
+X    volatile uint32_t  ADC_TXSEL:4;
+N} PDMA_PDSSR1_T;
+N                                                        
+N
+Ntypedef struct
+N{
+N    __I uint32_t  INTR0:1;
+X    volatile const uint32_t  INTR0:1;
+N	__I uint32_t  INTR1:1;
+X	volatile const uint32_t  INTR1:1;
+N	__I uint32_t  INTR2:1;
+X	volatile const uint32_t  INTR2:1;
+N	__I uint32_t  INTR3:1;
+X	volatile const uint32_t  INTR3:1;
+N	__I uint32_t  INTR4:1;
+X	volatile const uint32_t  INTR4:1;
+N	__I uint32_t  INTR5:1;
+X	volatile const uint32_t  INTR5:1;
+N	__I uint32_t  INTR6:1;
+X	volatile const uint32_t  INTR6:1;
+N	__I uint32_t  INTR7:1;
+X	volatile const uint32_t  INTR7:1;
+N	__I uint32_t  INTR8:1;
+X	volatile const uint32_t  INTR8:1;
+N    __I uint32_t  RESERVED:22;
+X    volatile const uint32_t  RESERVED:22;
+N	__I uint32_t  INTR:1;
+X	volatile const uint32_t  INTR:1;
+N} PDMA_GCRISR_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  I2S_RXSEL:4;
+X    volatile uint32_t  I2S_RXSEL:4;
+N    __IO uint32_t  I2S_TXSEL:4;
+X    volatile uint32_t  I2S_TXSEL:4;
+N    __I  uint32_t  RESERVED:24;
+X    volatile const  uint32_t  RESERVED:24;
+N} PDMA_PDSSR2_T;
+N
+N
+Ntypedef struct
+N{
+N    PDMA_GCRCSR_T   GCRCSR;
+N    PDMA_PDSSR0_T   PDSSR0;
+N    PDMA_PDSSR1_T   PDSSR1;  
+N    PDMA_GCRISR_T   GCRISR;  
+N	PDMA_PDSSR2_T   PDSSR2;   
+N} PDMA_GCR_T;
+N
+Ntypedef struct 
+N{
+N    PDMA_CSR_T      CSR;
+N    PDMA_SAR_T      SAR;
+N    PDMA_DAR_T      DAR;
+N    PDMA_BCR_T      BCR;
+N    uint32_t        POINT;
+N    PDMA_CSAR_T     CSAR;
+N    PDMA_CDAR_T     CDAR;
+N    PDMA_CBCR_T     CBCR;
+N    PDMA_IER_T      IER;
+N    PDMA_ISR_T      ISR;
+N    PDMA_SBUF_T     SBUF[4];
+N} PDMA_T;
+N
+N/*----------------------------- PWM Controller -------------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  CP01:8;
+X    volatile uint32_t  CP01:8;
+N    __IO uint32_t  CP23:8;
+X    volatile uint32_t  CP23:8;
+N    __IO uint32_t  DZI01:8;
+X    volatile uint32_t  DZI01:8;
+N    __IO uint32_t  DZI23:8;
+X    volatile uint32_t  DZI23:8;
+N} PWM_PPR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CSR0:3;
+X    volatile uint32_t  CSR0:3;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  CSR1:3;
+X    volatile uint32_t  CSR1:3;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N    __IO uint32_t  CSR2:3;
+X    volatile uint32_t  CSR2:3;
+N    __I  uint32_t  RESERVE2:1;
+X    volatile const  uint32_t  RESERVE2:1;
+N    __IO uint32_t  CSR3:3;
+X    volatile uint32_t  CSR3:3;
+N    __I  uint32_t  RESERVE3:17;
+X    volatile const  uint32_t  RESERVE3:17;
+N} PWM_CSR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  CH0EN:1;
+X    volatile uint32_t  CH0EN:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  CH0INV:1;
+X    volatile uint32_t  CH0INV:1;
+N    __IO uint32_t  CH0MOD:1;
+X    volatile uint32_t  CH0MOD:1;
+N    __IO uint32_t  DZEN01:1;
+X    volatile uint32_t  DZEN01:1;
+N    __IO uint32_t  DZEN23:1;
+X    volatile uint32_t  DZEN23:1;
+N    __I  uint32_t  RESERVE1:2;
+X    volatile const  uint32_t  RESERVE1:2;
+N    __IO uint32_t  CH1EN:1;
+X    volatile uint32_t  CH1EN:1;
+N    __I  uint32_t  RESERVE2:1;
+X    volatile const  uint32_t  RESERVE2:1;
+N    __IO uint32_t  CH1INV:1;
+X    volatile uint32_t  CH1INV:1;
+N    __IO uint32_t  CH1MOD:1;
+X    volatile uint32_t  CH1MOD:1;
+N    __I  uint32_t  RESERVE3:4;
+X    volatile const  uint32_t  RESERVE3:4;
+N    __IO uint32_t  CH2EN:1;
+X    volatile uint32_t  CH2EN:1;
+N    __I  uint32_t  RESERVE4:1;
+X    volatile const  uint32_t  RESERVE4:1;
+N    __IO uint32_t  CH2INV:1;
+X    volatile uint32_t  CH2INV:1;
+N    __IO uint32_t  CH2MOD:1;
+X    volatile uint32_t  CH2MOD:1;
+N    __I  uint32_t  RESERVE5:4;
+X    volatile const  uint32_t  RESERVE5:4;
+N    __IO uint32_t  CH3EN:1;
+X    volatile uint32_t  CH3EN:1;
+N    __I  uint32_t  RESERVE6:1;
+X    volatile const  uint32_t  RESERVE6:1;
+N    __IO uint32_t  CH3INV:1;
+X    volatile uint32_t  CH3INV:1;
+N    __IO uint32_t  CH3MOD:1;
+X    volatile uint32_t  CH3MOD:1;
+N    __I  uint32_t  RESERVE7:4;   
+X    volatile const  uint32_t  RESERVE7:4;   
+N} PWM_PCR_T;
+N
+Ntypedef __IO uint32_t PWM_CNR_T;
+Xtypedef volatile uint32_t PWM_CNR_T;
+N
+Ntypedef __IO uint32_t PWM_CMR_T;
+Xtypedef volatile uint32_t PWM_CMR_T;
+N
+Ntypedef __IO uint32_t PWM_PDR_T;
+Xtypedef volatile uint32_t PWM_PDR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  BCn:1;
+X    volatile uint32_t  BCn:1;
+N	__I  uint32_t  RESERVE:31;
+X	volatile const  uint32_t  RESERVE:31;
+N} PWM_PBCR_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PWMIE0:1;
+X    volatile uint32_t  PWMIE0:1;
+N    __IO uint32_t  PWMIE1:1;
+X    volatile uint32_t  PWMIE1:1;
+N    __IO uint32_t  PWMIE2:1;
+X    volatile uint32_t  PWMIE2:1;
+N    __IO uint32_t  PWMIE3:1;
+X    volatile uint32_t  PWMIE3:1;
+N	__I  uint32_t  RESERVE:28;
+X	volatile const  uint32_t  RESERVE:28;
+N} PWM_PIER_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PWMIF0:1;
+X    volatile uint32_t  PWMIF0:1;
+N    __IO uint32_t  PWMIF1:1;
+X    volatile uint32_t  PWMIF1:1;
+N    __IO uint32_t  PWMIF2:1;
+X    volatile uint32_t  PWMIF2:1;
+N    __IO uint32_t  PWMIF3:1;
+X    volatile uint32_t  PWMIF3:1;
+N	__I  uint32_t  RESERVE:28;
+X	volatile const  uint32_t  RESERVE:28;
+N} PWM_PIIR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  INV0:1;
+X    volatile uint32_t  INV0:1;
+N    __IO uint32_t  CRL_IE0:1;
+X    volatile uint32_t  CRL_IE0:1;
+N    __IO uint32_t  CFL_IE0:1;
+X    volatile uint32_t  CFL_IE0:1;
+N    __IO uint32_t  CAPCH0EN:1;
+X    volatile uint32_t  CAPCH0EN:1;
+N    __IO uint32_t  CAPIF0:1;
+X    volatile uint32_t  CAPIF0:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  CRLRI0:1;
+X    volatile uint32_t  CRLRI0:1;
+N    __IO uint32_t  CFLRI0:1;
+X    volatile uint32_t  CFLRI0:1;
+N    __I  uint32_t  RESERVE1:8;
+X    volatile const  uint32_t  RESERVE1:8;
+N    __IO uint32_t  INV1:1;
+X    volatile uint32_t  INV1:1;
+N    __IO uint32_t  CRL_IE1:1;
+X    volatile uint32_t  CRL_IE1:1;
+N    __IO uint32_t  CFL_IE1:1;
+X    volatile uint32_t  CFL_IE1:1;
+N    __IO uint32_t  CAPCH1EN:1;
+X    volatile uint32_t  CAPCH1EN:1;
+N    __IO uint32_t  CAPIF1:1;
+X    volatile uint32_t  CAPIF1:1;
+N    __I  uint32_t  RESERVE2:1;
+X    volatile const  uint32_t  RESERVE2:1;
+N    __IO uint32_t  CRLRI1:1;
+X    volatile uint32_t  CRLRI1:1;
+N    __IO uint32_t  CFLRI1:1;
+X    volatile uint32_t  CFLRI1:1;
+N    __I  uint32_t  RESERVE3:8;
+X    volatile const  uint32_t  RESERVE3:8;
+N} PWM_CCR0_T;
+N
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  INV2:1;
+X    volatile uint32_t  INV2:1;
+N    __IO uint32_t  CRL_IE2:1;
+X    volatile uint32_t  CRL_IE2:1;
+N    __IO uint32_t  CFL_IE2:1;
+X    volatile uint32_t  CFL_IE2:1;
+N    __IO uint32_t  CAPCH2EN:1;
+X    volatile uint32_t  CAPCH2EN:1;
+N    __IO uint32_t  CAPIF2:1;
+X    volatile uint32_t  CAPIF2:1;
+N    __I  uint32_t  RESERVE0:1;
+X    volatile const  uint32_t  RESERVE0:1;
+N    __IO uint32_t  CRLRI2:1;
+X    volatile uint32_t  CRLRI2:1;
+N    __IO uint32_t  CFLRI2:1;
+X    volatile uint32_t  CFLRI2:1;
+N    __I  uint32_t  RESERVE1:8;
+X    volatile const  uint32_t  RESERVE1:8;
+N    __IO uint32_t  INV3:1;
+X    volatile uint32_t  INV3:1;
+N    __IO uint32_t  CRL_IE3:1;
+X    volatile uint32_t  CRL_IE3:1;
+N    __IO uint32_t  CFL_IE3:1;
+X    volatile uint32_t  CFL_IE3:1;
+N    __IO uint32_t  CAPCH3EN:1;
+X    volatile uint32_t  CAPCH3EN:1;
+N    __IO uint32_t  CAPIF3:1;
+X    volatile uint32_t  CAPIF3:1;
+N    __I  uint32_t  RESERVE2:1;
+X    volatile const  uint32_t  RESERVE2:1;
+N    __IO uint32_t  CRLRI3:1;
+X    volatile uint32_t  CRLRI3:1;
+N    __IO uint32_t  CFLRI3:1;
+X    volatile uint32_t  CFLRI3:1;
+N    __I  uint32_t  RESERVE3:8;
+X    volatile const  uint32_t  RESERVE3:8;
+N} PWM_CCR2_T;
+N
+Ntypedef __IO uint32_t PWM_CRLR_T;
+Xtypedef volatile uint32_t PWM_CRLR_T;
+N
+Ntypedef __IO uint32_t PWM_CFLR_T;
+Xtypedef volatile uint32_t PWM_CFLR_T;
+N
+Ntypedef __IO uint32_t PWM_CAPENR_T;
+Xtypedef volatile uint32_t PWM_CAPENR_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  PWM0:1;
+X    volatile uint32_t  PWM0:1;
+N    __IO uint32_t  PWM1:1;
+X    volatile uint32_t  PWM1:1;
+N    __IO uint32_t  PWM2:1;
+X    volatile uint32_t  PWM2:1;
+N    __IO uint32_t  PWM3:1;
+X    volatile uint32_t  PWM3:1;
+N	__I  uint32_t  RESERVE:28;
+X	volatile const  uint32_t  RESERVE:28;
+N} PWM_POE_T;
+N
+N
+Ntypedef struct
+N{
+N    PWM_PPR_T       PPR;
+N    PWM_CSR_T       CSR;
+N    PWM_PCR_T       PCR;
+N    PWM_CNR_T       CNR0;
+N    PWM_CMR_T       CMR0;
+N    PWM_PDR_T       PDR0;
+N    PWM_CNR_T       CNR1;
+N    PWM_CMR_T       CMR1;
+N    PWM_PDR_T       PDR1;
+N    PWM_CNR_T       CNR2;
+N    PWM_CMR_T       CMR2;
+N    PWM_PDR_T       PDR2;
+N    PWM_CNR_T       CNR3;
+N    PWM_CMR_T       CMR3;
+N    PWM_PDR_T       PDR3;
+N	PWM_PBCR_T		PBCR;
+N    PWM_PIER_T      PIER;
+N    PWM_PIIR_T      PIIR;
+N    __I uint32_t    RESERVE1[2];
+X    volatile const uint32_t    RESERVE1[2];
+N    PWM_CCR0_T      CCR0;
+N    PWM_CCR2_T      CCR2;
+N    PWM_CRLR_T      CRLR0;
+N    PWM_CFLR_T      CFLR0;
+N    PWM_CRLR_T      CRLR1;
+N    PWM_CFLR_T      CFLR1;
+N    PWM_CRLR_T      CRLR2;
+N    PWM_CFLR_T      CFLR2;
+N    PWM_CRLR_T      CRLR3;
+N    PWM_CFLR_T      CFLR3;
+N    PWM_CAPENR_T    CAPENR;
+N    PWM_POE_T       POE;    
+N        
+N    
+N} PWM_T;
+N
+N/*----------------------------- I2S Controller -------------------------------*/
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  I2SEN:1;
+X    volatile uint32_t  I2SEN:1;
+N    __IO uint32_t  TXEN:1;
+X    volatile uint32_t  TXEN:1;
+N    __IO uint32_t  RXEN:1;
+X    volatile uint32_t  RXEN:1;
+N    __IO uint32_t  MUTE:1;
+X    volatile uint32_t  MUTE:1;
+N    __IO uint32_t  WORDWIDTH:2;
+X    volatile uint32_t  WORDWIDTH:2;
+N    __IO uint32_t  MONO:1;
+X    volatile uint32_t  MONO:1;
+N    __IO uint32_t  FORMAT:1;
+X    volatile uint32_t  FORMAT:1;
+N    __IO uint32_t  SLAVE:1;
+X    volatile uint32_t  SLAVE:1;
+N    __IO uint32_t  TXTH:3;
+X    volatile uint32_t  TXTH:3;
+N	__IO uint32_t  RXTH:3;
+X	volatile uint32_t  RXTH:3;
+N	__IO uint32_t  MCLKEN:1;
+X	volatile uint32_t  MCLKEN:1;
+N    __IO uint32_t  RCHZCEN:1;
+X    volatile uint32_t  RCHZCEN:1;
+N    __IO uint32_t  LCHZCEN:1;
+X    volatile uint32_t  LCHZCEN:1;
+N    __IO uint32_t  CLR_TXFIFO:1;
+X    volatile uint32_t  CLR_TXFIFO:1;
+N    __IO uint32_t  CLR_RXFIFO:1;
+X    volatile uint32_t  CLR_RXFIFO:1;
+N	__IO uint32_t  TXDMA:1;
+X	volatile uint32_t  TXDMA:1;
+N	__IO uint32_t  RXDMA:1;	
+X	volatile uint32_t  RXDMA:1;	
+N	__I  uint32_t  RESERVE:10;
+X	volatile const  uint32_t  RESERVE:10;
+N} I2S_CON_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  MCLK_DIV:3;
+X    volatile uint32_t  MCLK_DIV:3;
+N    __I  uint32_t  RESERVE0:5;
+X    volatile const  uint32_t  RESERVE0:5;
+N	__IO uint32_t  BCLK_DIV:8;
+X	volatile uint32_t  BCLK_DIV:8;
+N    __I  uint32_t  RESERVE1:16;
+X    volatile const  uint32_t  RESERVE1:16;
+N} I2S_CLKDIV_T;
+N
+Ntypedef struct
+N{
+N    __IO uint32_t  RXUDFIE:1;
+X    volatile uint32_t  RXUDFIE:1;
+N	__IO uint32_t  RXOVFIE:1;
+X	volatile uint32_t  RXOVFIE:1;
+N	__IO uint32_t  RXTHIE:1;
+X	volatile uint32_t  RXTHIE:1;
+N    __I  uint32_t  RESERVE0:5;
+X    volatile const  uint32_t  RESERVE0:5;
+N	__IO uint32_t  TXUDFIE:1;
+X	volatile uint32_t  TXUDFIE:1;
+N	__IO uint32_t  TXOVFIE:1;
+X	volatile uint32_t  TXOVFIE:1;
+N	__IO uint32_t  TXTHIE:1;
+X	volatile uint32_t  TXTHIE:1;
+N	__IO uint32_t  RZCIE:1;
+X	volatile uint32_t  RZCIE:1;
+N	__IO uint32_t  LZCIE:1;
+X	volatile uint32_t  LZCIE:1;
+N    __I  uint32_t  RESERVE1:19;
+X    volatile const  uint32_t  RESERVE1:19;
+N} I2S_IE_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  I2SINT:1;
+X    volatile const  uint32_t  I2SINT:1;
+N	__I  uint32_t  I2SRXINT:1;
+X	volatile const  uint32_t  I2SRXINT:1;
+N	__I  uint32_t  I2STXINT:1;
+X	volatile const  uint32_t  I2STXINT:1;
+N	__I  uint32_t  RIGHT:1;
+X	volatile const  uint32_t  RIGHT:1;
+N    __I  uint32_t  RESERVE0:4;
+X    volatile const  uint32_t  RESERVE0:4;
+N	__IO uint32_t  RXUDF:1;
+X	volatile uint32_t  RXUDF:1;
+N	__IO uint32_t  RXOVF:1;
+X	volatile uint32_t  RXOVF:1;
+N	__I  uint32_t  RXTHF:1;
+X	volatile const  uint32_t  RXTHF:1;
+N	__I  uint32_t  RXFULL:1;
+X	volatile const  uint32_t  RXFULL:1;
+N	__I  uint32_t  RXEMPTY:1;
+X	volatile const  uint32_t  RXEMPTY:1;
+N	__I  uint32_t  RESERVE1:3;
+X	volatile const  uint32_t  RESERVE1:3;
+N	__IO uint32_t  TXUDF:1;
+X	volatile uint32_t  TXUDF:1;
+N	__IO uint32_t  TXOVF:1;
+X	volatile uint32_t  TXOVF:1;
+N	__I  uint32_t  TXTHF:1;
+X	volatile const  uint32_t  TXTHF:1;
+N	__I  uint32_t  TXFULL:1;
+X	volatile const  uint32_t  TXFULL:1;
+N	__I  uint32_t  TXEMPTY:1;
+X	volatile const  uint32_t  TXEMPTY:1;
+N	__I  uint32_t  TXBUSY:1;
+X	volatile const  uint32_t  TXBUSY:1;
+N	__I  uint32_t  RZCF:1;
+X	volatile const  uint32_t  RZCF:1;
+N	__I  uint32_t  LZCF:1;	
+X	volatile const  uint32_t  LZCF:1;	
+N	__I  uint32_t  RX_LEVEL:4;
+X	volatile const  uint32_t  RX_LEVEL:4;
+N	__I  uint32_t  TX_LEVEL:4;
+X	volatile const  uint32_t  TX_LEVEL:4;
+N} I2S_STATUS_T;
+N
+Ntypedef __O uint32_t I2S_TXFIFO_T;
+Xtypedef volatile uint32_t I2S_TXFIFO_T;
+Ntypedef __I uint32_t I2S_RXFIFO_T;
+Xtypedef volatile const uint32_t I2S_RXFIFO_T;
+N
+Ntypedef struct
+N{
+N    I2S_CON_T        CON;
+N	I2S_CLKDIV_T     CLKDIV;
+N    I2S_IE_T      	 IE;
+N    I2S_STATUS_T     STATUS;
+N    I2S_TXFIFO_T     TXFIFO;
+N	I2S_RXFIFO_T     RXFIFO;
+N} I2S_T;
+N
+N/*----------------------------- EBI Controller -------------------------------*/
+Ntypedef struct
+N{
+N    __IO uint32_t  ExtEN:1;
+X    volatile uint32_t  ExtEN:1;
+N    __IO uint32_t  ExtBW16:1;
+X    volatile uint32_t  ExtBW16:1;
+N    __I  uint32_t  RESERVE0:6;
+X    volatile const  uint32_t  RESERVE0:6;
+N    __IO uint32_t  MCLKDIV:3;
+X    volatile uint32_t  MCLKDIV:3;
+N    __I  uint32_t  RESERVE1:5;
+X    volatile const  uint32_t  RESERVE1:5;
+N    __IO uint32_t  ExttALE:3;
+X    volatile uint32_t  ExttALE:3;
+N    __I  uint32_t  RESERVE2:5;
+X    volatile const  uint32_t  RESERVE2:5;
+N    __I  uint32_t  RESERVE3:8;
+X    volatile const  uint32_t  RESERVE3:8;
+N} EBI_CON_T;
+N
+Ntypedef struct
+N{
+N    __I  uint32_t  RESERVE0:3;
+X    volatile const  uint32_t  RESERVE0:3;
+N    __IO uint32_t  ExttACC:5;
+X    volatile uint32_t  ExttACC:5;
+N    __IO uint32_t  ExttAHD:3;
+X    volatile uint32_t  ExttAHD:3;
+N    __I  uint32_t  RESERVE1:1;
+X    volatile const  uint32_t  RESERVE1:1;
+N	__IO uint32_t  ExtIW2X:4;
+X	volatile uint32_t  ExtIW2X:4;
+N	__IO uint32_t  ExtIR2W:4;
+X	volatile uint32_t  ExtIR2W:4;
+N    __I  uint32_t  RESERVE2:4;
+X    volatile const  uint32_t  RESERVE2:4;
+N	__IO uint32_t  ExtIR2R:4;
+X	volatile uint32_t  ExtIR2R:4;
+N    __I  uint32_t  RESERVE3:4;
+X    volatile const  uint32_t  RESERVE3:4;
+N} EBI_TIME_T;
+N
+Ntypedef struct
+N{
+N    EBI_CON_T       CON;
+N    EBI_TIME_T      TIME;
+N} EBI_T;
+N
+N/******************************************************************************/
+N/*                         Peripheral memory map                              */
+N/******************************************************************************/
+N/* Peripheral and SRAM base address */
+N#define FLASH_BASE          ((     uint32_t)0x00000000)
+N#define SRAM_BASE           ((     uint32_t)0x20000000)
+N#define AHB_BASE            ((     uint32_t)0x50000000)
+N#define APB1_BASE           ((     uint32_t)0x40000000)
+N#define APB2_BASE           ((     uint32_t)0x40100000)
+N
+N/* Peripheral memory map */
+N#define GPIO_BASE           (AHB_BASE        + 0x4000)
+N
+N#define GPIOA_BASE          (GPIO_BASE               )
+N#define GPIOB_BASE          (GPIO_BASE       + 0x0040)
+N#define GPIOC_BASE          (GPIO_BASE       + 0x0080)
+N#define GPIOD_BASE          (GPIO_BASE       + 0x00C0)
+N#define GPIOE_BASE          (GPIO_BASE       + 0x0100)
+N#define GPIO_DBNCECON_BASE  (GPIO_BASE       + 0x0180)
+N
+N#define UART0_BASE           (APB1_BASE      + 0x50000)
+N#define UART1_BASE           (APB2_BASE      + 0x50000)
+N#define UART2_BASE           (APB2_BASE      + 0x54000)
+N
+N
+N#define TIMER0_BASE          (APB1_BASE      + 0x10000)  
+N#define TIMER1_BASE          (APB1_BASE      + 0x10020)  
+N#define TIMER2_BASE          (APB2_BASE      + 0x10000)  
+N#define TIMER3_BASE          (APB2_BASE      + 0x10020)  
+N
+N#define WDT_BASE       	     (APB1_BASE      + 0x4000)  
+N
+N#define SPI0_BASE            (APB1_BASE      + 0x30000)
+N#define SPI1_BASE            (APB1_BASE      + 0x34000)
+N#define SPI2_BASE            (APB2_BASE      + 0x30000)
+N#define SPI3_BASE            (APB2_BASE      + 0x34000)
+N
+N#define I2C0_BASE            (APB1_BASE      + 0x20000)
+N#define I2C1_BASE            (APB2_BASE      + 0x20000)
+N
+N#define RTC_BASE             (APB1_BASE      + 0x08000)
+N
+N#define ADC_BASE             (APB1_BASE      + 0xE0000)
+N
+N#define ACMP_BASE            (APB1_BASE      + 0xD0000)   
+N
+N#define SYSCLK_BASE          (AHB_BASE       + 0x00200)
+N
+N#define GCR_BASE             (AHB_BASE       + 0x00000)
+N
+N#define INT_BASE             (AHB_BASE       + 0x00300)
+N
+N#define FMC_BASE             (AHB_BASE       + 0x0C000)
+N
+N#define PS2_BASE             (APB2_BASE      + 0x00000)
+N
+N#define CAN0_BASE            (APB2_BASE      + 0x80000)
+N#define CAN1_BASE            (APB2_BASE      + 0x84000)
+N
+N#define USBD_BASE            (APB1_BASE      + 0x60000)
+N
+N#define PDMA0_BASE           (AHB_BASE       + 0x08000)
+N#define PDMA1_BASE           (AHB_BASE       + 0x08100)
+N#define PDMA2_BASE           (AHB_BASE       + 0x08200)
+N#define PDMA3_BASE           (AHB_BASE       + 0x08300)
+N#define PDMA4_BASE           (AHB_BASE       + 0x08400)
+N#define PDMA5_BASE           (AHB_BASE       + 0x08500)
+N#define PDMA6_BASE           (AHB_BASE       + 0x08600)
+N#define PDMA7_BASE           (AHB_BASE       + 0x08700)
+N#define PDMA8_BASE           (AHB_BASE       + 0x08800)
+N#define PDMA9_BASE           (AHB_BASE       + 0x08900)
+N#define PDMA10_BASE          (AHB_BASE       + 0x08A00)
+N#define PDMA11_BASE          (AHB_BASE       + 0x08B00)
+N#define PDMA_GCR_BASE        (AHB_BASE       + 0x08F00)
+N
+N#define PWMA_BASE            (APB1_BASE      + 0x40000)
+N#define PWMB_BASE            (APB2_BASE      + 0x40000)
+N
+N#define I2S_BASE             (APB2_BASE      + 0xA0000)
+N
+N#define EBI_BASE             (AHB_BASE       + 0x10000)
+N
+N/******************************************************************************/
+N/*                         Peripheral declaration                             */
+N/******************************************************************************/
+N#define GPIOA               ((GPIO_T *) GPIOA_BASE)
+N#define GPIOB               ((GPIO_T *) GPIOB_BASE)
+N#define GPIOC               ((GPIO_T *) GPIOC_BASE)
+N#define GPIOD               ((GPIO_T *) GPIOD_BASE)
+N#define GPIOE               ((GPIO_T *) GPIOE_BASE)
+N#define GPIO_DBNCECON       ((GPIO_DBNCECON_T *) GPIO_DBNCECON_BASE)
+N#define GPIO_BIT_ADDR_BASE	(GPIO_BASE + 0x200)
+N
+N#define UART0               ((UART_T *) UART0_BASE)
+N#define UART1               ((UART_T *) UART1_BASE)
+N#define UART2               ((UART_T *) UART2_BASE)
+N
+N
+N#define TIMER0              ((TIMER_T *) TIMER0_BASE)
+N#define TIMER1              ((TIMER_T *) TIMER1_BASE)
+N#define TIMER2              ((TIMER_T *) TIMER2_BASE)
+N#define TIMER3              ((TIMER_T *) TIMER3_BASE)
+N
+N#define WDT                 ((WDT_T *) WDT_BASE)
+N
+N#define SPI0                ((SPI_T *) SPI0_BASE)
+N#define SPI1                ((SPI_T *) SPI1_BASE)
+N#define SPI2                ((SPI_T *) SPI2_BASE)
+N#define SPI3                ((SPI_T *) SPI3_BASE)
+N
+N#define I2C0                ((I2C_T *) I2C0_BASE)
+N#define I2C1                ((I2C_T *) I2C1_BASE)
+N
+N#define I2S                 ((I2S_T *) I2S_BASE)
+N
+N#define RTC                 ((RTC_T *) RTC_BASE)
+N
+N#define ADC                 ((ADC_T *) ADC_BASE)
+N
+N#define ACMP                ((ACMP_T *) ACMP_BASE)
+N
+N#define SYSCLK              ((SYSCLK_T *) SYSCLK_BASE)
+N
+N#define SYS                 ((GCR_T *) GCR_BASE)
+N
+N#define SYSINT              ((GCR_INT_T *) INT_BASE)
+N
+N#define FMC                 ((FMC_T *) FMC_BASE)
+N
+N#define PS2                 ((PS2_T *) PS2_BASE)
+N
+N#define CAN0                ((CAN_T *) CAN0_BASE)
+N
+N#define USBD                ((USBD_T *) USBD_BASE)
+N
+N#define PDMA0               ((PDMA_T *) PDMA0_BASE)
+N#define PDMA1               ((PDMA_T *) PDMA1_BASE)
+N#define PDMA2               ((PDMA_T *) PDMA2_BASE)
+N#define PDMA3               ((PDMA_T *) PDMA3_BASE)
+N#define PDMA4               ((PDMA_T *) PDMA4_BASE)
+N#define PDMA5               ((PDMA_T *) PDMA5_BASE)
+N#define PDMA6               ((PDMA_T *) PDMA6_BASE)
+N#define PDMA7               ((PDMA_T *) PDMA7_BASE)
+N#define PDMA8               ((PDMA_T *) PDMA8_BASE)
+N#define PDMA9               ((PDMA_T *) PDMA9_BASE)
+N#define PDMA_GCR            ((PDMA_GCR_T *) PDMA_GCR_BASE)
+N
+N#define PWMA                ((PWM_T *) PWMA_BASE)
+N#define PWMB                ((PWM_T *) PWMB_BASE)
+N
+N#define EBI                 ((EBI_T *) EBI_BASE)
+N
+N#define UNLOCKREG(x)        *((__IO uint32_t *)(GCR_BASE + 0x100)) = 0x59;*((__IO uint32_t *)(GCR_BASE + 0x100)) = 0x16;*((__IO uint32_t *)(GCR_BASE + 0x100)) = 0x88
+N#define LOCKREG(x)          *((__IO uint32_t *)(GCR_BASE + 0x100)) = 0x00;     
+N
+N#define REGCOPY(dest, src)  *((uint32_t *)&(dest)) = *((uint32_t *)&(src))
+N#define CLEAR(dest) 		*((uint32_t *)&(dest)) = 0
+N
+N//=============================================================================
+Ntypedef volatile unsigned char  vu8;
+Ntypedef volatile unsigned long  vu32;
+Ntypedef volatile unsigned short vu16;
+N#define M8(adr)  (*((vu8  *) (adr)))
+N#define M16(adr) (*((vu16 *) (adr)))
+N#define M32(adr) (*((vu32 *) (adr)))
+N
+N#define outpw(port,value)	*((volatile unsigned int *)(port))=value
+N#define inpw(port)			(*((volatile unsigned int *)(port)))
+N#define outpb(port,value)	*((volatile unsigned char *)(port))=value
+N#define inpb(port)			(*((volatile unsigned char *)(port)))
+N#define outps(port,value)	*((volatile unsigned short *)(port))=value
+N#define inps(port)			(*((volatile unsigned short *)(port)))
+N
+N#define outp32(port,value)	*((volatile unsigned int *)(port))=value
+N#define inp32(port)			(*((volatile unsigned int *)(port)))
+N#define outp8(port,value)	*((volatile unsigned char *)(port))=value
+N#define inp8(port)			(*((volatile unsigned char *)(port)))
+N#define outp16(port,value)	*((volatile unsigned short *)(port))=value
+N#define inp16(port)			(*((volatile unsigned short *)(port)))
+N
+N
+N#define E_SUCCESS 	0
+N#ifndef NULL
+N#define NULL        0
+N#endif
+N
+N#define TRUE	   	1
+N#define FALSE   	0
+N
+N#define ENABLE     1
+N#define DISABLE    0
+N
+N/* Define one bit mask */
+N#define BIT0	0x00000001
+N#define BIT1	0x00000002
+N#define BIT2	0x00000004
+N#define BIT3	0x00000008
+N#define BIT4	0x00000010
+N#define BIT5	0x00000020
+N#define BIT6	0x00000040
+N#define BIT7	0x00000080
+N#define BIT8	0x00000100
+N#define BIT9	0x00000200
+N#define BIT10	0x00000400
+N#define BIT11	0x00000800
+N#define BIT12	0x00001000
+N#define BIT13	0x00002000
+N#define BIT14	0x00004000
+N#define BIT15	0x00008000
+N#define BIT16	0x00010000
+N#define BIT17	0x00020000
+N#define BIT18	0x00040000
+N#define BIT19	0x00080000
+N#define BIT20	0x00100000
+N#define BIT21	0x00200000
+N#define BIT22	0x00400000
+N#define BIT23	0x00800000
+N#define BIT24	0x01000000
+N#define BIT25	0x02000000
+N#define BIT26	0x04000000
+N#define BIT27	0x08000000
+N#define BIT28	0x10000000
+N#define BIT29	0x20000000
+N#define BIT30	0x40000000
+N#define BIT31	0x80000000
+N
+N#endif
+N                                                                                                 
+L 8 "..\CMSIS\NUC1xx\system_NUC1xx.c" 2
+N
+N
+N/*----------------------------------------------------------------------------
+N  Clock Variable definitions
+N *----------------------------------------------------------------------------*/
+Nuint32_t SystemCoreClock  = __HSI;   /*!< System Clock Frequency (Core Clock) */
+Xuint32_t SystemCoreClock  = ((22118400UL));    
+N
+Nuint32_t gau32ClkSrcTbl[] = {__XTAL, __RTC_XTAL, __HSI, __IRC10K, __IRC22M};
+Xuint32_t gau32ClkSrcTbl[] = {(12000000UL), (32768UL), ((22118400UL)), (10000UL), (22118400UL)};
+N
+N/*----------------------------------------------------------------------------
+N  Clock functions
+N  This function is used to update the variable SystemCoreClock 
+N  and must be called whenever the core clock is changed.
+N *----------------------------------------------------------------------------*/
+Nvoid SystemCoreClockUpdate (void)            /* Get Core Clock Frequency      */
+N{
+N    uint32_t u32CoreFreq, u32ClkSrc, u32Shift;
+N 
+N    u32ClkSrc = SYSCLK->CLKSEL0.HCLK_S;
+X    u32ClkSrc = ((SYSCLK_T *) ((( uint32_t)0x50000000) + 0x00200))->CLKSEL0.HCLK_S;
+N    if(u32ClkSrc > sizeof(gau32ClkSrcTbl)/sizeof(gau32ClkSrcTbl[0]))
+N        u32ClkSrc = sizeof(gau32ClkSrcTbl)/sizeof(gau32ClkSrcTbl[0]) - 1; 
+N    
+N    if(u32ClkSrc != 2)
+N    {
+N        /* Use the clock sources directly */
+N        u32CoreFreq = gau32ClkSrcTbl[u32ClkSrc];
+N    }
+N    else
+N    {
+N        /* Use PLL */
+N        u32Shift = SYSCLK->PLLCON.OUT_DV;   /* OUT_DV :DEF: {1, 2, 2, 4} */
+X        u32Shift = ((SYSCLK_T *) ((( uint32_t)0x50000000) + 0x00200))->PLLCON.OUT_DV;    
+N        if(u32Shift > 1) u32Shift--;
+N        u32CoreFreq = ((SYSCLK->PLLCON.PLL_SRC)?__IRC22M:__XTAL) * (SYSCLK->PLLCON.FB_DV+2) / (SYSCLK->PLLCON.IN_DV+2) >> u32Shift;
+X        u32CoreFreq = ((((SYSCLK_T *) ((( uint32_t)0x50000000) + 0x00200))->PLLCON.PLL_SRC)?(22118400UL):(12000000UL)) * (((SYSCLK_T *) ((( uint32_t)0x50000000) + 0x00200))->PLLCON.FB_DV+2) / (((SYSCLK_T *) ((( uint32_t)0x50000000) + 0x00200))->PLLCON.IN_DV+2) >> u32Shift;
+N    }
+N 
+N    SystemCoreClock = (u32CoreFreq/(SYSCLK->CLKDIV.HCLK_N + 1));
+X    SystemCoreClock = (u32CoreFreq/(((SYSCLK_T *) ((( uint32_t)0x50000000) + 0x00200))->CLKDIV.HCLK_N + 1));
+N
+N}
+N
+N/*---------------------------------------------------------------------------------------------------------*/
+N/* Function: SystemInit                                                                                    */
+N/*                                                                                                         */
+N/* Parameters:                                                                                             */
+N/*      None                                                                                               */
+N/*                                                                                                         */
+N/* Returns:                                                                                                */
+N/*      None                                                                                               */
+N/*                                                                                                         */
+N/* Description:                                                                                            */
+N/*      The necessary initializaiton of systerm.                                                           */
+N/*                                                                                                         */
+N/*---------------------------------------------------------------------------------------------------------*/
+Nvoid SystemInit (void)
+N{
+N
+N}
+N

@@ -1,0 +1,11 @@
+.\obj\seven_segment.o: ..\BSP_Lib\Src\NUC1xx-LB_002\Seven_Segment.c
+.\obj\seven_segment.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\seven_segment.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\seven_segment.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\seven_segment.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\seven_segment.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\seven_segment.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\seven_segment.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\seven_segment.o: ..\BSP_Lib\Inc\Driver\DrvGPIO.h
+.\obj\seven_segment.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h
+.\obj\seven_segment.o: ..\BSP_Lib\Inc\NUC1xx-LB_002\Seven_Segment.h

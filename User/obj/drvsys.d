@@ -1,0 +1,9 @@
+.\obj\drvsys.o: ..\BSP_Lib\Src\Driver\DrvSYS.c
+.\obj\drvsys.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\drvsys.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h
+.\obj\drvsys.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvsys.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvsys.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvsys.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvsys.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvsys.o: ..\BSP_Lib\Inc\System\ModuleID.h

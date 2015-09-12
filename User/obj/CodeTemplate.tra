@@ -1,0 +1,36 @@
+*** Creating Trace Output File '.\obj\CodeTemplate.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\obj\core_cm0.o"'
+### List of Objects: adding '".\obj\system_nuc1xx.o"'
+### List of Objects: adding '".\obj\startup_nuc1xx.o"'
+### List of Objects: adding '".\obj\mpu_ctrl.o"'
+### List of Objects: adding '".\obj\lcm.o"'
+### List of Objects: adding '".\obj\smpl_drvgpio.o"'
+### List of Objects: adding '".\obj\hal_spi.o"'
+### List of Objects: adding '".\obj\moto.o"'
+### List of Objects: adding '".\obj\mpu6050.o"'
+### List of Objects: adding '".\obj\nrf24l01.o"'
+### List of Objects: adding '".\obj\imu.o"'
+### List of Objects: adding '".\obj\drvpwm.o"'
+### List of Objects: adding '".\obj\drvuart.o"'
+### List of Objects: adding '".\obj\drvsys.o"'
+### List of Objects: adding '".\obj\retarget.o"'
+### List of Objects: adding '".\obj\drvgpio.o"'
+### List of Objects: adding '".\obj\drvadc.o"'
+### List of Objects: adding '".\obj\drvtimer.o"'
+### List of Objects: adding '".\obj\drvi2c.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M0 ".\obj\core_cm0.o" ".\obj\system_nuc1xx.o" ".\obj\startup_nuc1xx.o" ".\obj\mpu_ctrl.o" ".\obj\lcm.o" ".\obj\smpl_drvgpio.o" ".\obj\hal_spi.o" ".\obj\moto.o" ".\obj\mpu6050.o" ".\obj\nrf24l01.o" ".\obj\imu.o" ".\obj\drvpwm.o" ".\obj\drvuart.o" ".\obj\drvsys.o" ".\obj\retarget.o" ".\obj\drvgpio.o" ".\obj\drvadc.o" ".\obj\drvtimer.o" ".\obj\drvi2c.o" --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --map --first='startup_NUC1xx.o(RESET)' --datacompressor=off --info=inline --entry Reset_Handler --autoat --summary_stderr --info summarysizes --map 
+--info sizes --info totals 
+ --list ".\lst\CodeTemplate.map" -o ".\obj\CodeTemplate.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\obj\CodeTemplate.axf'
+### ADS-LD Command File: '.\obj\CodeTemplate.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\obj\CodeTemplate.lnp', Handle=0x00000270
+### Writing '.lnp' file
+### ADS-LD Command file '.\obj\CodeTemplate.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

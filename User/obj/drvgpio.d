@@ -1,0 +1,9 @@
+.\obj\drvgpio.o: ..\BSP_Lib\Src\Driver\DrvGPIO.c
+.\obj\drvgpio.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\drvgpio.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvgpio.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvgpio.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvgpio.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvgpio.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvgpio.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\drvgpio.o: ..\BSP_Lib\Inc\Driver\DrvGPIO.h

@@ -1,0 +1,10 @@
+.\obj\massstorage.o: ..\BSP_Lib\Src\USB\MassStorage.c
+.\obj\massstorage.o: C:\Keil\ARM\RV31\INC\string.h
+.\obj\massstorage.o: ..\BSP_Lib\Inc\Driver\DrvUSB.h
+.\obj\massstorage.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\massstorage.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\massstorage.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\massstorage.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\massstorage.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\massstorage.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\massstorage.o: ..\BSP_Lib\Inc\USB\UDC.h

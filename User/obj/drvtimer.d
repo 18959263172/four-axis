@@ -1,0 +1,10 @@
+.\obj\drvtimer.o: ..\BSP_Lib\Src\Driver\DrvTIMER.c
+.\obj\drvtimer.o: ..\BSP_Lib\Inc\Driver\DrvTIMER.h
+.\obj\drvtimer.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvtimer.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvtimer.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvtimer.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvtimer.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvtimer.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\drvtimer.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h
+.\obj\drvtimer.o: ..\BSP_Lib\Inc\Driver\DrvGPIO.h

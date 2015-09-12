@@ -1,0 +1,12 @@
+.\obj\drvsdcard.o: ..\BSP_Lib\Src\NUC1xx-LB_002\DrvSDCard.c
+.\obj\drvsdcard.o: C:\Keil\ARM\RV31\INC\stdio.h
+.\obj\drvsdcard.o: ..\BSP_Lib\Inc\NUC1xx-LB_002\DrvSDCARD.h
+.\obj\drvsdcard.o: ..\CMSIS\NUC1xx\NUC1xx.h
+.\obj\drvsdcard.o: ..\CMSIS\CM0\core_cm0.h
+.\obj\drvsdcard.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\obj\drvsdcard.o: ..\CMSIS\NUC1xx\system_NUC1xx.h
+.\obj\drvsdcard.o: ..\BSP_Lib\Inc\System\SysInfra.h
+.\obj\drvsdcard.o: ..\BSP_Lib\Inc\System\ModuleID.h
+.\obj\drvsdcard.o: ..\BSP_Lib\Inc\Driver\DrvGPIO.h
+.\obj\drvsdcard.o: ..\BSP_Lib\Inc\Driver\DrvSYS.h
+.\obj\drvsdcard.o: ..\BSP_Lib\Inc\Driver\DrvSPI.h
